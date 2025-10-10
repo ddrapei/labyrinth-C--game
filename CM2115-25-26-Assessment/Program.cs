@@ -1,2 +1,3 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿Player player = Player.GetInstance();
+
+Console.WriteLine($"Player Health: {player.Health}");
