@@ -1,0 +1,32 @@
+public class InputManager
+{
+    private List<IGameObserver> observers;
+
+    public InputManager()
+    {
+        this.observers = new List<IGameObserver>();
+    }
+
+    public void AddObserver(IGameObserver observer)
+    {
+        this.observers.Add(observer);
+    }
+
+    public void RemoveObserver(IGameObserver observer)
+    {
+        this.observers.Remove(observer);
+    }
+    public void NotifyObservers(string command)
+    {
+        foreach (IGameObserver observer in this.observers)
+        {
+            observer.Update(command);
+        }
+    }
+
+    public void ProcessInput()
+    {
+        string command = Console.ReadLine().ToLower().Trim();
+        this.NotifyObservers(command);
+    }
+}

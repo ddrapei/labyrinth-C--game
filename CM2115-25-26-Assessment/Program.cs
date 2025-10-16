@@ -1,3 +1,12 @@
 ﻿Player player = Player.GetInstance();
 
-Console.WriteLine($"Player Health: {player.Health}");
+var game = new Game();
+var InputManager = new InputManager();
+var gameHandlerObserver = new GameHandlerObserver(game);
+
+InputManager.AddObserver(gameHandlerObserver);
+
+while (!game.IsFinished)
+{
+    InputManager.ProcessInput();
+} 
