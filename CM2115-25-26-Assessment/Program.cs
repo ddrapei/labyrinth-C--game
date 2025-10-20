@@ -7,12 +7,15 @@ var game = new Game();
 // crates an input manager
 var InputManager = new InputManager();
 
-// creates an observer for the game
+// creates observers for the game
 var gameHandlerObserver = new GameHandlerObserver(game);
+var gameCommandMoveObserver = new GameCommandMoveObserver(game);
 
 // adds observer to the game
 InputManager.AddObserver(gameHandlerObserver);
+InputManager.AddObserver(gameCommandMoveObserver);
 
+// main game loop
 while (!game.IsFinished)
 {
     InputManager.ProcessInput();

@@ -11,20 +11,29 @@ public class GameHandlerObserver : IGameObserver
 
     public void Update(string command)
     {
-        if (command == "start" && !game.IsRunning)
+        if (!game.IsRunning)
         {
-            game.IsRunning = true;
-            Console.WriteLine("Game started!");
-        }
-        else if (command == "exit")
-        {
-            game.IsRunning = false;
-            game.IsFinished = true;
-            Console.WriteLine("Exiting game...");
+            if (command == "start" && !game.IsRunning)
+            {
+                game.IsRunning = true;
+                Console.WriteLine("Game started!");
+                return;
+            }
+            else
+            {
+                    Console.WriteLine("Invalid command or game state.");
+                    return;
+            }
         }
         else
         {
-            Console.WriteLine("Invalid command or game state.");
+            if (command == "exit" || command == "finish")
+            {
+                game.IsRunning = false;
+                game.IsFinished = true;
+                Console.WriteLine("Exiting game...");
+                return;
+            }
         }
     }
 }
