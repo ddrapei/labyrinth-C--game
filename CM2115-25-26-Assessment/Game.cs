@@ -1,3 +1,4 @@
+// Class that represents a game session
 public class Game
 {
     private bool isRunning;

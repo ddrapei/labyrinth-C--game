@@ -1,3 +1,5 @@
+// Singleton player class that represents the only one player in the game
+
 public class Player
 {
     private static Player instance = null;

@@ -1,3 +1,5 @@
+// Handles input to start and finish the game
+
 public class GameHandlerObserver : IGameObserver
 {
     private Game game;
