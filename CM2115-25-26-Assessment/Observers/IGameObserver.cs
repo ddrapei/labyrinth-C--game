@@ -1,3 +1,5 @@
+namespace Observers;
+
 // Contract for observers
 public interface IGameObserver
 {

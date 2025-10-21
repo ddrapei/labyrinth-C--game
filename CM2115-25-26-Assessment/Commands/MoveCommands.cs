@@ -1,3 +1,4 @@
+namespace Commands;
 // Concrete command to MoveUp the player
 public class MoveUpCommand : PlayerCommand
 {

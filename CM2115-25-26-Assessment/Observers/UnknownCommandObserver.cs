@@ -1,6 +1,7 @@
 // this observer was added to check for unknown commands,
 // without it, both observers were trying to handle unknown commands
 // and it resulted in always printing unknown command message
+using Observers;
 public class UnknownCommandObserver : IGameObserver
 {
     private Game game;

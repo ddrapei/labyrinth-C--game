@@ -1,4 +1,6 @@
-﻿// creates a player
+﻿using Observers;
+using Commands;
+// creates a player
 Player player = Player.GetInstance();
 
 // creates a game

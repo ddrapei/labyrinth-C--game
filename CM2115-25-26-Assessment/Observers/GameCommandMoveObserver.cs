@@ -1,3 +1,5 @@
+namespace Observers;
+using Commands;
 public class GameCommandMoveObserver : IGameObserver
 {
     private Game game;

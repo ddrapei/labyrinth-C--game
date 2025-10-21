@@ -1,3 +1,4 @@
+namespace Observers;
 public class GameHandlerObserver : IGameObserver
 {
     private Game game;
