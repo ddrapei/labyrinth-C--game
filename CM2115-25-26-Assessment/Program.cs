@@ -44,6 +44,8 @@ InputManager.AddObserver(gameHandlerObserver);
 InputManager.AddObserver(gameCommandMoveObserver);
 InputManager.AddObserver(unknownCommandObserver);
 
+// adding rooms via builder pattern
+
 // main game loop
 while (!game.IsFinished)
 {

@@ -3,26 +3,36 @@ public class RoomBuilder
     private int xcoordinate;
     private int ycoordinate;
     private string description;
+    private Item item;
 
     public int Xcoordinate
     {
+        get { return xcoordinate; }
         set { xcoordinate = value; }
     }
 
     public int Ycoordinate
     {
+        get { return ycoordinate; } 
         set { ycoordinate = value; }
     }
     public string Description
     {
+        get { return description; }     
         set { description = value; }
+    }
+    public Item Item
+    {
+        get { return item; }
+        set { item = value; }
     }
 
     public RoomBuilder(int xcoordinate, int ycoordinate, string description)
     {
-        this.xcoordinate = xcoordinate;
-        this.ycoordinate = ycoordinate;
-        this.description = description;
+        this.Xcoordinate = xcoordinate;
+        this.Ycoordinate = ycoordinate;
+        this.Description = description;
+        this.Item = null;
     }
 
     public RoomBuilder AddEnemy()
@@ -30,9 +40,9 @@ public class RoomBuilder
         // logic to add enemy to the room
         return this;
     }
-    public RoomBuilder AddItem()
+    public RoomBuilder AddItem(Item item)
     {
-        // logic to add item to the room
+        this.Item = item;
         return this;
     }
 
@@ -44,6 +54,6 @@ public class RoomBuilder
 
     public Room Build()
     {
-        return new Room(xcoordinate, ycoordinate, description);
+        return new Room(this);
     }
 }

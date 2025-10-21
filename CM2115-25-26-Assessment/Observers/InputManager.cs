@@ -15,6 +15,7 @@ public class InputManager
         this.observers.Add(observer);
     }
 
+    // can be used in the future to remove observers if needed
     public void RemoveObserver(IGameObserver observer)
     {
         this.observers.Remove(observer);
@@ -29,6 +30,7 @@ public class InputManager
 
     public void ProcessInput()
     {
+        // enshures that input is trimmed and lowercase
         string command = Console.ReadLine().ToLower().Trim();
         this.NotifyObservers(command);
     }

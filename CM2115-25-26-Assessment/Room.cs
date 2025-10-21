@@ -3,23 +3,33 @@ public class Room
     private int xcoordinate;
     private int ycoordinate;
     private string description;
+    private Item item;
     public int Xcoordinate
     {
         get { return xcoordinate; }
+        set { xcoordinate = value; }
     }
     public int Ycoordinate
     {
         get { return ycoordinate; }
+        set { ycoordinate = value; }
     }
     public string Description
     {
         get { return description; }
+        set { description = value; }    
+    }
+    public Item Item
+    {
+        get { return item; }
+        set { item = value; }
     }
 
-    public Room(int xcoordinate, int ycoordinate, string description)
+    public Room(RoomBuilder builder)
     {
-        this.xcoordinate = xcoordinate;
-        this.ycoordinate = ycoordinate;
-        this.description = description;
+        this.xcoordinate = builder.Xcoordinate;
+        this.ycoordinate = builder.Ycoordinate;
+        this.description = builder.Description;
+        this.item = builder.Item;
     }
 }
