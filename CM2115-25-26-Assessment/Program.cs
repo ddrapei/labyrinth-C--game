@@ -44,7 +44,15 @@ InputManager.AddObserver(gameHandlerObserver);
 InputManager.AddObserver(gameCommandMoveObserver);
 InputManager.AddObserver(unknownCommandObserver);
 
-// adding rooms via builder pattern
+// weapons
+var spoon_with_a_hole = new Weapon("Spoon with a hole", 3);
+
+// creating room builder
+RoomBuilder builder = new RoomBuilder(0, 0);
+Room room0 = builder
+    .SetDescription("The first room")
+    .AddItem(spoon_with_a_hole)
+    .Build();
 
 // main game loop
 while (!game.IsFinished)

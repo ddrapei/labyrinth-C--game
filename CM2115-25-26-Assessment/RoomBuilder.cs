@@ -27,14 +27,19 @@ public class RoomBuilder
         set { item = value; }
     }
 
-    public RoomBuilder(int xcoordinate, int ycoordinate, string description)
+    public RoomBuilder(int xcoordinate, int ycoordinate)
     {
         this.Xcoordinate = xcoordinate;
         this.Ycoordinate = ycoordinate;
-        this.Description = description;
+        this.Description = null;
         this.Item = null;
     }
 
+    public RoomBuilder SetDescription(string description)
+    {
+        this.Description = description;
+        return this;
+    }
     public RoomBuilder AddEnemy()
     {
         // logic to add enemy to the room
