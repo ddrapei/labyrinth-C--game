@@ -45,4 +45,28 @@ public class Player
         this.xcoordinate = xcoordinate;
         this.ycoordinate = ycoordinate;
     }
+
+    // methods for player movement
+    public void MoveUp()
+    {
+        ycoordinate++;
+        Console.WriteLine($"Player moved up. Current position: ({xcoordinate}, {ycoordinate})");
+    }
+
+    public void MoveDown()
+    {
+        ycoordinate--;
+        Console.WriteLine($"Player moved down. Current position: ({xcoordinate}, {ycoordinate})");
+    }
+
+    public void MoveLeft()
+    {
+        xcoordinate--;
+        Console.WriteLine($"Player moved left. Current position: ({xcoordinate}, {ycoordinate})");
+    }
+    public void MoveRight()
+    {
+        xcoordinate++;
+        Console.WriteLine($"Player moved right. Current position: ({xcoordinate}, {ycoordinate})");
+    }
 }

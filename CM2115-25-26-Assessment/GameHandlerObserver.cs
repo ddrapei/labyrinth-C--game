@@ -1,5 +1,3 @@
-// Handles input to start and finish the game
-
 public class GameHandlerObserver : IGameObserver
 {
     private Game game;
@@ -11,29 +9,16 @@ public class GameHandlerObserver : IGameObserver
 
     public void Update(string command)
     {
-        if (!game.IsRunning)
+        if (command == "start" && !game.IsRunning)
         {
-            if (command == "start" && !game.IsRunning)
-            {
-                game.IsRunning = true;
-                Console.WriteLine("Game started!");
-                return;
-            }
-            else
-            {
-                    Console.WriteLine("Invalid command or game state.");
-                    return;
-            }
+            game.IsRunning = true;
+            Console.WriteLine("Game started!");
         }
-        else
+        else if (command == "exit" || command == "quit" || command == "finish")
         {
-            if (command == "exit" || command == "finish")
-            {
-                game.IsRunning = false;
-                game.IsFinished = true;
-                Console.WriteLine("Exiting game...");
-                return;
-            }
+            game.IsRunning = false;
+            game.IsFinished = true;
+            Console.WriteLine("Exiting game...");
         }
     }
 }

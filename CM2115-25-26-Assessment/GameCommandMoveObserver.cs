@@ -1,33 +1,23 @@
 public class GameCommandMoveObserver : IGameObserver
 {
     private Game game;
+    private Dictionary<string, PlayerCommand> commands;
 
     public GameCommandMoveObserver(Game game)
     {
         this.game = game;
+        this.commands = new Dictionary<string, PlayerCommand>();
     }
 
-    public void Update(string command)
+    public void AddCommand(string commandString, PlayerCommand command)
     {
-        if (game.IsRunning)
+        commands[commandString] = command;
+    }
+    public void Update(string commandString)
+    {
+        if (game.IsRunning && commands.ContainsKey(commandString))
         {
-            if (command == "move up")
-            {
-                Console.WriteLine("Player moves up");
-            }
-            else if (command == "move down")
-            {
-                Console.WriteLine("Player moves down");
-            }
-            else if (command == "move left")
-            {
-                Console.WriteLine("Player moves left");
-            }
-            else if (command == "move right")
-            {
-                Console.WriteLine("Player moves right");
-            }
+            this.commands[commandString].Execute();
         }
     }
-
 }
