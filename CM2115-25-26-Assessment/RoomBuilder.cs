@@ -56,7 +56,7 @@ public class RoomBuilder
         // logic to add puzzle to the room
         return this;
     }
-
+    
     public Room Build()
     {
         return new Room(this);

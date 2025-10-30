@@ -6,6 +6,9 @@ Player player = Player.GetInstance();
 // creates a game
 var game = new Game();
 
+// creates a room checker
+var roomChecker = RoomChecker.GetInstance();
+
 // crates an input manager
 var InputManager = new InputManager();
 
@@ -49,10 +52,25 @@ var spoon_with_a_hole = new Weapon("Spoon with a hole", 3);
 
 // creating room builder
 RoomBuilder builder = new RoomBuilder(0, 0);
+
+// rooms setup
 Room room0 = builder
     .SetDescription("The first room")
     .AddItem(spoon_with_a_hole)
     .Build();
+
+Room room1 = new RoomBuilder(0, 1)
+    .SetDescription("The second room")
+    .Build();
+
+Room room2 = new RoomBuilder(1, 0)
+    .SetDescription("The third room")
+    .Build();
+
+// adding rooms to the room checker
+roomChecker.AddRoom(room0);
+roomChecker.AddRoom(room1);
+roomChecker.AddRoom(room2);
 
 // main game loop
 while (!game.IsFinished)

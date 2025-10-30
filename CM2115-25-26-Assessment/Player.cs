@@ -1,5 +1,7 @@
 // Singleton player class that represents the only one player in the game
 
+using System.Data.Common;
+
 public class Player
 {
     private static Player instance = null;
@@ -39,7 +41,7 @@ public class Player
         set { ycoordinate = value; }
     }
 
-    public Player(int health, int xcoordinate, int ycoordinate)
+    private Player(int health, int xcoordinate, int ycoordinate)
     {
         this.health = health;
         this.xcoordinate = xcoordinate;
@@ -49,24 +51,64 @@ public class Player
     // methods for player movement
     public void MoveUp()
     {
-        ycoordinate++;
-        Console.WriteLine($"Player moved up. Current position: ({xcoordinate}, {ycoordinate})");
+        int newYcoordinate = ycoordinate + 1;
+
+        if (RoomChecker.GetInstance().doesRoomExist(xcoordinate, newYcoordinate))
+        {
+            ycoordinate = newYcoordinate;
+            Console.WriteLine($"Player moved up. Current position: ({xcoordinate}, {ycoordinate})");
+            RoomChecker.GetInstance().DisplayCurrentRoom(this);
+        }
+        else
+        {
+            Console.WriteLine("There is no room in that direction.");
+        }
     }
 
     public void MoveDown()
     {
-        ycoordinate--;
-        Console.WriteLine($"Player moved down. Current position: ({xcoordinate}, {ycoordinate})");
+        int newYcoordinate = ycoordinate - 1;
+
+        if (RoomChecker.GetInstance().doesRoomExist(xcoordinate, newYcoordinate))
+        {
+            ycoordinate = newYcoordinate;
+            Console.WriteLine($"Player moved up. Current position: ({xcoordinate}, {ycoordinate})");
+            RoomChecker.GetInstance().DisplayCurrentRoom(this);
+        }
+        else
+        {
+            Console.WriteLine("There is no room in that direction.");
+        }
     }
 
     public void MoveLeft()
     {
-        xcoordinate--;
-        Console.WriteLine($"Player moved left. Current position: ({xcoordinate}, {ycoordinate})");
+        int newXcoordinate = xcoordinate - 1;
+
+        if (RoomChecker.GetInstance().doesRoomExist(newXcoordinate, ycoordinate))
+        {
+            xcoordinate = newXcoordinate;
+            Console.WriteLine($"Player moved up. Current position: ({xcoordinate}, {ycoordinate})");
+            RoomChecker.GetInstance().DisplayCurrentRoom(this);
+        }
+        else
+        {
+            Console.WriteLine("There is no room in that direction.");
+        }
     }
     public void MoveRight()
     {
-        xcoordinate++;
-        Console.WriteLine($"Player moved right. Current position: ({xcoordinate}, {ycoordinate})");
+       int newXcoordinate = xcoordinate + 1;
+
+        if (RoomChecker.GetInstance().doesRoomExist(newXcoordinate, ycoordinate))
+        {
+            xcoordinate = newXcoordinate;
+            Console.WriteLine($"Player moved up. Current position: ({xcoordinate}, {ycoordinate})");
+            RoomChecker.GetInstance().DisplayCurrentRoom(this);
+        }
+        else
+        {
+            Console.WriteLine("There is no room in that direction.");
+        }
     }
 }
