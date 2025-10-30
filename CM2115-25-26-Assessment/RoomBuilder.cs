@@ -27,6 +27,7 @@ public class RoomBuilder
         set { item = value; }
     }
 
+    // --- Constructor ---
     public RoomBuilder(int xcoordinate, int ycoordinate)
     {
         this.Xcoordinate = xcoordinate;

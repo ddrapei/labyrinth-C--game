@@ -25,6 +25,7 @@ public class Room
         set { item = value; }
     }
 
+    // --- Constructor --- 
     public Room(RoomBuilder builder)
     {
         this.xcoordinate = builder.Xcoordinate;

@@ -7,6 +7,8 @@ public abstract class Item
         get { return name; }
         set { name = value; }
     }
+
+    // --- Constructor ---
     public Item(string name)
     {
         Name = name;

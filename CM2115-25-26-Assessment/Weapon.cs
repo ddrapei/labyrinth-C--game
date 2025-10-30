@@ -8,6 +8,7 @@ public class Weapon : Item
         set { damage = value; }
     }
 
+    // --- Constructor --- 
     public Weapon(string name, int damage) : base(name)
     {
         this.damage = damage;

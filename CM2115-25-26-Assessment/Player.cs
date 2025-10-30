@@ -41,6 +41,7 @@ public class Player
         set { ycoordinate = value; }
     }
 
+    // --- Constructor ---
     private Player(int health, int xcoordinate, int ycoordinate)
     {
         this.health = health;
