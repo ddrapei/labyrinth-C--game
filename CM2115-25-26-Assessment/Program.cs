@@ -1,5 +1,7 @@
 ﻿using Observers;
 using Commands;
+using Items;
+using Items.Armour;
 // creates a player
 Player player = Player.GetInstance();
 
@@ -50,21 +52,38 @@ InputManager.AddObserver(unknownCommandObserver);
 // weapons
 var spoon_with_a_hole = new Weapon("Spoon with a hole", 3);
 
+// armour factory set up for armour creation
+
+void CreateArmour (ArmourFactory factory)
+{
+    var headarmour = factory.CreateHeadArmour();
+    var torsoarmour = factory.CreateTorsoArmour();
+    var legsarmour = factory.CreateLegsArmour();
+}
+
+var leatherArmourFactory = new LeatherArmourFactory();
+
+var leatherHelmet = (Item)leatherArmourFactory.CreateHeadArmour();
+var leatherChestArmour = (Item)leatherArmourFactory.CreateTorsoArmour();
+var leatherLegsArmour = (Item)leatherArmourFactory.CreateLegsArmour();
+
 // creating room builder
 RoomBuilder builder = new RoomBuilder(0, 0);
 
 // rooms setup
 Room room0 = builder
     .SetDescription("The first room")
-    .AddItem(spoon_with_a_hole)
+    .AddItem(leatherHelmet)
     .Build();
 
 Room room1 = new RoomBuilder(0, 1)
     .SetDescription("The second room")
+    .AddItem(leatherChestArmour)
     .Build();
 
 Room room2 = new RoomBuilder(1, 0)
     .SetDescription("The third room")
+    .AddItem(leatherLegsArmour)
     .Build();
 
 // adding rooms to the room checker

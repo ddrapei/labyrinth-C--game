@@ -1,3 +1,4 @@
+namespace Items;
 // abstract class for items
 public abstract class Item
 {

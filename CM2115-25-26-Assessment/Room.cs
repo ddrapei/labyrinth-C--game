@@ -1,3 +1,4 @@
+using Items;
 public class Room
 {
     private int xcoordinate;
@@ -17,7 +18,7 @@ public class Room
     public string Description
     {
         get { return description; }
-        set { description = value; }    
+        set { description = value; }
     }
     public Item Item
     {

@@ -1,3 +1,4 @@
+using Items;
 public class RoomBuilder
 {
     private int xcoordinate;
@@ -13,12 +14,12 @@ public class RoomBuilder
 
     public int Ycoordinate
     {
-        get { return ycoordinate; } 
+        get { return ycoordinate; }
         set { ycoordinate = value; }
     }
     public string Description
     {
-        get { return description; }     
+        get { return description; }
         set { description = value; }
     }
     public Item Item
@@ -57,7 +58,7 @@ public class RoomBuilder
         // logic to add puzzle to the room
         return this;
     }
-    
+
     public Room Build()
     {
         return new Room(this);

@@ -1,4 +1,5 @@
 // added weapon class that inherits from abstract class item
+namespace Items;
 public class Weapon : Item
 {
     private int damage;
