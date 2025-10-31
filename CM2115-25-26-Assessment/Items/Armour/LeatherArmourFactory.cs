@@ -1,4 +1,6 @@
 namespace Items.Armour;
+
+// concrete factory for leather armour
 public class LeatherArmourFactory : ArmourFactory
 {
     public IHeadArmour CreateHeadArmour()

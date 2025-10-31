@@ -1,5 +1,6 @@
 namespace Items.Armour;
 
+// abstract class for armour, that inherits from item class
 public abstract class Armour : Item
 {
     private int defense;

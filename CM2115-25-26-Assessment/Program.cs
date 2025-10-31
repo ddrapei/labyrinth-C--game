@@ -63,6 +63,7 @@ void CreateArmour (ArmourFactory factory)
 
 var leatherArmourFactory = new LeatherArmourFactory();
 
+// creating concrete armour items
 var leatherHelmet = (Item)leatherArmourFactory.CreateHeadArmour();
 var leatherChestArmour = (Item)leatherArmourFactory.CreateTorsoArmour();
 var leatherLegsArmour = (Item)leatherArmourFactory.CreateLegsArmour();
