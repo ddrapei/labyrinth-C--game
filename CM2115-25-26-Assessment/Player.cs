@@ -23,6 +23,8 @@ public class Player
     private int xcoordinate;
     private int ycoordinate;
 
+    private Inventory inventory;
+
     public int Health
     {
         get { return health; }
@@ -41,12 +43,18 @@ public class Player
         set { ycoordinate = value; }
     }
 
+    public Inventory Inventory
+    {
+        get { return inventory; }
+    }
+
     // --- Constructor ---
     private Player(int health, int xcoordinate, int ycoordinate)
     {
         this.health = health;
         this.xcoordinate = xcoordinate;
         this.ycoordinate = ycoordinate;
+        this.inventory = new Inventory(10);
     }
 
     // methods for player movement

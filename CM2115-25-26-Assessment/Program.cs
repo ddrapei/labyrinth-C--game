@@ -21,6 +21,9 @@ var gameHandlerObserver = new GameHandlerObserver(game);
 // handles player movement commands
 var gameCommandMoveObserver = new GameCommandMoveObserver(game);
 
+// handles inventory commands
+var InventoryObserver = new InventoryObserver(game);
+
 // handles unknown commands
 var unknownCommandObserver = new UnknownCommandObserver(game);
 
@@ -30,11 +33,19 @@ var moveDown = new MoveDownCommand(player);
 var moveLeft = new MoveLeftCommand(player);
 var moveRight = new MoveRightCommand(player);
 
+// inventory commands
+var pickUpItemCommand = new PickUpItemCommand();
+var showInventoryCommand = new ShowInventoryCommand();
+
 // registers commands with the command observer
 gameCommandMoveObserver.AddCommand("move up", moveUp);
 gameCommandMoveObserver.AddCommand("move down", moveDown);
 gameCommandMoveObserver.AddCommand("move left", moveLeft);
 gameCommandMoveObserver.AddCommand("move right", moveRight);
+
+// register commands for the inventory observer
+InventoryObserver.AddCommand("pick up", pickUpItemCommand);
+InventoryObserver.AddCommand("inventory", showInventoryCommand);
 
 // registers valid commands with the unknown command observer
 unknownCommandObserver.RegisterValidCommand("start");
@@ -43,10 +54,15 @@ unknownCommandObserver.RegisterValidCommand("move up");
 unknownCommandObserver.RegisterValidCommand("move down");
 unknownCommandObserver.RegisterValidCommand("move left");
 unknownCommandObserver.RegisterValidCommand("move right");
+unknownCommandObserver.RegisterValidCommand("inventory");
+unknownCommandObserver.RegisterValidCommand("pick up");
+unknownCommandObserver.RegisterValidCommand("inventory");
+unknownCommandObserver.RegisterValidCommand("drop");
 
 // adds observers to the game
 InputManager.AddObserver(gameHandlerObserver);
 InputManager.AddObserver(gameCommandMoveObserver);
+InputManager.AddObserver(InventoryObserver);
 InputManager.AddObserver(unknownCommandObserver);
 
 // weapons
@@ -87,10 +103,16 @@ Room room2 = new RoomBuilder(1, 0)
     .AddItem(leatherLegsArmour)
     .Build();
 
+Room room3 = new RoomBuilder(2, 0)
+    .SetDescription("The forth room")
+    .Build();    
+
 // adding rooms to the room checker
 roomChecker.AddRoom(room0);
 roomChecker.AddRoom(room1);
 roomChecker.AddRoom(room2);
+roomChecker.AddRoom(room3);
+
 
 // main game loop
 while (!game.IsFinished)
