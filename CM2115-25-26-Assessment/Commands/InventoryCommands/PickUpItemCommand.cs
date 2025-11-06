@@ -1,4 +1,4 @@
-namespace Commands;
+namespace Commands.InventoryCommands;
 
 using Items;
 
@@ -26,16 +26,5 @@ public class PickUpItemCommand : PlayerCommand
         {
             currentRoom.Item = null; // removes item from the room
         }
-    }
-}
-
-
-
-public class ShowInventoryCommand : PlayerCommand
-{
-    public void Execute()
-    {
-        Player player = Player.GetInstance();
-        player.Inventory.DisplayInventory();
     }
 }

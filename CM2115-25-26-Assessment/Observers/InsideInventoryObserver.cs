@@ -1,6 +1,7 @@
 namespace Observers;
 
 using Commands;
+using Commands.InventoryCommands;
 
 // This observer is active only when inventory is open
 public class InsideInventoryObserver : IGameObserver
