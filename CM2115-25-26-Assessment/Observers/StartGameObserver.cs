@@ -2,13 +2,15 @@ namespace Observers;
 
 using Commands;
 
-// This observer handles game control commands (exit)
-public class GameHandlerObserver : IGameObserver
+// the observer that is active before the game starts
+// currently it is here only to start a game
+// once the game has started, it gets removed from the observers list
+public class StartGameObserver : IGameObserver
 {
     private Game game;
     private Dictionary<string, PlayerCommand> commands;
 
-    public GameHandlerObserver(Game game)
+    public StartGameObserver(Game game)
     {
         this.game = game;
         this.commands = new Dictionary<string, PlayerCommand>();

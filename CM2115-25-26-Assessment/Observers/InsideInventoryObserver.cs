@@ -40,8 +40,12 @@ public class InsideInventoryObserver : IGameObserver
             dropCommand.Execute();
             return;
         }
-
+        
         // Unknown command
-        Console.WriteLine($"Unknown inventory command:" + commandString + ".");
+        Console.WriteLine("Unknown inventory command: " + commandString + "."); // <-- This is your message!
+        Console.WriteLine("Inventory commands:");
+        Console.WriteLine("drop <number of the item> or drop <the name of the item>");
+        Console.WriteLine("close");
+
     }
 }

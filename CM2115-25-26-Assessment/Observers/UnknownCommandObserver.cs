@@ -24,12 +24,7 @@ public class UnknownCommandObserver : IGameObserver
         // Only check for unknown commands when the game is running
         if (game.IsRunning && !validCommands.Contains(command))
         {
-            Console.WriteLine($"Unknown command: '{command}'. Type a command.");
-        }
-        // if the game is not running, checks only for start and exit commands
-        else if (!game.IsRunning && command != "start" && command != "exit")
-        {
-            Console.WriteLine($"Unknown command: '{command}'. Type 'start' to begin the game.");
+            Console.WriteLine("Unknown command: " +  command + ". Type a command.");
         }
     }
 }

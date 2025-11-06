@@ -10,17 +10,37 @@ public class CloseInventoryCommand : PlayerCommand
 {
     private InputManager inputManager;
     private InsideInventoryObserver insideInventoryObserver;
+    private InsideInventoryUnknownCommandObserver insideInventoryUnknownCommandObserver;
+    private IGameObserver gameCommandMoveObserver;
+    private IGameObserver gameHandlerObserver;
+    private IGameObserver inventoryObserver;
+    private IGameObserver unknownCommandObserver;
 
-    public CloseInventoryCommand(InputManager inputManager, InsideInventoryObserver insideInventoryObserver)
+
+    public CloseInventoryCommand(InputManager inputManager, InsideInventoryObserver insideInventoryObserver, InsideInventoryUnknownCommandObserver insideInventoryUnknownCommandObserver, IGameObserver gameCommandMoveObserver, IGameObserver gameHandlerObserver, IGameObserver inventoryObserver, IGameObserver unknownCommandObserver)
     {
         this.inputManager = inputManager;
         this.insideInventoryObserver = insideInventoryObserver;
+        this.insideInventoryUnknownCommandObserver = insideInventoryUnknownCommandObserver;
+        this.gameCommandMoveObserver = gameCommandMoveObserver;
+        this.gameHandlerObserver = gameHandlerObserver;
+        this.inventoryObserver = inventoryObserver;
+        this.unknownCommandObserver = unknownCommandObserver;
     }
 
     public void Execute()
     {
-        // once the inventory is closed the observer for inside inventory commands is removed
+        // adds back observers for the main game
+        inputManager.AddObserver(gameCommandMoveObserver);
+        inputManager.AddObserver(gameHandlerObserver);
+        inputManager.AddObserver(inventoryObserver);
+        inputManager.AddObserver(unknownCommandObserver);
+
+
+        // removes inventory menu observers
         inputManager.RemoveObserver(insideInventoryObserver);
+        inputManager.RemoveObserver(insideInventoryUnknownCommandObserver);
+
         Console.WriteLine("Inventory closed.");
     }
 }

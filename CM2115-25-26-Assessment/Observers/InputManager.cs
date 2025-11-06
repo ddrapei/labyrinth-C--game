@@ -1,5 +1,7 @@
 namespace Observers;
 
+using Commands;
+
 // manages user's input by adding and removing observers and notifing observers added to the list
 public class InputManager
 {

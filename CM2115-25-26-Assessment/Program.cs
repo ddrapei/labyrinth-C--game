@@ -1,4 +1,5 @@
 ﻿using Observers;
+using Commands;
 using Commands.MoveCommands;
 using Commands.InventoryCommands;
 using Items;
@@ -17,7 +18,12 @@ var roomChecker = RoomChecker.GetInstance();
 var InputManager = new InputManager();
 
 // creates observers for the game
-// handles start and finish the game
+
+// handles start the game
+var startGameObserver = new StartGameObserver(game);
+var mainMenuUnknownCommandObserver = new MainMenuUnknownCommandObserver(game);
+
+// handles finish the game
 var gameHandlerObserver = new GameHandlerObserver(game);
 
 // handles player movement commands
@@ -29,21 +35,41 @@ var inventoryObserver = new InventoryObserver(game);
 // handles commands inside inventory (when inventory is open)
 var insideInventoryObserver = new InsideInventoryObserver(game);
 
+// handles uknown commands inside inventory (when inventory is open)
+var insideInventoryUnknownCommandObserver = new InsideInventoryUnknownCommandObserver(game);
+
 // handles unknown commands
 var unknownCommandObserver = new UnknownCommandObserver(game);
 
+// command to start the game
+var startGameCommand = new StartGameCommand(game, InputManager, startGameObserver, mainMenuUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver ,unknownCommandObserver);
+
+// command to exit the game
+var exitGameCommand = new ExitGameCommand(game);
+
 // creates commands for player movement
+var moveDown = new MoveDownCommand(player, InputManager);
 var moveUp = new MoveUpCommand(player);
-var moveDown = new MoveDownCommand(player);
 var moveLeft = new MoveLeftCommand(player);
 var moveRight = new MoveRightCommand(player);
 
 // creates inventory commands (for when inventory is closed)
 var pickUpItemCommand = new PickUpItemCommand();
-var openInventoryCommand = new OpenInventoryCommand(InputManager, insideInventoryObserver);
+var openInventoryCommand = new OpenInventoryCommand(InputManager, insideInventoryObserver, insideInventoryUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver, unknownCommandObserver);
 
 // creates commands for inside inventory (for when inventory is open)
-var closeInventoryCommand = new CloseInventoryCommand(InputManager, insideInventoryObserver);
+var closeInventoryCommand = new CloseInventoryCommand(InputManager, insideInventoryObserver, insideInventoryUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver, unknownCommandObserver);
+
+// registers start game command with its observer 
+startGameObserver.AddCommand("start", startGameCommand);
+startGameObserver.AddCommand("start game", startGameCommand);
+
+
+// commands to exit the game
+gameHandlerObserver.AddCommand("exit", exitGameCommand);
+gameHandlerObserver.AddCommand("exit game", exitGameCommand);
+gameHandlerObserver.AddCommand("finish", exitGameCommand);
+
 
 // registers movement commands
 gameCommandMoveObserver.AddCommand("move up", moveUp);
@@ -59,9 +85,14 @@ inventoryObserver.AddCommand("inventory", openInventoryCommand);
 insideInventoryObserver.AddCommand("close", closeInventoryCommand);
 insideInventoryObserver.AddCommand("exit", closeInventoryCommand);
 
-// registers valid commands with the unknown command observer
-unknownCommandObserver.RegisterValidCommand("start");
+// registers valid commands with the unknown command observer in the main menu
+mainMenuUnknownCommandObserver.RegisterValidCommand("start");
+mainMenuUnknownCommandObserver.RegisterValidCommand("startg game");
+
+// registers valid commands with the unknown command observer in the main game
 unknownCommandObserver.RegisterValidCommand("exit");
+unknownCommandObserver.RegisterValidCommand("exit game");
+unknownCommandObserver.RegisterValidCommand("finish");
 unknownCommandObserver.RegisterValidCommand("move up");
 unknownCommandObserver.RegisterValidCommand("move down");
 unknownCommandObserver.RegisterValidCommand("move left");
@@ -69,12 +100,14 @@ unknownCommandObserver.RegisterValidCommand("move right");
 unknownCommandObserver.RegisterValidCommand("inventory");
 unknownCommandObserver.RegisterValidCommand("pick up");
 
-// adds observers to the input manager
-InputManager.AddObserver(gameHandlerObserver);
-InputManager.AddObserver(gameCommandMoveObserver);
-InputManager.AddObserver(inventoryObserver);
-InputManager.AddObserver(unknownCommandObserver);
-// insideInventoryObserver is added/removed dynamically inside OpenInventoryCommand and CloseInventoryCommand
+// registers valid commands with the unknown command observer in the inventory
+insideInventoryUnknownCommandObserver.RegisterValidCommand("drop");
+insideInventoryUnknownCommandObserver.RegisterValidCommand("close");
+
+// observers that are required to start the game
+InputManager.AddObserver(mainMenuUnknownCommandObserver);
+InputManager.AddObserver(startGameObserver);
+// all other observers are added and removed depending on the state of the game
 
 // weapons
 var spoon_with_a_hole = new Weapon("Spoon with a hole", 3);
