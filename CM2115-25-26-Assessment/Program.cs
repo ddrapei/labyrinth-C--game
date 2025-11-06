@@ -2,6 +2,7 @@
 using Commands;
 using Items;
 using Items.Armour;
+
 // creates a player
 Player player = Player.GetInstance();
 
@@ -11,7 +12,7 @@ var game = new Game();
 // creates a room checker
 var roomChecker = RoomChecker.GetInstance();
 
-// crates an input manager
+// creates an input manager
 var InputManager = new InputManager();
 
 // creates observers for the game
@@ -21,8 +22,11 @@ var gameHandlerObserver = new GameHandlerObserver(game);
 // handles player movement commands
 var gameCommandMoveObserver = new GameCommandMoveObserver(game);
 
-// handles inventory commands
-var InventoryObserver = new InventoryObserver(game);
+// handles inventory commands (when inventory is closed)
+var inventoryObserver = new InventoryObserver(game);
+
+// handles commands inside inventory (when inventory is open)
+var insideInventoryObserver = new InsideInventoryObserver(game);
 
 // handles unknown commands
 var unknownCommandObserver = new UnknownCommandObserver(game);
@@ -33,19 +37,26 @@ var moveDown = new MoveDownCommand(player);
 var moveLeft = new MoveLeftCommand(player);
 var moveRight = new MoveRightCommand(player);
 
-// inventory commands
+// creates inventory commands (for when inventory is closed)
 var pickUpItemCommand = new PickUpItemCommand();
-var showInventoryCommand = new ShowInventoryCommand();
+var openInventoryCommand = new OpenInventoryCommand(InputManager, insideInventoryObserver);
 
-// registers commands with the command observer
+// creates commands for inside inventory (for when inventory is open)
+var closeInventoryCommand = new CloseInventoryCommand(InputManager, insideInventoryObserver);
+
+// registers movement commands
 gameCommandMoveObserver.AddCommand("move up", moveUp);
 gameCommandMoveObserver.AddCommand("move down", moveDown);
 gameCommandMoveObserver.AddCommand("move left", moveLeft);
 gameCommandMoveObserver.AddCommand("move right", moveRight);
 
-// register commands for the inventory observer
-InventoryObserver.AddCommand("pick up", pickUpItemCommand);
-InventoryObserver.AddCommand("inventory", showInventoryCommand);
+// registers inventory commands (work when inventory is closed)
+inventoryObserver.AddCommand("pick up", pickUpItemCommand);
+inventoryObserver.AddCommand("inventory", openInventoryCommand);
+
+// registers inside inventory commands (work when inventory is open)
+insideInventoryObserver.AddCommand("close", closeInventoryCommand);
+insideInventoryObserver.AddCommand("exit", closeInventoryCommand);
 
 // registers valid commands with the unknown command observer
 unknownCommandObserver.RegisterValidCommand("start");
@@ -56,21 +67,19 @@ unknownCommandObserver.RegisterValidCommand("move left");
 unknownCommandObserver.RegisterValidCommand("move right");
 unknownCommandObserver.RegisterValidCommand("inventory");
 unknownCommandObserver.RegisterValidCommand("pick up");
-unknownCommandObserver.RegisterValidCommand("inventory");
-unknownCommandObserver.RegisterValidCommand("drop");
 
-// adds observers to the game
+// adds observers to the input manager
 InputManager.AddObserver(gameHandlerObserver);
 InputManager.AddObserver(gameCommandMoveObserver);
-InputManager.AddObserver(InventoryObserver);
+InputManager.AddObserver(inventoryObserver);
 InputManager.AddObserver(unknownCommandObserver);
+// insideInventoryObserver is added/removed dynamically inside OpenInventoryCommand and CloseInventoryCommand
 
 // weapons
 var spoon_with_a_hole = new Weapon("Spoon with a hole", 3);
 
 // armour factory set up for armour creation
-
-void CreateArmour (ArmourFactory factory)
+void CreateArmour(ArmourFactory factory)
 {
     var headarmour = factory.CreateHeadArmour();
     var torsoarmour = factory.CreateTorsoArmour();
@@ -104,8 +113,8 @@ Room room2 = new RoomBuilder(1, 0)
     .Build();
 
 Room room3 = new RoomBuilder(2, 0)
-    .SetDescription("The forth room")
-    .Build();    
+    .SetDescription("The fourth room")
+    .Build();
 
 // adding rooms to the room checker
 roomChecker.AddRoom(room0);
@@ -113,9 +122,8 @@ roomChecker.AddRoom(room1);
 roomChecker.AddRoom(room2);
 roomChecker.AddRoom(room3);
 
-
 // main game loop
 while (!game.IsFinished)
 {
     InputManager.ProcessInput();
-} 
+}

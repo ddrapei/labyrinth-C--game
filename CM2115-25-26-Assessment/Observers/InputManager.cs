@@ -22,7 +22,7 @@ public class InputManager
     }
     public void NotifyObservers(string command)
     {
-        foreach (IGameObserver observer in this.observers)
+        foreach (IGameObserver observer in this.observers.ToList())
         {
             observer.Update(command);
         }

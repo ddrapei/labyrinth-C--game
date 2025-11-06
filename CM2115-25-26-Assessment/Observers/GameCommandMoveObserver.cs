@@ -19,12 +19,6 @@ public class GameCommandMoveObserver : IGameObserver
     public void Update(string commandString)
     {
 
-        // the game has to run
-        if (!game.IsRunning)
-        {
-            return;
-        }
-
         if (game.IsRunning && commands.ContainsKey(commandString))
         {
             this.commands[commandString].Execute();
