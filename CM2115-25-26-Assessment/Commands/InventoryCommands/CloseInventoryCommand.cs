@@ -9,8 +9,8 @@ using Observers;
 public class CloseInventoryCommand : PlayerCommand
 {
     private InputManager inputManager;
-    private InsideInventoryObserver insideInventoryObserver;
-    private InsideInventoryUnknownCommandObserver insideInventoryUnknownCommandObserver;
+    private IGameObserver insideInventoryObserver;
+    private IGameObserver insideInventoryUnknownCommandObserver;
     private IGameObserver gameCommandMoveObserver;
     private IGameObserver gameHandlerObserver;
     private IGameObserver inventoryObserver;
