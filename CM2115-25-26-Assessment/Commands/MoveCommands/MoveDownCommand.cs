@@ -6,12 +6,10 @@ namespace Commands.MoveCommands;
 public class MoveDownCommand : PlayerCommand
 {
     private Player player;
-    private InputManager inputManager;
 
-    public MoveDownCommand(Player player, InputManager inputManager)
+    public MoveDownCommand(Player player)
     {
         this.player = player;
-        this.inputManager = inputManager;
     }
 
     public void Execute()

@@ -48,7 +48,7 @@ var startGameCommand = new StartGameCommand(game, InputManager, mainMenuObserver
 var exitGameCommand = new ExitGameCommand(game);
 
 // creates commands for player movement
-var moveDown = new MoveDownCommand(player, InputManager);
+var moveDown = new MoveDownCommand(player);
 var moveUp = new MoveUpCommand(player);
 var moveLeft = new MoveLeftCommand(player);
 var moveRight = new MoveRightCommand(player);
