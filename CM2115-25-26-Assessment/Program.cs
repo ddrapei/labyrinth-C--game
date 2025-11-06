@@ -20,7 +20,7 @@ var InputManager = new InputManager();
 // creates observers for the game
 
 // handles start the game
-var startGameObserver = new StartGameObserver(game);
+var mainMenuObserver = new MainMenuObserver(game);
 var mainMenuUnknownCommandObserver = new MainMenuUnknownCommandObserver(game);
 
 // handles finish the game
@@ -42,7 +42,7 @@ var insideInventoryUnknownCommandObserver = new InsideInventoryUnknownCommandObs
 var unknownCommandObserver = new UnknownCommandObserver(game);
 
 // command to start the game
-var startGameCommand = new StartGameCommand(game, InputManager, startGameObserver, mainMenuUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver ,unknownCommandObserver);
+var startGameCommand = new StartGameCommand(game, InputManager, mainMenuObserver, mainMenuUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver ,unknownCommandObserver);
 
 // command to exit the game
 var exitGameCommand = new ExitGameCommand(game);
@@ -61,8 +61,9 @@ var openInventoryCommand = new OpenInventoryCommand(InputManager, insideInventor
 var closeInventoryCommand = new CloseInventoryCommand(InputManager, insideInventoryObserver, insideInventoryUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver, unknownCommandObserver);
 
 // registers start game command with its observer 
-startGameObserver.AddCommand("start", startGameCommand);
-startGameObserver.AddCommand("start game", startGameCommand);
+mainMenuObserver.AddCommand("start", startGameCommand);
+mainMenuObserver.AddCommand("start game", startGameCommand);
+mainMenuObserver.AddCommand("exit", exitGameCommand);
 
 
 // commands to exit the game
@@ -87,7 +88,8 @@ insideInventoryObserver.AddCommand("exit", closeInventoryCommand);
 
 // registers valid commands with the unknown command observer in the main menu
 mainMenuUnknownCommandObserver.RegisterValidCommand("start");
-mainMenuUnknownCommandObserver.RegisterValidCommand("startg game");
+mainMenuUnknownCommandObserver.RegisterValidCommand("start game");
+mainMenuUnknownCommandObserver.RegisterValidCommand("exit");
 
 // registers valid commands with the unknown command observer in the main game
 unknownCommandObserver.RegisterValidCommand("exit");
@@ -106,7 +108,7 @@ insideInventoryUnknownCommandObserver.RegisterValidCommand("close");
 
 // observers that are required to start the game
 InputManager.AddObserver(mainMenuUnknownCommandObserver);
-InputManager.AddObserver(startGameObserver);
+InputManager.AddObserver(mainMenuObserver);
 // all other observers are added and removed depending on the state of the game
 
 // weapons

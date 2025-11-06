@@ -22,7 +22,7 @@ public class MainMenuUnknownCommandObserver : IGameObserver
     {
         if (!game.IsRunning && !validCommands.Contains(command))
         {
-            Console.WriteLine("Unknown command:"  + command + ". Type 'start' to begin the game.");
+            Console.WriteLine("Unknown command:"  + command + ".");
         }
     }
 }

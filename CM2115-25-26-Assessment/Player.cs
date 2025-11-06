@@ -1,7 +1,5 @@
 // Singleton player class that represents the only one player in the game
 
-using System.Data.Common;
-
 public class Player
 {
     private static Player instance = null;
