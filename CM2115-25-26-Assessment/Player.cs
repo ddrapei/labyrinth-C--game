@@ -1,3 +1,5 @@
+using Items;
+using Items.Armour;
 // Singleton player class that represents the only one player in the game
 
 public class Player
@@ -20,7 +22,12 @@ public class Player
     private int health;
     private int xcoordinate;
     private int ycoordinate;
-
+    private int defense;
+    private int attackPower;
+    private Weapon weaponEquipped;
+    private IHeadArmour headArmourEquipped;
+    private ITorsoArmour torsoArmourEquipped;
+    private ILegsArmour legsArmourEquipped;
     private Inventory inventory;
 
     public int Health
@@ -40,6 +47,37 @@ public class Player
         get { return ycoordinate; }
         set { ycoordinate = value; }
     }
+    public int Defense
+    {
+        get { return defense; }
+        set { defense = value; }
+    }
+
+    public int AttackPower
+    {
+        get { return attackPower; }
+        set { attackPower = value; }
+    }
+    public Weapon WeaponEquiped
+    {
+        get { return weaponEquipped; }
+        set { weaponEquipped = value; }
+    }
+    public IHeadArmour HeadArmourEquipped
+    {
+        get { return headArmourEquipped; }
+        set { headArmourEquipped = value; }
+    }
+    public ITorsoArmour TorsoArmourEquipped
+    {
+        get { return torsoArmourEquipped; }
+        set { torsoArmourEquipped = value; }
+    }
+    public ILegsArmour LegsArmourEquipped
+    {
+        get { return legsArmourEquipped; }
+        set { legsArmourEquipped = value; }
+    }
 
     public Inventory Inventory
     {
@@ -52,6 +90,12 @@ public class Player
         this.health = health;
         this.xcoordinate = xcoordinate;
         this.ycoordinate = ycoordinate;
+        this.defense = 0;
+        this.attackPower = 1;
+        this.weaponEquipped = null;
+        this.headArmourEquipped = null;
+        this.torsoArmourEquipped = null;
+        this.legsArmourEquipped = null;
         this.inventory = new Inventory(10);
     }
 
@@ -105,7 +149,7 @@ public class Player
     }
     public void MoveRight()
     {
-       int newXcoordinate = xcoordinate + 1;
+        int newXcoordinate = xcoordinate + 1;
 
         if (RoomChecker.GetInstance().doesRoomExist(newXcoordinate, ycoordinate))
         {
