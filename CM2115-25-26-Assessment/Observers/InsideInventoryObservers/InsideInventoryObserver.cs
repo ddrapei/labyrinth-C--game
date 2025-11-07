@@ -1,4 +1,4 @@
-namespace Observers;
+namespace Observers.InsideInventoryObservers;
 
 using Commands;
 using Commands.InventoryCommands;

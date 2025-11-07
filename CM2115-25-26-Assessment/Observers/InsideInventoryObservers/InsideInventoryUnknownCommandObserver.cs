@@ -1,4 +1,5 @@
-namespace Observers;
+namespace Observers.InsideInventoryObservers;
+
 
 // this observer is used to register commands before the game has start,
 // then it gets removed

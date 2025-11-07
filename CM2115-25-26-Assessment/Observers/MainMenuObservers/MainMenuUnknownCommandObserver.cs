@@ -1,4 +1,4 @@
-namespace Observers;
+namespace Observers.MainMenuObservers;
 
 // this observer is used to register commands before the game has start,
 // then it gets removed

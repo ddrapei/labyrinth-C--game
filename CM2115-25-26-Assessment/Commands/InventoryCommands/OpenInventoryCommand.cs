@@ -1,6 +1,7 @@
 namespace Commands.InventoryCommands;
 
 using Observers;
+using Observers.InsideInventoryObservers;
 
 // Command to open inventory and add InsideInventoryObserver
 public class OpenInventoryCommand : PlayerCommand

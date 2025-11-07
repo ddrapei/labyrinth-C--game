@@ -1,4 +1,6 @@
 ﻿using Observers;
+using Observers.MainMenuObservers;
+using Observers.InsideInventoryObservers;
 using Commands;
 using Commands.MainMenuCommands;
 using Commands.MoveCommands;

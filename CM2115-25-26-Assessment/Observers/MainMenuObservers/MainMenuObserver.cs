@@ -1,4 +1,4 @@
-namespace Observers;
+namespace Observers.MainMenuObservers;
 
 using Commands;
 
