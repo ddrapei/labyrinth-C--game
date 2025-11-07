@@ -1,3 +1,4 @@
+using System.Data.Common;
 using Items;
 using Items.Armour;
 // Singleton player class that represents the only one player in the game
@@ -23,6 +24,7 @@ public class Player
     private int xcoordinate;
     private int ycoordinate;
     private int defense;
+    private int baseAttackPower;
     private int attackPower;
     private Weapon weaponEquipped;
     private IHeadArmour headArmourEquipped;
@@ -52,7 +54,11 @@ public class Player
         get { return defense; }
         set { defense = value; }
     }
-
+    public int BaseAtttackPower
+    {
+        get { return baseAttackPower; }
+        set { baseAttackPower = value; }
+    }
     public int AttackPower
     {
         get { return attackPower; }
@@ -91,6 +97,7 @@ public class Player
         this.xcoordinate = xcoordinate;
         this.ycoordinate = ycoordinate;
         this.defense = 0;
+        this.baseAttackPower = 1;
         this.attackPower = 1;
         this.weaponEquipped = null;
         this.headArmourEquipped = null;
@@ -160,6 +167,33 @@ public class Player
         else
         {
             Console.WriteLine("There is no room in that direction.");
+        }
+    }
+
+    public bool EquipWeapon(Weapon weapon)
+    {
+        if (this.weaponEquipped != null)
+        {
+            Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(this);
+            if (currentRoom != null && currentRoom.Item == null)
+            {
+                currentRoom.Item = this.weaponEquipped;
+                Console.WriteLine("You placed the item in the room " + this.WeaponEquiped.Name + " and equipped " + weapon.Name);
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Cannot equip the weapon");
+                return false;
+            }
+        }
+        else
+        {
+            this.weaponEquipped = weapon;
+            this.attackPower = weapon.Damage;
+            this.baseAttackPower = weapon.Damage;
+            Console.WriteLine("Your damage now is: " + this.AttackPower);
+            return true;
         }
     }
 }

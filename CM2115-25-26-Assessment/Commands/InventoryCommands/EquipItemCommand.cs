@@ -1,12 +1,13 @@
 namespace Commands.InventoryCommands;
 
 using Items;
+using Items.Armour;
 
-public class DropItemCommand : PlayerCommand
+public class EquipItemCommand : PlayerCommand
 {
     private string itemIdentifier;
 
-    public DropItemCommand(string itemIdentifier)
+    public EquipItemCommand(string itemIdentifier)
     {
         this.itemIdentifier = itemIdentifier;
     }
@@ -46,34 +47,45 @@ public class DropItemCommand : PlayerCommand
             }
         }
 
-        // checks input for the number first
-        if (isNumeric && itemIdentifier.Length > 0)
+        if (isNumeric)
         {
-            int itemNumber = int.Parse(itemIdentifier);
-            item = player.Inventory.GetItemByNumber(itemNumber);
-
-            if (item == null)
+            if (int.TryParse(itemIdentifier, out int itemNumber))
             {
-                Console.WriteLine("You don't have the item with that number");
-                return;
+                item = player.Inventory.GetItemByNumber(itemNumber);
             }
         }
         else
         {
-            // checks input for the item name after
             item = player.Inventory.GetItemByName(itemIdentifier);
-
-            if (item == null)
-            {
-                Console.WriteLine("You don't have " + itemIdentifier + " in your invenotory");
-                return;
-            }
         }
 
-        if (player.Inventory.DropItem(item))
+        if (item == null)
         {
-            currentRoom.Item = item; // puts item in the room
-            Console.WriteLine("You dropped " + item.Name + " in the room.");
+            Console.WriteLine("Could not find item " + itemIdentifier + " in your inventory.");
+            return;
+        }
+
+        // Equipping different items based on the type
+        if (item is Weapon weapon)
+        {
+            player.EquipWeapon(weapon);
+            player.Inventory.DropItem(item);
+        }
+        else if (item is IHeadArmour headArmour)
+        {
+            //
+        }
+        else if (item is ITorsoArmour torsoArmour)
+        {
+            //
+        }
+        else if (item is ILegsArmour legsArmour)
+        {
+            //
+        }
+        else
+        {
+            Console.WriteLine("Can not equip the item");
         }
     }
 }

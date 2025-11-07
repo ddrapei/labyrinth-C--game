@@ -18,6 +18,7 @@ public class PickUpItemCommand : PlayerCommand
         if (currentRoom.Item == null)
         {
             Console.WriteLine("There is no item in the room");
+            return;
         }
 
         Item item = currentRoom.Item;

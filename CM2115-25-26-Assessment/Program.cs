@@ -106,6 +106,7 @@ unknownCommandObserver.RegisterValidCommand("inventory");
 unknownCommandObserver.RegisterValidCommand("pick up");
 
 // registers valid commands with the unknown command observer in the inventory
+insideInventoryUnknownCommandObserver.RegisterValidCommand("equip");
 insideInventoryUnknownCommandObserver.RegisterValidCommand("drop");
 insideInventoryUnknownCommandObserver.RegisterValidCommand("close");
 
@@ -143,7 +144,7 @@ Room room0 = builder
 
 Room room1 = new RoomBuilder(0, 1)
     .SetDescription("The second room")
-    .AddItem(leatherChestArmour)
+    .AddItem(spoon_with_a_hole)
     .Build();
 
 Room room2 = new RoomBuilder(1, 0)

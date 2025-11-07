@@ -28,6 +28,15 @@ public class InsideInventoryObserver : IGameObserver
             commands[commandString].Execute();
             return;
         }
+        
+        // Handle equipping from the inventory
+        if (commandString.StartsWith("equip "))
+        {
+            string itemIdentifier = commandString.Substring(6).Trim();
+            EquipItemCommand equipCommand = new EquipItemCommand(itemIdentifier);
+            equipCommand.Execute();
+            return;
+        }
 
         // Handle "drop number" or "drop item name"
         // Example: drop 1 or drop Lether Helmet
@@ -41,8 +50,8 @@ public class InsideInventoryObserver : IGameObserver
             return;
         }
         
-        // Unknown command
-        Console.WriteLine("Unknown inventory command: " + commandString + "."); // <-- This is your message!
+        // Unknown command (those are shown now in the case of not valid input)
+        Console.WriteLine("Unknown inventory command: " + commandString + "."); 
         Console.WriteLine("Inventory commands:");
         Console.WriteLine("drop <number of the item> or drop <the name of the item>");
         Console.WriteLine("close");

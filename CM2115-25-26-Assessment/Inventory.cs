@@ -100,7 +100,7 @@ public class Inventory
         for (int i = 0; i < items.Count; i++)
         {
             int number = i + 1;
-            Console.WriteLine(number + ". " + items[i]);
+            Console.WriteLine(number + ". " + items[i].Name);
         }
 
         Console.WriteLine("===============");
