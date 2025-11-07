@@ -1,4 +1,4 @@
-namespace Commands;
+namespace Commands.MainMenuCommands;
 
 // the command to finish the game
 public class ExitGameCommand : PlayerCommand
