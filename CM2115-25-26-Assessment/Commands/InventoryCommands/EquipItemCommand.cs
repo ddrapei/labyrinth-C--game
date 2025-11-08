@@ -73,6 +73,12 @@ public class EquipItemCommand : PlayerCommand
             player.Inventory.DisplayInventory();
 
         }
+        else if (item is Shield shield)
+        {
+            player.EquipShield(shield);
+            player.Inventory.DropItem(item);
+            player.Inventory.DisplayInventory();
+        }
         else if (item is IHeadArmour headArmour)
         {
             player.EquipHeadArmour(headArmour);

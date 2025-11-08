@@ -1,3 +1,6 @@
+using Items;
+using Items.Armour;
+
 using Pastel;
 
 // Singleton pattern, since it will always be the only one room checker in the game
@@ -61,12 +64,27 @@ public class RoomChecker
             Console.WriteLine($"You are in room at ({currentRoom.Xcoordinate}, {currentRoom.Ycoordinate}): {currentRoom.Description}");
             if (currentRoom.Item != null)
             {
-                Console.WriteLine("You see an item here: " + currentRoom.Item.Name.Pastel("#ff9d00"));
+                if (currentRoom.Item is Weapon weapon)
+                {
+                    Console.WriteLine("You see an weapon here: " + currentRoom.Item.Name.Pastel("#ff0000"));
+                }
+                else if (currentRoom.Item is Shield shield)
+                {
+                    Console.WriteLine("You see a shield here: " + currentRoom.Item.Name.Pastel("#00a2ff"));
+                }
+                else if (currentRoom.Item is Armour armour)
+                {
+                    Console.WriteLine("You see an armour here: " + currentRoom.Item.Name.Pastel("#00a2ff"));
+                }
+                else
+                {
+                    Console.WriteLine("You see an item here: " + currentRoom.Item.Name.Pastel("#ffa200"));
+                }
+            }
+            else
+            {
+                Console.WriteLine("There is no room at your current location.");
             }
         }
-        else
-        {
-            Console.WriteLine("There is no room at your current location.");
-        }
     }
-}
+}    

@@ -127,6 +127,9 @@ InputManager.AddObserver(mainMenuObserver);
 // weapons
 var spoon_with_a_hole = new Weapon("Spoon with a hole", 3);
 
+// shields
+var buckler = new Shield("Buckler", 0.1);
+
 // armour factory set up for armour creation
 void CreateArmour(ArmourFactory factory)
 {
@@ -155,7 +158,7 @@ RoomBuilder builder = new RoomBuilder(0, 0);
 // rooms setup
 Room room0 = builder
     .SetDescription("The first room")
-    .AddItem(leatherChestArmour)
+    .AddItem(buckler)
     .Build();
 
 Room room1 = new RoomBuilder(0, 1)

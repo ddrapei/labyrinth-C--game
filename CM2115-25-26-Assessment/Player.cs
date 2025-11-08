@@ -28,10 +28,12 @@ public class Player
     private int defense;
     private int baseAttackPower;
     private int attackPower;
-    private Weapon weaponEquipped;
-    private IHeadArmour headArmourEquipped;
-    private ITorsoArmour torsoArmourEquipped;
-    private ILegsArmour legsArmourEquipped;
+    private double blockingDamageChance;
+    private Weapon? weaponEquipped;
+    private Shield? shieldEquipped;
+    private IHeadArmour? headArmourEquipped;
+    private ITorsoArmour? torsoArmourEquipped;
+    private ILegsArmour? legsArmourEquipped;
     private Inventory inventory;
 
     public int Health
@@ -66,10 +68,20 @@ public class Player
         get { return attackPower; }
         set { attackPower = value; }
     }
+    public double BlockingDamageChance
+    {
+        get { return blockingDamageChance; }
+        set { blockingDamageChance = value; }
+    }
     public Weapon WeaponEquiped
     {
         get { return weaponEquipped; }
         set { weaponEquipped = value; }
+    }
+    public Shield ShieldEquipped
+    {
+        get { return shieldEquipped; }
+        set { shieldEquipped = value; }
     }
     public IHeadArmour HeadArmourEquipped
     {
@@ -101,7 +113,9 @@ public class Player
         this.defense = 0;
         this.baseAttackPower = 1;
         this.attackPower = 1;
+        this.blockingDamageChance = 0.00;
         this.weaponEquipped = null;
+        this.shieldEquipped = null;
         this.headArmourEquipped = null;
         this.torsoArmourEquipped = null;
         this.legsArmourEquipped = null;
@@ -201,6 +215,33 @@ public class Player
             this.attackPower = weapon.Damage;
             this.baseAttackPower = weapon.Damage;
             Console.WriteLine("Your damage now is: " + this.AttackPower.ToString().Pastel("#ff0000"));
+            return true;
+        }
+    }
+
+    // method to equip shield
+    public bool EquipShield (Shield shield)
+    {
+        if (this.shieldEquipped != null)
+        {
+            Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(this);
+            if (currentRoom != null && currentRoom.Item == null)
+            {
+                currentRoom.Item = this.shieldEquipped;
+                Console.WriteLine("You placed the item in the room " + this.shieldEquipped.Name.Pastel("#00e5ff") + " and equipped " + shieldEquipped.Name.Pastel("#00e5ff"));
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Cannot equip the shield");
+                return false;
+            }
+        }
+        else
+        {
+            this.shieldEquipped = shield;
+            this.blockingDamageChance = shield.BlockingDamageChance;
+            Console.WriteLine("Your blocking change now is: " + this.AttackPower.ToString().Pastel("#00e5ff"));
             return true;
         }
     }
