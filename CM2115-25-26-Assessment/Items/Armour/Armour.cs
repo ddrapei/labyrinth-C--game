@@ -5,6 +5,7 @@ public abstract class Armour : Item
 {
     private int defense;
     private string armourType;
+    private string setName;
 
     public int Defense
     {
@@ -17,11 +18,17 @@ public abstract class Armour : Item
         get { return armourType; }
         set { armourType = value; }
     }
+    public string SetName
+    {
+        get { return setName; }
+        set { setName = value; }
+    }
 
     // --- Constructor ---
-    public Armour(string name, int defense, string armourType) : base(name)
+    public Armour(string name, int defense, string armourType, string setName) : base(name)
     {
         this.defense = defense;
         this.armourType = armourType;
+        this.setName = setName;
     }
 }

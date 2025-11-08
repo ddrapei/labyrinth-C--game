@@ -237,6 +237,7 @@ public class Player
         this.headArmourEquipped = headArmour;
         this.defense += ((Armour)headArmour).Defense;
         Console.WriteLine("Your defense now is: " + this.Defense);
+        ArmourSetManager.GetInstance().CheckAndUpdateSetBonuses(this);
         return true;
     }
 
@@ -268,6 +269,7 @@ public class Player
         this.torsoArmourEquipped = torsoArmour;
         this.defense += ((Armour)torsoArmour).Defense;
         Console.WriteLine("Your defense now is: " + this.Defense);
+        ArmourSetManager.GetInstance().CheckAndUpdateSetBonuses(this);
         return true;
     }
     
@@ -299,6 +301,7 @@ public class Player
         this.legsArmourEquipped = legsArmour;
         this.defense += ((Armour)legsArmour).Defense;
         Console.WriteLine("Your defense now is: " + this.Defense);
+        ArmourSetManager.GetInstance().CheckAndUpdateSetBonuses(this);
         return true;
     }
 }

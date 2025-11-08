@@ -83,7 +83,11 @@ gameCommandMoveObserver.AddCommand("move right", moveRight);
 
 // registers inventory commands (work when inventory is closed)
 inventoryObserver.AddCommand("pick up", pickUpItemCommand);
+inventoryObserver.AddCommand("pick", pickUpItemCommand);
 inventoryObserver.AddCommand("inventory", openInventoryCommand);
+inventoryObserver.AddCommand("inv", openInventoryCommand);
+inventoryObserver.AddCommand("i", openInventoryCommand);
+
 
 // registers inside inventory commands (work when inventory is open)
 insideInventoryObserver.AddCommand("close", closeInventoryCommand);
@@ -103,6 +107,8 @@ unknownCommandObserver.RegisterValidCommand("move down");
 unknownCommandObserver.RegisterValidCommand("move left");
 unknownCommandObserver.RegisterValidCommand("move right");
 unknownCommandObserver.RegisterValidCommand("inventory");
+unknownCommandObserver.RegisterValidCommand("inv");
+unknownCommandObserver.RegisterValidCommand("i");
 unknownCommandObserver.RegisterValidCommand("pick up");
 
 // registers valid commands with the unknown command observer in the inventory
@@ -133,6 +139,13 @@ var leatherHelmet = (Item)leatherArmourFactory.CreateHeadArmour();
 var leatherChestArmour = (Item)leatherArmourFactory.CreateTorsoArmour();
 var leatherLegsArmour = (Item)leatherArmourFactory.CreateLegsArmour();
 
+// creating set up for armour set and subsequent perk
+var leatherArmourSet = new ArmourSet("Leather");
+var increaseInventoryPerk = new IncreaseInventoryPerk(5);
+leatherArmourSet.AddPerk(increaseInventoryPerk);
+var armourSetManager = ArmourSetManager.GetInstance();
+armourSetManager.RegisterSet(leatherArmourSet);
+
 // creating room builder
 RoomBuilder builder = new RoomBuilder(0, 0);
 
@@ -149,11 +162,12 @@ Room room1 = new RoomBuilder(0, 1)
 
 Room room2 = new RoomBuilder(1, 0)
     .SetDescription("The third room")
-    .AddItem(leatherLegsArmour)
+    .AddItem(leatherHelmet)
     .Build();
 
 Room room3 = new RoomBuilder(2, 0)
     .SetDescription("The fourth room")
+    .AddItem(leatherLegsArmour)
     .Build();
 
 // adding rooms to the room checker

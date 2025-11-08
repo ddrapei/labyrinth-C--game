@@ -74,7 +74,7 @@ public class Inventory
         return null;
     }
 
-    public Item GetItemByName (string name)
+    public Item GetItemByName(string name)
     {
         for (int i = 0; i < items.Count; i++)
         {
@@ -88,23 +88,35 @@ public class Inventory
 
     public void DisplayInventory()
     {
-        if (items.Count == 0)
+        // for proper allignment
+        if (items.Count <= 9)
         {
-            Console.WriteLine("The inventory is emoty");
-            return;
+            Console.WriteLine("===Inventory===");
+            Console.WriteLine("=====" + items.Count + " /" + maxCapacity + "=====");
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                int number = i + 1;
+                Console.WriteLine(number + ". " + items[i].Name);
+            }
+
+            Console.WriteLine("===============");
         }
-
-        Console.WriteLine("===Inventory===");
-        Console.WriteLine("===" + items.Count + "/" + maxCapacity + "===");
-
-        for (int i = 0; i < items.Count; i++)
+        else
         {
-            int number = i + 1;
-            Console.WriteLine(number + ". " + items[i].Name);
-        }
+            Console.WriteLine("===Inventory===");
+            Console.WriteLine("=====" + items.Count + "/" + maxCapacity + "=====");
 
-        Console.WriteLine("===============");
-    }
+            for (int i = 0; i < items.Count; i++)
+            {
+                int number = i + 1;
+                Console.WriteLine(number + ". " + items[i].Name);
+            }
+
+            Console.WriteLine("===============");
+        }
+    } 
+
 
     public int GetInventoryCount()
     {
@@ -120,7 +132,7 @@ public class Inventory
 
         return false;
     }
-    
+
     public bool isEmpty()
     {
         if (items.Count == 0)

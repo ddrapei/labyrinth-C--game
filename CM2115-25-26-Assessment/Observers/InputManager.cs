@@ -12,12 +12,13 @@ public class InputManager
         this.observers = new List<IGameObserver>();
     }
 
+    // add observers
     public void AddObserver(IGameObserver observer)
     {
         this.observers.Add(observer);
     }
 
-    // can be used in the future to remove observers if needed
+    // remove observers
     public void RemoveObserver(IGameObserver observer)
     {
         this.observers.Remove(observer);
