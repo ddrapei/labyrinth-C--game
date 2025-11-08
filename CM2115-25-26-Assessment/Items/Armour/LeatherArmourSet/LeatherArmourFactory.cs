@@ -1,4 +1,4 @@
-namespace Items.Armour;
+namespace Items.Armour.LeatherArmourSet;
 
 // concrete factory for leather armour
 public class LeatherArmourFactory : ArmourFactory

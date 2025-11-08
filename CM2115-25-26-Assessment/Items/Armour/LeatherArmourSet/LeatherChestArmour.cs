@@ -1,4 +1,4 @@
-using Items.Armour;
+namespace Items.Armour.LeatherArmourSet;
 
 // cocnrete type of leather chest armour
 

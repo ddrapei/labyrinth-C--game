@@ -7,6 +7,7 @@ using Commands.MoveCommands;
 using Commands.InventoryCommands;
 using Items;
 using Items.Armour;
+using Items.Armour.LeatherArmourSet;
 using Perks;
 
 using Pastel;
