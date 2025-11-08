@@ -1,5 +1,6 @@
 namespace Items.Armour;
 
+using Perks;
 // strategy pattern is used
 public class ArmourSet
 {

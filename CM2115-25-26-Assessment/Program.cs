@@ -7,6 +7,9 @@ using Commands.MoveCommands;
 using Commands.InventoryCommands;
 using Items;
 using Items.Armour;
+using Perks;
+
+using Pastel;
 
 // creates a player
 Player player = Player.GetInstance();
@@ -175,6 +178,14 @@ roomChecker.AddRoom(room0);
 roomChecker.AddRoom(room1);
 roomChecker.AddRoom(room2);
 roomChecker.AddRoom(room3);
+
+// begginning of the game
+Console.WriteLine("Welcome to the game");
+Console.WriteLine("LABYRINTH OF SUFFERING".Pastel("#3d2307"));
+Console.WriteLine("Type:");
+Console.WriteLine("Start".Pastel("#eb34c0") + " - to start a game");
+Console.WriteLine("Exit".Pastel("#ff0000") + " - to exit a game");
+
 
 // main game loop
 while (!game.IsFinished)

@@ -1,6 +1,8 @@
 using System.Data.Common;
 using Items;
 using Items.Armour;
+
+using Pastel;
 // Singleton player class that represents the only one player in the game
 
 public class Player
@@ -108,12 +110,12 @@ public class Player
 
     // methods for player movement
     public void MoveUp()
-    {   
+    {
         // new coordinate is created and added
         int newYcoordinate = ycoordinate + 1;
 
         if (RoomChecker.GetInstance().doesRoomExist(xcoordinate, newYcoordinate))
-        {   
+        {
             // only if a room exists the new coordinatate is assigned to the player's coordinate
             ycoordinate = newYcoordinate;
             Console.WriteLine($"Player moved up. Current position: ({xcoordinate}, {ycoordinate})");
@@ -124,7 +126,7 @@ public class Player
             // if a room in that direction doesn't exist, nothing is happening
             // the player stays at the same place
             // the message displays that the player can not move there
-            Console.WriteLine("There is no room in that direction.");
+            Console.WriteLine("There is no room in that direction.".Pastel("#ff9d00"));
         }
     }
 
@@ -140,7 +142,7 @@ public class Player
         }
         else
         {
-            Console.WriteLine("There is no room in that direction.");
+            Console.WriteLine("There is no room in that direction.".Pastel("#ff9d00"));
         }
     }
 
@@ -156,7 +158,7 @@ public class Player
         }
         else
         {
-            Console.WriteLine("There is no room in that direction.");
+            Console.WriteLine("There is no room in that direction.".Pastel("#ff9d00"));
         }
     }
     public void MoveRight()
@@ -171,7 +173,7 @@ public class Player
         }
         else
         {
-            Console.WriteLine("There is no room in that direction.");
+            Console.WriteLine("There is no room in that direction.".Pastel("#ff9d00"));
         }
     }
 
@@ -184,7 +186,7 @@ public class Player
             if (currentRoom != null && currentRoom.Item == null)
             {
                 currentRoom.Item = this.weaponEquipped;
-                Console.WriteLine("You placed the item in the room " + this.WeaponEquiped.Name + " and equipped " + weapon.Name);
+                Console.WriteLine("You placed the item in the room " + this.WeaponEquiped.Name.Pastel("#ff9d00") + " and equipped " + weapon.Name.Pastel("#ff9d00"));
                 return true;
             }
             else
@@ -198,7 +200,7 @@ public class Player
             this.weaponEquipped = weapon;
             this.attackPower = weapon.Damage;
             this.baseAttackPower = weapon.Damage;
-            Console.WriteLine("Your damage now is: " + this.AttackPower);
+            Console.WriteLine("Your damage now is: " + this.AttackPower.ToString().Pastel("#ff0000"));
             return true;
         }
     }
@@ -220,23 +222,23 @@ public class Player
             {
                 currentRoom.Item = (Item)oldArmour;
                 this.defense -= ((Armour)oldArmour).Defense;
-                Console.WriteLine("You placed your " + ((Item)oldArmour).Name);
+                Console.WriteLine("You placed your " + ((Item)oldArmour).Name.Pastel("#ff9d00"));
             }
             else
             {
-                Console.WriteLine("Cannot equip " + ((Item)headArmour).Name + " - no space to place your current armour " + ((Item)oldArmour).Name);
+                Console.WriteLine("Cannot equip " + ((Item)headArmour).Name.Pastel("#ff9d00") + " - no space to place your current armour " + ((Item)oldArmour).Name.Pastel("#ff9d00"));
                 return false;
             }
         }
         else
         {
-            Console.WriteLine("You equipped " + ((Item)headArmour).Name);
+            Console.WriteLine("You equipped " + ((Item)headArmour).Name.Pastel("#ff9d00"));
         }
 
         // equips armour if the checks are successful
         this.headArmourEquipped = headArmour;
         this.defense += ((Armour)headArmour).Defense;
-        Console.WriteLine("Your defense now is: " + this.Defense);
+        Console.WriteLine("Your defense now is: " + this.Defense.ToString().Pastel("#1900ff"));
         ArmourSetManager.GetInstance().CheckAndUpdateSetBonuses(this);
         return true;
     }
@@ -253,28 +255,28 @@ public class Player
             {
                 currentRoom.Item = (Item)oldArmour;
                 this.defense -= ((Armour)oldArmour).Defense;
-                Console.WriteLine("You placed your " + ((Item)oldArmour).Name);
+                Console.WriteLine("You placed your " + ((Item)oldArmour).Name.Pastel("#ff9d00"));
             }
             else
             {
-                Console.WriteLine("Cannot equip " + ((Item)torsoArmour).Name + " - no space to place your current armour " + ((Item)oldArmour).Name);
+                Console.WriteLine("Cannot equip " + ((Item)torsoArmour).Name.Pastel("#ff9d00") + " - no space to place your current armour " + ((Item)oldArmour).Name.Pastel("#ff9d00"));
                 return false;
             }
         }
         else
         {
-            Console.WriteLine("You equipped " + ((Item)torsoArmour).Name);
+            Console.WriteLine("You equipped " + ((Item)torsoArmour).Name.Pastel("#ff9d00"));
         }
 
         this.torsoArmourEquipped = torsoArmour;
         this.defense += ((Armour)torsoArmour).Defense;
-        Console.WriteLine("Your defense now is: " + this.Defense);
+        Console.WriteLine("Your defense now is: " + this.Defense.ToString().Pastel("#1900ff"));
         ArmourSetManager.GetInstance().CheckAndUpdateSetBonuses(this);
         return true;
     }
-    
-        // method to equip legs armour
-        public bool EquipLegsArmour (ILegsArmour legsArmour)
+
+    // method to equip legs armour
+    public bool EquipLegsArmour(ILegsArmour legsArmour)
     {
         ILegsArmour oldArmour = this.legsArmourEquipped;
 
@@ -285,22 +287,22 @@ public class Player
             {
                 currentRoom.Item = (Item)oldArmour;
                 this.defense -= ((Armour)oldArmour).Defense;
-                Console.WriteLine("You placed your " + ((Item)oldArmour).Name);
+                Console.WriteLine("You placed your " + ((Item)oldArmour).Name.Pastel("#ff9d00"));
             }
             else
             {
-                Console.WriteLine("Cannot equip " + ((Item)legsArmour).Name + " - no space to place your current armour " + ((Item)oldArmour).Name);
+                Console.WriteLine("Cannot equip " + ((Item)legsArmour).Name.Pastel("#ff9d00") + " - no space to place your current armour " + ((Item)oldArmour).Name.Pastel("#ff9d00"));
                 return false;
             }
         }
         else
         {
-            Console.WriteLine("You equipped " + ((Item)legsArmour).Name);
+            Console.WriteLine("You equipped " + ((Item)legsArmour).Name.Pastel("#ff9d00"));
         }
 
         this.legsArmourEquipped = legsArmour;
         this.defense += ((Armour)legsArmour).Defense;
-        Console.WriteLine("Your defense now is: " + this.Defense);
+        Console.WriteLine("Your defense now is: " + this.Defense.ToString().Pastel("#1900ff"));
         ArmourSetManager.GetInstance().CheckAndUpdateSetBonuses(this);
         return true;
     }

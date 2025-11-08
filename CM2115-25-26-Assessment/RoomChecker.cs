@@ -1,3 +1,5 @@
+using Pastel;
+
 // Singleton pattern, since it will always be the only one room checker in the game
 public class RoomChecker
 {
@@ -48,7 +50,7 @@ public class RoomChecker
     public bool doesRoomExist(int xcoordinate, int ycoordinate)
     {
         return GetRoom(xcoordinate, ycoordinate) != null;
-    } 
+    }
 
     // method to display current room's description and items (for now)
     public void DisplayCurrentRoom(Player player)
@@ -59,7 +61,7 @@ public class RoomChecker
             Console.WriteLine($"You are in room at ({currentRoom.Xcoordinate}, {currentRoom.Ycoordinate}): {currentRoom.Description}");
             if (currentRoom.Item != null)
             {
-                Console.WriteLine($"You see an item here: {currentRoom.Item.Name}");
+                Console.WriteLine("You see an item here: " + currentRoom.Item.Name.Pastel("#ff9d00"));
             }
         }
         else

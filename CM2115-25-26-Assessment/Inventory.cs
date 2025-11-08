@@ -1,6 +1,8 @@
 using System.Globalization;
 using Items;
 
+using Pastel;
+
 public class Inventory
 {
     private List<Item> items;
@@ -35,7 +37,7 @@ public class Inventory
         }
 
         items.Add(item);
-        Console.WriteLine(item.Name + " has been added to the inventory.");
+        Console.WriteLine(item.Name.Pastel("#ff9d00") + " has been added to the inventory.");
         return true;
     }
 
@@ -45,7 +47,7 @@ public class Inventory
         if (items.Contains(item))
         {
             items.Remove(item);
-            Console.WriteLine(item.Name + " has been removed from the invenory");
+            Console.WriteLine(item.Name.Pastel("#ff9d00") + " has been removed from the invenory");
             return true;
         }
 
@@ -91,31 +93,31 @@ public class Inventory
         // for proper allignment
         if (items.Count <= 9)
         {
-            Console.WriteLine("===Inventory===");
-            Console.WriteLine("=====" + items.Count + " /" + maxCapacity + "=====");
+            Console.WriteLine("===Inventory===".Pastel("#ff00b7"));
+            Console.WriteLine("=====" + items.Count.ToString().Pastel("#26ff00") + " /" + maxCapacity.ToString().Pastel("#ff9d00") + "=====");
 
             for (int i = 0; i < items.Count; i++)
             {
                 int number = i + 1;
-                Console.WriteLine(number + ". " + items[i].Name);
+                Console.WriteLine(number + ". " + items[i].Name.Pastel("#ff9d00"));
             }
 
             Console.WriteLine("===============");
         }
         else
         {
-            Console.WriteLine("===Inventory===");
-            Console.WriteLine("=====" + items.Count + "/" + maxCapacity + "=====");
+            Console.WriteLine("===Inventory===".Pastel("#ff00b7"));
+            Console.WriteLine("=====" + items.Count.ToString().Pastel("#26ff00") + "/" + maxCapacity.ToString().Pastel("#ff9d00") + "=====");
 
             for (int i = 0; i < items.Count; i++)
             {
                 int number = i + 1;
-                Console.WriteLine(number + ". " + items[i].Name);
+                Console.WriteLine(number + ". " + items[i].Name.Pastel("#ff9d00"));
             }
 
             Console.WriteLine("===============");
         }
-    } 
+    }
 
 
     public int GetInventoryCount()
