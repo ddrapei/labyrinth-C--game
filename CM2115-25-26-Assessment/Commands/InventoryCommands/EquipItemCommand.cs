@@ -70,18 +70,29 @@ public class EquipItemCommand : PlayerCommand
         {
             player.EquipWeapon(weapon);
             player.Inventory.DropItem(item);
+            player.Inventory.DisplayInventory();
+
         }
         else if (item is IHeadArmour headArmour)
         {
-            //
+            player.EquipHeadArmour(headArmour);
+            player.Inventory.DropItem(item);
+            player.Inventory.DisplayInventory();
+
         }
         else if (item is ITorsoArmour torsoArmour)
         {
-            //
+            player.EquipTorsoArmour(torsoArmour);
+            player.Inventory.DropItem(item);
+            player.Inventory.DisplayInventory();
+
         }
         else if (item is ILegsArmour legsArmour)
         {
-            //
+            player.EquipLegsArmour(legsArmour);
+            player.Inventory.DropItem(item);
+            player.Inventory.DisplayInventory();
+
         }
         else
         {

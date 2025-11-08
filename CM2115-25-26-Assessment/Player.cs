@@ -108,17 +108,22 @@ public class Player
 
     // methods for player movement
     public void MoveUp()
-    {
+    {   
+        // new coordinate is created and added
         int newYcoordinate = ycoordinate + 1;
 
         if (RoomChecker.GetInstance().doesRoomExist(xcoordinate, newYcoordinate))
-        {
+        {   
+            // only if a room exists the new coordinatate is assigned to the player's coordinate
             ycoordinate = newYcoordinate;
             Console.WriteLine($"Player moved up. Current position: ({xcoordinate}, {ycoordinate})");
             RoomChecker.GetInstance().DisplayCurrentRoom(this);
         }
         else
         {
+            // if a room in that direction doesn't exist, nothing is happening
+            // the player stays at the same place
+            // the message displays that the player can not move there
             Console.WriteLine("There is no room in that direction.");
         }
     }
@@ -170,6 +175,7 @@ public class Player
         }
     }
 
+    // method to equip weapon
     public bool EquipWeapon(Weapon weapon)
     {
         if (this.weaponEquipped != null)
@@ -195,5 +201,104 @@ public class Player
             Console.WriteLine("Your damage now is: " + this.AttackPower);
             return true;
         }
+    }
+
+    // method to equip head armour
+    public bool EquipHeadArmour(IHeadArmour headArmour)
+    {
+
+        IHeadArmour oldArmour = this.headArmourEquipped;
+
+        // checks if something is equipped
+        if (oldArmour != null)
+        {
+            // takes current room
+            Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(this);
+
+            // verifies that the room exist and there is currently no item in the room
+            if (currentRoom != null && currentRoom.Item == null)
+            {
+                currentRoom.Item = (Item)oldArmour;
+                this.defense -= ((Armour)oldArmour).Defense;
+                Console.WriteLine("You placed your " + ((Item)oldArmour).Name);
+            }
+            else
+            {
+                Console.WriteLine("Cannot equip " + ((Item)headArmour).Name + " - no space to place your current armour " + ((Item)oldArmour).Name);
+                return false;
+            }
+        }
+        else
+        {
+            Console.WriteLine("You equipped " + ((Item)headArmour).Name);
+        }
+
+        // equips armour if the checks are successful
+        this.headArmourEquipped = headArmour;
+        this.defense += ((Armour)headArmour).Defense;
+        Console.WriteLine("Your defense now is: " + this.Defense);
+        return true;
+    }
+
+    // method to equip torso armour
+    public bool EquipTorsoArmour(ITorsoArmour torsoArmour)
+    {
+        ITorsoArmour oldArmour = this.torsoArmourEquipped;
+
+        if (oldArmour != null)
+        {
+            Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(this);
+            if (currentRoom != null && currentRoom.Item == null)
+            {
+                currentRoom.Item = (Item)oldArmour;
+                this.defense -= ((Armour)oldArmour).Defense;
+                Console.WriteLine("You placed your " + ((Item)oldArmour).Name);
+            }
+            else
+            {
+                Console.WriteLine("Cannot equip " + ((Item)torsoArmour).Name + " - no space to place your current armour " + ((Item)oldArmour).Name);
+                return false;
+            }
+        }
+        else
+        {
+            Console.WriteLine("You equipped " + ((Item)torsoArmour).Name);
+        }
+
+        this.torsoArmourEquipped = torsoArmour;
+        this.defense += ((Armour)torsoArmour).Defense;
+        Console.WriteLine("Your defense now is: " + this.Defense);
+        return true;
+    }
+    
+        // method to equip legs armour
+        public bool EquipLegsArmour (ILegsArmour legsArmour)
+    {
+        ILegsArmour oldArmour = this.legsArmourEquipped;
+
+        if (oldArmour != null)
+        {
+            Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(this);
+            if (currentRoom != null && currentRoom.Item == null)
+            {
+                currentRoom.Item = (Item)oldArmour;
+                this.defense -= ((Armour)oldArmour).Defense;
+                Console.WriteLine("You placed your " + ((Item)oldArmour).Name);
+            }
+            else
+            {
+                Console.WriteLine("Cannot equip " + ((Item)legsArmour).Name + " - no space to place your current armour " + ((Item)oldArmour).Name);
+                return false;
+            }
+        }
+        else
+        {
+            Console.WriteLine("You equipped " + ((Item)legsArmour).Name);
+        }
+
+        this.legsArmourEquipped = legsArmour;
+        this.defense += ((Armour)legsArmour).Defense;
+        Console.WriteLine("Your defense now is: " + this.Defense);
+        return true;
     }
 }

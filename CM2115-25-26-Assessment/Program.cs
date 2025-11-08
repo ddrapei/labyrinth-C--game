@@ -139,7 +139,7 @@ RoomBuilder builder = new RoomBuilder(0, 0);
 // rooms setup
 Room room0 = builder
     .SetDescription("The first room")
-    .AddItem(leatherHelmet)
+    .AddItem(leatherChestArmour)
     .Build();
 
 Room room1 = new RoomBuilder(0, 1)

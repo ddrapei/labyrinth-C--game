@@ -4,7 +4,7 @@ using Items.Armour;
 
 public class LeatherChestArmour : Armour, ITorsoArmour
 {
-    public LeatherChestArmour() : base("Leather Chest Armour", 1, "ChestArmour")
+    public LeatherChestArmour() : base("Leather Chest Armour", 2, "ChestArmour")
     {
     }
 
