@@ -8,6 +8,7 @@ using Commands.InventoryCommands;
 using Items;
 using Items.Armour;
 using Items.Armour.LeatherArmourSet;
+using Items.Armour.CrudeKnightsArmourSet;
 using Perks;
 
 using Pastel;
@@ -140,18 +141,31 @@ void CreateArmour(ArmourFactory factory)
 }
 
 var leatherArmourFactory = new LeatherArmourFactory();
+var crudeKnightsArmourFactory = new CrudeKnightsArmourFactory();
 
 // creating concrete armour items
 var leatherHelmet = (Item)leatherArmourFactory.CreateHeadArmour();
 var leatherChestArmour = (Item)leatherArmourFactory.CreateTorsoArmour();
 var leatherLegsArmour = (Item)leatherArmourFactory.CreateLegsArmour();
 
-// creating set up for armour set and subsequent perk
+// creating concrete armour items for Crude Knight's armour set
+var crudeKnightsHelmet = (Item)crudeKnightsArmourFactory.CreateHeadArmour();
+var crudeKnightsTorsoArmour = (Item)crudeKnightsArmourFactory.CreateTorsoArmour();
+var crudeKnightsLegsArmour = (Item)crudeKnightsArmourFactory.CreateLegsArmour();
+
+// creating set up for leather armour set and its perk
 var leatherArmourSet = new ArmourSet("Leather");
 var increaseInventoryPerk = new IncreaseInventoryPerk(5);
 leatherArmourSet.AddPerk(increaseInventoryPerk);
 var armourSetManager = ArmourSetManager.GetInstance();
 armourSetManager.RegisterSet(leatherArmourSet);
+
+// creating set up for Crude Knigt's armour set and its perk
+var CrudeKnightsArmourSet = new ArmourSet("CrudeKnights");
+var increaseDefensePerk = new IncreaseDefensePerk(10);
+CrudeKnightsArmourSet.AddPerk(increaseDefensePerk);
+armourSetManager.RegisterSet(CrudeKnightsArmourSet);
+
 
 // creating room builder
 RoomBuilder builder = new RoomBuilder(0, 0);
@@ -159,7 +173,7 @@ RoomBuilder builder = new RoomBuilder(0, 0);
 // rooms setup
 Room room0 = builder
     .SetDescription("The first room")
-    .AddItem(buckler)
+    .AddItem(crudeKnightsTorsoArmour)
     .Build();
 
 Room room1 = new RoomBuilder(0, 1)
@@ -169,12 +183,12 @@ Room room1 = new RoomBuilder(0, 1)
 
 Room room2 = new RoomBuilder(1, 0)
     .SetDescription("The third room")
-    .AddItem(leatherHelmet)
+    .AddItem(crudeKnightsHelmet)
     .Build();
 
 Room room3 = new RoomBuilder(2, 0)
     .SetDescription("The fourth room")
-    .AddItem(leatherLegsArmour)
+    .AddItem(crudeKnightsLegsArmour)
     .Build();
 
 // adding rooms to the room checker

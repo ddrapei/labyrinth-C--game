@@ -31,6 +31,6 @@ public class IncreaseInventoryPerk : IPerk
     {
         player.Inventory.MaxCapacity -= size;
         Console.WriteLine("You no longer have bonus from an armour set");
-        Console.WriteLine("The bonus is deactivated: - " + size.ToString().Pastel("#ff0000"));
+        Console.WriteLine("The bonus is deactivated: inventory size - " + size.ToString().Pastel("#ff0000"));
     }
 }
