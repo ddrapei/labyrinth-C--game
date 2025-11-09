@@ -369,4 +369,9 @@ public class Player
         }
         return true;
     }
+
+    public void LookAround()
+    {
+        RoomChecker.GetInstance().DisplayCurrentRoom(this);
+    }
 }

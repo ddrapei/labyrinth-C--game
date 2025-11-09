@@ -57,9 +57,11 @@ var startGameCommand = new StartGameCommand(game, InputManager, mainMenuObserver
 // command to exit the game
 var exitGameCommand = new ExitGameCommand(game);
 
+// display commands
+var playerStatsDisplay = new PlayerStatsDisplay();
+var playerEquippedDisplay = new PlayerEquippedDisplay();
+var lookAround = new LookAroundCommand();
 
-var PlayerStatsDisplay = new PlayerStatsDisplay();
-var PlayerEquippedDisplay = new PlayerEquippedDisplay();
 
 // creates commands for player movement
 var moveDown = new MoveDownCommand(player);
@@ -75,8 +77,8 @@ var openInventoryCommand = new OpenInventoryCommand(InputManager, insideInventor
 var closeInventoryCommand = new CloseInventoryCommand(InputManager, insideInventoryObserver, insideInventoryUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver, unknownCommandObserver);
 
 // display stats command
-var displayStatsCommand = new DisplayStatsCommand(PlayerStatsDisplay);
-var displayEquippedCommand = new DisplayEquippedCommand(PlayerEquippedDisplay);
+var displayStatsCommand = new DisplayStatsCommand(playerStatsDisplay);
+var displayEquippedCommand = new DisplayEquippedCommand(playerEquippedDisplay);
 
 // registers start game command with its observer 
 mainMenuObserver.AddCommand("start", startGameCommand);
@@ -92,6 +94,7 @@ gameHandlerObserver.AddCommand("finish", exitGameCommand);
 // display stats
 gameHandlerObserver.AddCommand("stats", displayStatsCommand);
 gameHandlerObserver.AddCommand("equipped", displayEquippedCommand);
+gameHandlerObserver.AddCommand("look around", lookAround);
 
 
 // registers movement commands
