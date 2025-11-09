@@ -197,7 +197,7 @@ RoomBuilder builder = new RoomBuilder(0, 0);
 // rooms setup
 Room room0 = builder
     .SetDescription("The first room")
-    .AddItem(small_healing_potion)
+    .AddItem(crudeKnightsTorsoArmour)
     .Build();
 
 Room room1 = new RoomBuilder(0, 1)

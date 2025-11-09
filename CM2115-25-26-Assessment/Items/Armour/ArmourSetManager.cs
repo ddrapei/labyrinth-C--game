@@ -19,7 +19,12 @@ public class ArmourSetManager
     private Dictionary<string, ArmourSet> registeredSets;
     private Dictionary<string, ArmourSet> activeSets;
 
-    private ArmourSetManager()
+    public Dictionary<string, ArmourSet> ActiveSets
+    {
+        get { return activeSets; }
+    }
+
+    public ArmourSetManager()
     {
         this.registeredSets = new Dictionary<string, ArmourSet>();
         this.activeSets = new Dictionary<string, ArmourSet>();
@@ -99,7 +104,7 @@ public class ArmourSetManager
                 setCount[legsArmour.SetName]++;
             }
         }
-        
+
         // Check which sets should be active (have all 3 pieces)
         HashSet<string> setsToActivate = new HashSet<string>();
         foreach (var kvp in setCount)
