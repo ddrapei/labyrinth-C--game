@@ -9,6 +9,7 @@ using Items;
 using Items.Armour;
 using Items.Armour.LeatherArmourSet;
 using Items.Armour.CrudeKnightsArmourSet;
+using Items.Armour.CircusAcrobatArmourSet;
 using Items.Potions;
 using Perks;
 using PlayerDisplay;
@@ -166,8 +167,9 @@ void CreateArmour(ArmourFactory factory)
 
 var leatherArmourFactory = new LeatherArmourFactory();
 var crudeKnightsArmourFactory = new CrudeKnightsArmourFactory();
+var circusAcrobatArmourFactory = new CircusAcrobatArmourFactory();
 
-// creating concrete armour items
+// creating concrete armour items for leather armour set
 var leatherHelmet = (Item)leatherArmourFactory.CreateHeadArmour();
 var leatherChestArmour = (Item)leatherArmourFactory.CreateTorsoArmour();
 var leatherLegsArmour = (Item)leatherArmourFactory.CreateLegsArmour();
@@ -176,6 +178,11 @@ var leatherLegsArmour = (Item)leatherArmourFactory.CreateLegsArmour();
 var crudeKnightsHelmet = (Item)crudeKnightsArmourFactory.CreateHeadArmour();
 var crudeKnightsTorsoArmour = (Item)crudeKnightsArmourFactory.CreateTorsoArmour();
 var crudeKnightsLegsArmour = (Item)crudeKnightsArmourFactory.CreateLegsArmour();
+
+// creating concrete armour items for Circus Acrobat armour set
+var circusAcrobatHelmet = (Item)circusAcrobatArmourFactory.CreateHeadArmour();
+var circusAcrobatTorsoArmour = (Item)circusAcrobatArmourFactory.CreateTorsoArmour();
+var circusAcrobatLegsArmour = (Item)circusAcrobatArmourFactory.CreateLegsArmour();
 
 // creating set up for leather armour set and its perk
 var leatherArmourSet = new ArmourSet("Leather");
@@ -190,6 +197,12 @@ var increaseDefensePerk = new IncreaseDefensePerk(10);
 CrudeKnightsArmourSet.AddPerk(increaseDefensePerk);
 armourSetManager.RegisterSet(CrudeKnightsArmourSet);
 
+// creating set up for Circus Acrobat armour set and its perk
+var CircusAcrobatArmourSet = new ArmourSet("CircusAcrobat");
+var increaseBlockingDamageChancePerk = new IncreaseBlockingDamageChancePerk(0.80);
+CircusAcrobatArmourSet.AddPerk(increaseBlockingDamageChancePerk);
+armourSetManager.RegisterSet(CircusAcrobatArmourSet);
+
 
 // creating room builder
 RoomBuilder builder = new RoomBuilder(0, 0);
@@ -197,7 +210,7 @@ RoomBuilder builder = new RoomBuilder(0, 0);
 // rooms setup
 Room room0 = builder
     .SetDescription("The first room")
-    .AddItem(crudeKnightsTorsoArmour)
+    .AddItem(circusAcrobatHelmet)
     .Build();
 
 Room room1 = new RoomBuilder(0, 1)
@@ -207,12 +220,12 @@ Room room1 = new RoomBuilder(0, 1)
 
 Room room2 = new RoomBuilder(1, 0)
     .SetDescription("The third room")
-    .AddItem(crudeKnightsHelmet)
+    .AddItem(circusAcrobatTorsoArmour)
     .Build();
 
 Room room3 = new RoomBuilder(2, 0)
     .SetDescription("The fourth room")
-    .AddItem(crudeKnightsLegsArmour)
+    .AddItem(circusAcrobatLegsArmour)
     .Build();
 
 // adding rooms to the room checker
