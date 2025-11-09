@@ -3,8 +3,8 @@ public class Room
 {
     private int xcoordinate;
     private int ycoordinate;
-    private string description;
-    private Item item;
+    private string? description;
+    private Item? item;
     public int Xcoordinate
     {
         get { return xcoordinate; }
@@ -15,12 +15,12 @@ public class Room
         get { return ycoordinate; }
         set { ycoordinate = value; }
     }
-    public string Description
+    public string? Description
     {
         get { return description; }
         set { description = value; }
     }
-    public Item Item
+    public Item? Item
     {
         get { return item; }
         set { item = value; }

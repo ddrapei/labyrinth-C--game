@@ -1,7 +1,10 @@
+namespace PlayerDisplay;
+
+
 using Pastel;
 
 // method to display stats of the player
-public class PlayerStatsDisplay : IPlayerStatsDisplay
+public class PlayerStatsDisplay : IPlayerDisplay
 {
     public void Display()
     {

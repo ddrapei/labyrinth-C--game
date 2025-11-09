@@ -11,6 +11,7 @@ using Items.Armour.LeatherArmourSet;
 using Items.Armour.CrudeKnightsArmourSet;
 using Items.Potions;
 using Perks;
+using PlayerDisplay;
 
 using Pastel;
 
@@ -58,6 +59,7 @@ var exitGameCommand = new ExitGameCommand(game);
 
 
 var PlayerStatsDisplay = new PlayerStatsDisplay();
+var PlayerEquippedDisplay = new PlayerEquippedDisplay();
 
 // creates commands for player movement
 var moveDown = new MoveDownCommand(player);
@@ -74,6 +76,7 @@ var closeInventoryCommand = new CloseInventoryCommand(InputManager, insideInvent
 
 // display stats command
 var displayStatsCommand = new DisplayStatsCommand(PlayerStatsDisplay);
+var displayEquippedCommand = new DisplayEquippedCommand(PlayerEquippedDisplay);
 
 // registers start game command with its observer 
 mainMenuObserver.AddCommand("start", startGameCommand);
@@ -88,6 +91,7 @@ gameHandlerObserver.AddCommand("finish", exitGameCommand);
 
 // display stats
 gameHandlerObserver.AddCommand("stats", displayStatsCommand);
+gameHandlerObserver.AddCommand("equipped", displayEquippedCommand);
 
 
 // registers movement commands
@@ -123,6 +127,7 @@ unknownCommandObserver.RegisterValidCommand("move down");
 unknownCommandObserver.RegisterValidCommand("move left");
 unknownCommandObserver.RegisterValidCommand("move right");
 unknownCommandObserver.RegisterValidCommand("stats");
+unknownCommandObserver.RegisterValidCommand("equipped");
 unknownCommandObserver.RegisterValidCommand("inventory");
 unknownCommandObserver.RegisterValidCommand("inv");
 unknownCommandObserver.RegisterValidCommand("i");
