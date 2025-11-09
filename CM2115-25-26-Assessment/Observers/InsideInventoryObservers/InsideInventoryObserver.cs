@@ -22,39 +22,84 @@ public class InsideInventoryObserver : IGameObserver
 
     public void Update(string commandString)
     {
-        // Check if it's a registered command
-        if (commands.ContainsKey(commandString))
+        // 
+        var (command, parameter) = ParseInput(commandString);
+
+        // check for register commands that consist from 1 word
+        if (commands.ContainsKey(command))
         {
-            commands[commandString].Execute();
+            commands[command].Execute();
             return;
         }
         
-        // Handle equipping from the inventory
-        if (commandString.StartsWith("equip "))
+        if (command == "use")
         {
-            string itemIdentifier = commandString.Substring(6).Trim();
-            EquipItemCommand equipCommand = new EquipItemCommand(itemIdentifier);
+            if (string.IsNullOrEmpty(parameter))
+            {
+                Console.WriteLine("Use <item number or name>");
+                return;
+            }
+            
+            UsePotionCommand useCommand = new UsePotionCommand(parameter);
+            useCommand.Execute();
+            return;
+        }
+        
+        if (command == "equip")
+        {
+            if (string.IsNullOrEmpty(parameter))
+            {
+                Console.WriteLine("Equip <item number or name>");
+                return;
+            }
+            
+            EquipItemCommand equipCommand = new EquipItemCommand(parameter);
             equipCommand.Execute();
             return;
         }
 
-        // Handle "drop number" or "drop item name"
-        // Example: drop 1 or drop Lether Helmet
-        if (commandString.StartsWith("drop "))
+        if (command == "drop")
         {
-            // Substring(5) - skips drop and space after it
-            // itemIdentifier stores either only number of the item or the item name
-            string itemIdentifier = commandString.Substring(5).Trim();
-            DropItemCommand dropCommand = new DropItemCommand(itemIdentifier);
+            if (string.IsNullOrEmpty(parameter))
+            {
+                Console.WriteLine("Drop <item number or name>");
+                return;
+            }
+
+            DropItemCommand dropCommand = new DropItemCommand(parameter);
             dropCommand.Execute();
             return;
+        }    
+        
+        // Unknown command
+        Console.WriteLine("Unknown inventory command: " + commandString + "."); 
+        Console.WriteLine();
+        Console.WriteLine("Available inventory commands:");
+        Console.WriteLine("use <item number or name>");
+        Console.WriteLine("equip <item number or name>");
+        Console.WriteLine("drop <item number or name>");
+        Console.WriteLine("close");
+    }
+
+
+    private (string command, string parameter) ParseInput(string input)
+    {
+        string trimmedInput = input.Trim();
+        
+        // saves the number of the first space (the index of the first space)
+        int firstSpaceIndex = trimmedInput.IndexOf(' ');
+
+        if (firstSpaceIndex == -1)
+        {
+            // No space found 
+            return (trimmedInput.ToLower(), "");
         }
         
-        // Unknown command (those are shown now in the case of not valid input)
-        Console.WriteLine("Unknown inventory command: " + commandString + "."); 
-        Console.WriteLine("Inventory commands:");
-        Console.WriteLine("drop <number of the item> or drop <the name of the item>");
-        Console.WriteLine("close");
 
+        // splits string into 2 parts using that firstSpaceIndex 
+        string command = trimmedInput.Substring(0, firstSpaceIndex).ToLower();
+        string parameter = trimmedInput.Substring(firstSpaceIndex + 1).ToLower().Trim();
+        
+        return (command, parameter);
     }
 }

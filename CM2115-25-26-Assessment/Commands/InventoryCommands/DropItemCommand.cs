@@ -32,43 +32,7 @@ public class DropItemCommand : PlayerCommand
             return;
         }
 
-        Item item = null;
-
-
-        // returns true if input is a number
-        bool isNumeric = true;
-        foreach (char c in itemIdentifier)
-        {
-            if (!char.IsDigit(c))
-            {
-                isNumeric = false;
-                break;
-            }
-        }
-
-        // checks input for the number first
-        if (isNumeric && itemIdentifier.Length > 0)
-        {
-            int itemNumber = int.Parse(itemIdentifier);
-            item = player.Inventory.GetItemByNumber(itemNumber);
-
-            if (item == null)
-            {
-                Console.WriteLine("You don't have the item with that number");
-                return;
-            }
-        }
-        else
-        {
-            // checks input for the item name after
-            item = player.Inventory.GetItemByName(itemIdentifier);
-
-            if (item == null)
-            {
-                Console.WriteLine("You don't have " + itemIdentifier + " in your invenotory");
-                return;
-            }
-        }
+        Item item = InventoryChecker.FindItemInInventory(player, itemIdentifier);
 
         if (player.Inventory.DropItem(item))
         {

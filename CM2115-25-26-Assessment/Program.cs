@@ -9,6 +9,7 @@ using Items;
 using Items.Armour;
 using Items.Armour.LeatherArmourSet;
 using Items.Armour.CrudeKnightsArmourSet;
+using Items.Potions;
 using Perks;
 
 using Pastel;
@@ -55,6 +56,9 @@ var startGameCommand = new StartGameCommand(game, InputManager, mainMenuObserver
 // command to exit the game
 var exitGameCommand = new ExitGameCommand(game);
 
+
+var PlayerStatsDisplay = new PlayerStatsDisplay();
+
 // creates commands for player movement
 var moveDown = new MoveDownCommand(player);
 var moveUp = new MoveUpCommand(player);
@@ -68,6 +72,9 @@ var openInventoryCommand = new OpenInventoryCommand(InputManager, insideInventor
 // creates commands for inside inventory (for when inventory is open)
 var closeInventoryCommand = new CloseInventoryCommand(InputManager, insideInventoryObserver, insideInventoryUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver, unknownCommandObserver);
 
+// display stats command
+var displayStatsCommand = new DisplayStatsCommand(PlayerStatsDisplay);
+
 // registers start game command with its observer 
 mainMenuObserver.AddCommand("start", startGameCommand);
 mainMenuObserver.AddCommand("start game", startGameCommand);
@@ -78,6 +85,9 @@ mainMenuObserver.AddCommand("exit", exitGameCommand);
 gameHandlerObserver.AddCommand("exit", exitGameCommand);
 gameHandlerObserver.AddCommand("exit game", exitGameCommand);
 gameHandlerObserver.AddCommand("finish", exitGameCommand);
+
+// display stats
+gameHandlerObserver.AddCommand("stats", displayStatsCommand);
 
 
 // registers movement commands
@@ -98,6 +108,7 @@ inventoryObserver.AddCommand("i", openInventoryCommand);
 insideInventoryObserver.AddCommand("close", closeInventoryCommand);
 insideInventoryObserver.AddCommand("exit", closeInventoryCommand);
 
+
 // registers valid commands with the unknown command observer in the main menu
 mainMenuUnknownCommandObserver.RegisterValidCommand("start");
 mainMenuUnknownCommandObserver.RegisterValidCommand("start game");
@@ -111,6 +122,7 @@ unknownCommandObserver.RegisterValidCommand("move up");
 unknownCommandObserver.RegisterValidCommand("move down");
 unknownCommandObserver.RegisterValidCommand("move left");
 unknownCommandObserver.RegisterValidCommand("move right");
+unknownCommandObserver.RegisterValidCommand("stats");
 unknownCommandObserver.RegisterValidCommand("inventory");
 unknownCommandObserver.RegisterValidCommand("inv");
 unknownCommandObserver.RegisterValidCommand("i");
@@ -119,6 +131,7 @@ unknownCommandObserver.RegisterValidCommand("pick up");
 // registers valid commands with the unknown command observer in the inventory
 insideInventoryUnknownCommandObserver.RegisterValidCommand("equip");
 insideInventoryUnknownCommandObserver.RegisterValidCommand("drop");
+insideInventoryUnknownCommandObserver.RegisterValidCommand("use"); 
 insideInventoryUnknownCommandObserver.RegisterValidCommand("close");
 
 // observers that are required to start the game
@@ -128,6 +141,9 @@ InputManager.AddObserver(mainMenuObserver);
 
 // weapons
 var spoon_with_a_hole = new Weapon("Spoon with a hole", 3);
+
+// potions
+var small_healing_potion = new HealingPotion("Small Healing Potion", 10);
 
 // shields
 var buckler = new Shield("Buckler", 0.1);
@@ -173,7 +189,7 @@ RoomBuilder builder = new RoomBuilder(0, 0);
 // rooms setup
 Room room0 = builder
     .SetDescription("The first room")
-    .AddItem(crudeKnightsTorsoArmour)
+    .AddItem(small_healing_potion)
     .Build();
 
 Room room1 = new RoomBuilder(0, 1)

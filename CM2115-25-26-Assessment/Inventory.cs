@@ -55,6 +55,18 @@ public class Inventory
         return false;
     }
 
+    // removes item from the inventory
+    public bool RemoveItem(Item item)
+    {
+        if (items.Contains(item))
+        {
+            items.Remove(item);
+            return true;
+        }
+
+        return false;
+    }
+
     public bool HasItem(Item item)
     {
         return items.Contains(item);

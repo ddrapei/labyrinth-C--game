@@ -1,6 +1,7 @@
 using System.Data.Common;
 using Items;
 using Items.Armour;
+using Items.Potions;
 
 using Pastel;
 // Singleton player class that represents the only one player in the game
@@ -34,7 +35,7 @@ public class Player
     private IHeadArmour? headArmourEquipped;
     private ITorsoArmour? torsoArmourEquipped;
     private ILegsArmour? legsArmourEquipped;
-    private Inventory inventory;
+    private Inventory? inventory;
 
     public int Health
     {
@@ -345,6 +346,27 @@ public class Player
         this.defense += ((Armour)legsArmour).Defense;
         Console.WriteLine("Your defense now is: " + this.Defense.ToString().Pastel("#1900ff"));
         ArmourSetManager.GetInstance().CheckAndUpdateSetBonuses(this);
+        return true;
+    }
+
+    // method to use healing potion
+    public bool UseHealingPotion(HealingPotion healingPotion)
+    {
+        this.health = this.health + healingPotion.HealingPower;
+        if (this.health <= 0)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("You have used " + healingPotion.Name.Pastel("#7CFC00") + " and it was a " + "DEADLY POISON".Pastel("#fc0303") + "!");
+            Console.WriteLine("Your heart stopped beating");
+            Console.WriteLine("");
+        }
+        else
+        {
+            Console.WriteLine("");
+            Console.WriteLine("You have used " + healingPotion.Name.Pastel("#7CFC00") + ", your health is increased by " + healingPotion.HealingPower.ToString().Pastel("#7CFC00"));
+            Console.WriteLine("Your health is " + this.health.ToString().Pastel("#7CFC00"));
+            Console.WriteLine("");
+        }
         return true;
     }
 }

@@ -18,91 +18,69 @@ public class EquipItemCommand : PlayerCommand
 
         if (string.IsNullOrEmpty(itemIdentifier))
         {
-            Console.WriteLine("Enter a command to use your inventory");
-            Console.WriteLine("drop <item number>, equip <item number>");
+            Console.WriteLine("Use, equip or drop <item number or name>");
+            Console.WriteLine("Example: equip 1, equip item with index 1");
             return;
         }
 
         Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
 
-        // currently there can be only one item in the room
+        // 
         if (currentRoom.Item != null)
         {
             Console.WriteLine("There is already an item in the room.");
-            Console.WriteLine("Find another item to drop your item.");
+            Console.WriteLine("Find another room to drpop your equipment.");
             return;
         }
 
-        Item item = null;
 
-
-        // returns true if input is a number
-        bool isNumeric = true;
-        foreach (char c in itemIdentifier)
-        {
-            if (!char.IsDigit(c))
-            {
-                isNumeric = false;
-                break;
-            }
-        }
-
-        if (isNumeric)
-        {
-            if (int.TryParse(itemIdentifier, out int itemNumber))
-            {
-                item = player.Inventory.GetItemByNumber(itemNumber);
-            }
-        }
-        else
-        {
-            item = player.Inventory.GetItemByName(itemIdentifier);
-        }
+        Item item = InventoryChecker.FindItemInInventory(player, itemIdentifier);
 
         if (item == null)
         {
-            Console.WriteLine("Could not find item " + itemIdentifier + " in your inventory.");
+            Console.WriteLine("Could not find item '" + itemIdentifier + "' in your inventory.");
             return;
         }
 
-        // Equipping different items based on the type
+        // Equip the item based on its type
+        bool equipped = EquipItem(player, item);
+
+        // remove from inventory and display updated inventory if equipped successfully
+        if (equipped)
+        {
+            player.Inventory.RemoveItem(item);
+            player.Inventory.DisplayInventory();
+        }
+    }
+
+    private bool EquipItem(Player player, Item item)
+    {
+        // different items to equip
         if (item is Weapon weapon)
         {
-            player.EquipWeapon(weapon);
-            player.Inventory.DropItem(item);
-            player.Inventory.DisplayInventory();
-
+            return player.EquipWeapon(weapon);
         }
         else if (item is Shield shield)
         {
-            player.EquipShield(shield);
-            player.Inventory.DropItem(item);
-            player.Inventory.DisplayInventory();
+            return player.EquipShield(shield);
         }
         else if (item is IHeadArmour headArmour)
         {
-            player.EquipHeadArmour(headArmour);
-            player.Inventory.DropItem(item);
-            player.Inventory.DisplayInventory();
-
+            return player.EquipHeadArmour(headArmour);
         }
         else if (item is ITorsoArmour torsoArmour)
         {
-            player.EquipTorsoArmour(torsoArmour);
-            player.Inventory.DropItem(item);
-            player.Inventory.DisplayInventory();
-
+            return player.EquipTorsoArmour(torsoArmour);
         }
         else if (item is ILegsArmour legsArmour)
         {
-            player.EquipLegsArmour(legsArmour);
-            player.Inventory.DropItem(item);
-            player.Inventory.DisplayInventory();
-
+            return player.EquipLegsArmour(legsArmour);
         }
         else
         {
-            Console.WriteLine("Can not equip the item");
+            Console.WriteLine("Cannot equip '" + item.Name + "' - this is not an equippable item.");
+            Console.WriteLine("Try 'use <item>' for consumables like potions.");
+            return false;
         }
     }
 }
