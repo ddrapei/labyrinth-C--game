@@ -1,10 +1,13 @@
 ﻿using Observers;
 using Observers.MainMenuObservers;
 using Observers.InsideInventoryObservers;
+using Observers.CombatObservers;
 using Commands;
+using Commands.DisplayCommands;
 using Commands.MainMenuCommands;
 using Commands.MoveCommands;
 using Commands.InventoryCommands;
+using Commands.CombatCommands;
 using Items;
 using Items.Armour;
 using Items.Armour.LeatherArmourSet;
@@ -49,6 +52,12 @@ var insideInventoryObserver = new InsideInventoryObserver(game);
 // handles uknown commands inside inventory (when inventory is open)
 var insideInventoryUnknownCommandObserver = new InsideInventoryUnknownCommandObserver(game);
 
+// handles combat commands
+var combatObserver = new CombatObserver(game);
+
+// handles unknown commands during combat
+var combatUnknownCommandObserver = new CombatUnknownCommandObserver(game);
+
 // handles unknown commands
 var unknownCommandObserver = new UnknownCommandObserver(game);
 
@@ -81,6 +90,11 @@ var closeInventoryCommand = new CloseInventoryCommand(InputManager, insideInvent
 var displayStatsCommand = new DisplayStatsCommand(playerStatsDisplay);
 var displayEquippedCommand = new DisplayEquippedCommand(playerEquippedDisplay);
 
+// creates combat commands
+var attackCommand = new AttackCommand(game, InputManager, combatObserver, combatUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver, unknownCommandObserver);
+var runAwayCommand = new RunAwayCommand(InputManager, combatObserver, combatUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver, unknownCommandObserver);
+var fightCommand = new FightCommand(game, InputManager, combatObserver, combatUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver, unknownCommandObserver);
+
 // registers start game command with its observer 
 mainMenuObserver.AddCommand("start", startGameCommand);
 mainMenuObserver.AddCommand("start game", startGameCommand);
@@ -97,6 +111,9 @@ gameHandlerObserver.AddCommand("stats", displayStatsCommand);
 gameHandlerObserver.AddCommand("equipped", displayEquippedCommand);
 gameHandlerObserver.AddCommand("look around", lookAround);
 
+// fight command
+gameHandlerObserver.AddCommand("fight", fightCommand);
+gameHandlerObserver.AddCommand("attack", fightCommand);
 
 // registers movement commands
 gameCommandMoveObserver.AddCommand("move up", moveUp);
@@ -115,6 +132,12 @@ inventoryObserver.AddCommand("i", openInventoryCommand);
 // registers inside inventory commands (work when inventory is open)
 insideInventoryObserver.AddCommand("close", closeInventoryCommand);
 insideInventoryObserver.AddCommand("exit", closeInventoryCommand);
+
+// registers combat commands
+combatObserver.AddCommand("attack", attackCommand);
+combatObserver.AddCommand("run", runAwayCommand);
+combatObserver.AddCommand("flee", runAwayCommand);
+combatObserver.AddCommand("escape", runAwayCommand);
 
 
 // registers valid commands with the unknown command observer in the main menu
@@ -136,12 +159,21 @@ unknownCommandObserver.RegisterValidCommand("inventory");
 unknownCommandObserver.RegisterValidCommand("inv");
 unknownCommandObserver.RegisterValidCommand("i");
 unknownCommandObserver.RegisterValidCommand("pick up");
+unknownCommandObserver.RegisterValidCommand("fight");
+unknownCommandObserver.RegisterValidCommand("attack");
+unknownCommandObserver.RegisterValidCommand("look around");
 
 // registers valid commands with the unknown command observer in the inventory
 insideInventoryUnknownCommandObserver.RegisterValidCommand("equip");
 insideInventoryUnknownCommandObserver.RegisterValidCommand("drop");
 insideInventoryUnknownCommandObserver.RegisterValidCommand("use"); 
 insideInventoryUnknownCommandObserver.RegisterValidCommand("close");
+
+// registers valid commands with the unknown command observer during combat
+combatUnknownCommandObserver.RegisterValidCommand("attack");
+combatUnknownCommandObserver.RegisterValidCommand("run");
+combatUnknownCommandObserver.RegisterValidCommand("flee");
+combatUnknownCommandObserver.RegisterValidCommand("escape");
 
 // observers that are required to start the game
 InputManager.AddObserver(mainMenuUnknownCommandObserver);
@@ -203,7 +235,8 @@ var increaseBlockingDamageChancePerk = new IncreaseBlockingDamageChancePerk(0.80
 CircusAcrobatArmourSet.AddPerk(increaseBlockingDamageChancePerk);
 armourSetManager.RegisterSet(CircusAcrobatArmourSet);
 
-
+// enemys
+Enemy wild_boar = new Enemy("Wild Boar", 20, 5, 2, 10);
 // creating room builder
 RoomBuilder builder = new RoomBuilder(0, 0);
 
@@ -216,6 +249,7 @@ Room room0 = builder
 Room room1 = new RoomBuilder(0, 1)
     .SetDescription("The second room")
     .AddItem(spoon_with_a_hole)
+    .AddEnemy(wild_boar)
     .Build();
 
 Room room2 = new RoomBuilder(1, 0)

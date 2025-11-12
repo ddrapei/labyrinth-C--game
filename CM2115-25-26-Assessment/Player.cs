@@ -26,10 +26,13 @@ public class Player
     private int health;
     private int xcoordinate;
     private int ycoordinate;
+    private int previousXcoordinate;
+    private int previousYcoordinate;
     private int defense;
     private int baseAttackPower;
     private int attackPower;
     private double blockingDamageChance;
+    private int experience;
     private Weapon? weaponEquipped;
     private Shield? shieldEquipped;
     private IHeadArmour? headArmourEquipped;
@@ -59,7 +62,7 @@ public class Player
         get { return defense; }
         set { defense = value; }
     }
-    public int BaseAtttackPower
+    public int BaseAttackPower
     {
         get { return baseAttackPower; }
         set { baseAttackPower = value; }
@@ -74,27 +77,32 @@ public class Player
         get { return blockingDamageChance; }
         set { blockingDamageChance = value; }
     }
-    public Weapon WeaponEquiped
+    public int Experience
+    {
+        get { return experience; }
+        set { experience = value; }
+    }
+    public Weapon? WeaponEquiped
     {
         get { return weaponEquipped; }
         set { weaponEquipped = value; }
     }
-    public Shield ShieldEquipped
+    public Shield? ShieldEquipped
     {
         get { return shieldEquipped; }
         set { shieldEquipped = value; }
     }
-    public IHeadArmour HeadArmourEquipped
+    public IHeadArmour? HeadArmourEquipped
     {
         get { return headArmourEquipped; }
         set { headArmourEquipped = value; }
     }
-    public ITorsoArmour TorsoArmourEquipped
+    public ITorsoArmour? TorsoArmourEquipped
     {
         get { return torsoArmourEquipped; }
         set { torsoArmourEquipped = value; }
     }
-    public ILegsArmour LegsArmourEquipped
+    public ILegsArmour? LegsArmourEquipped
     {
         get { return legsArmourEquipped; }
         set { legsArmourEquipped = value; }
@@ -111,10 +119,13 @@ public class Player
         this.health = health;
         this.xcoordinate = xcoordinate;
         this.ycoordinate = ycoordinate;
+        this.previousXcoordinate = xcoordinate;
+        this.previousYcoordinate = ycoordinate;
         this.defense = 0;
         this.baseAttackPower = 1;
         this.attackPower = 1;
         this.blockingDamageChance = 0.00;
+        this.experience = 0;
         this.weaponEquipped = null;
         this.shieldEquipped = null;
         this.headArmourEquipped = null;
@@ -123,9 +134,31 @@ public class Player
         this.inventory = new Inventory(10);
     }
 
+    // method to store previous position (for running away from combat)
+    public void StorePreviousPosition()
+    {
+        previousXcoordinate = xcoordinate;
+        previousYcoordinate = ycoordinate;
+    }
+
+    // method to move to previous position (when running away)
+    public bool MoveToPreviousPosition()
+    {
+        if (RoomChecker.GetInstance().doesRoomExist(previousXcoordinate, previousYcoordinate))
+        {
+            xcoordinate = previousXcoordinate;
+            ycoordinate = previousYcoordinate;
+            return true;
+        }
+        return false;
+    }
+
     // methods for player movement
     public void MoveUp()
     {
+        // Store current position before moving
+        StorePreviousPosition();
+
         // new coordinate is created and added
         int newYcoordinate = ycoordinate + 1;
 
@@ -147,12 +180,13 @@ public class Player
 
     public void MoveDown()
     {
+        StorePreviousPosition();
         int newYcoordinate = ycoordinate - 1;
 
         if (RoomChecker.GetInstance().doesRoomExist(xcoordinate, newYcoordinate))
         {
             ycoordinate = newYcoordinate;
-            Console.WriteLine($"Player moved up. Current position: ({xcoordinate}, {ycoordinate})");
+            Console.WriteLine($"Player moved down. Current position: ({xcoordinate}, {ycoordinate})");
             RoomChecker.GetInstance().DisplayCurrentRoom(this);
         }
         else
@@ -163,12 +197,13 @@ public class Player
 
     public void MoveLeft()
     {
+        StorePreviousPosition();
         int newXcoordinate = xcoordinate - 1;
 
         if (RoomChecker.GetInstance().doesRoomExist(newXcoordinate, ycoordinate))
         {
             xcoordinate = newXcoordinate;
-            Console.WriteLine($"Player moved up. Current position: ({xcoordinate}, {ycoordinate})");
+            Console.WriteLine($"Player moved left. Current position: ({xcoordinate}, {ycoordinate})");
             RoomChecker.GetInstance().DisplayCurrentRoom(this);
         }
         else
@@ -178,12 +213,13 @@ public class Player
     }
     public void MoveRight()
     {
+        StorePreviousPosition();
         int newXcoordinate = xcoordinate + 1;
 
         if (RoomChecker.GetInstance().doesRoomExist(newXcoordinate, ycoordinate))
         {
             xcoordinate = newXcoordinate;
-            Console.WriteLine($"Player moved up. Current position: ({xcoordinate}, {ycoordinate})");
+            Console.WriteLine($"Player moved right. Current position: ({xcoordinate}, {ycoordinate})");
             RoomChecker.GetInstance().DisplayCurrentRoom(this);
         }
         else
@@ -242,7 +278,7 @@ public class Player
         {
             this.shieldEquipped = shield;
             this.blockingDamageChance = shield.BlockingDamageChance;
-            Console.WriteLine("Your blocking change now is: " + this.AttackPower.ToString().Pastel("#00e5ff"));
+            Console.WriteLine("Your blocking change now is: " + this.BlockingDamageChance.ToString().Pastel("#00e5ff"));
             return true;
         }
     }

@@ -5,6 +5,7 @@ public class Room
     private int ycoordinate;
     private string? description;
     private Item? item;
+    private Enemy? enemy;
     public int Xcoordinate
     {
         get { return xcoordinate; }
@@ -26,6 +27,12 @@ public class Room
         set { item = value; }
     }
 
+    public Enemy? Enemy
+    {
+        get { return enemy; }
+        set { enemy = value; }
+    }
+
     // --- Constructor --- 
     public Room(RoomBuilder builder)
     {
@@ -33,5 +40,6 @@ public class Room
         this.ycoordinate = builder.Ycoordinate;
         this.description = builder.Description;
         this.item = builder.Item;
+        this.enemy = builder.Enemy;
     }
 }

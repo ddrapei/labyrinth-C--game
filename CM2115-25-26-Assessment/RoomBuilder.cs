@@ -5,6 +5,7 @@ public class RoomBuilder
     private int ycoordinate;
     private string? description;
     private Item? item;
+    private Enemy? enemy;
 
     public int Xcoordinate
     {
@@ -27,6 +28,13 @@ public class RoomBuilder
         get { return item; }
         set { item = value; }
     }
+    public Enemy? Enemy
+    {
+        get { return enemy; }
+        set { enemy = value; }
+    }
+
+    
 
     // --- Constructor ---
     public RoomBuilder(int xcoordinate, int ycoordinate)
@@ -42,9 +50,9 @@ public class RoomBuilder
         this.Description = description;
         return this;
     }
-    public RoomBuilder AddEnemy()
+    public RoomBuilder AddEnemy(Enemy enemy)
     {
-        // logic to add enemy to the room
+        this.Enemy = enemy;
         return this;
     }
     public RoomBuilder AddItem(Item item)

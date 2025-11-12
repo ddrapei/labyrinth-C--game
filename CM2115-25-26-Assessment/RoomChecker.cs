@@ -42,7 +42,7 @@ public class RoomChecker
                 return room;
             }
         }
-        return null; // returns null if the room wasn't found at the given coordinates
+        return null; // returns null if there is no room with those coordinates
     }
 
     // method get current room from player's coordinates
@@ -57,7 +57,7 @@ public class RoomChecker
         return GetRoom(xcoordinate, ycoordinate) != null;
     }
 
-    // method to display current room's description and items (for now)
+    // method to display current room's description, enemyes and puzzles in the future
     public void DisplayCurrentRoom(Player player)
     {
         Room currentRoom = GetCurrentRoom(player);
@@ -83,9 +83,11 @@ public class RoomChecker
                     Console.WriteLine("You see an item here: " + currentRoom.Item.Name.Pastel("#ffa200"));
                 }
             }
-            else
+
+            if (currentRoom.Enemy != null && !currentRoom.Enemy.IsDead())
             {
-                Console.WriteLine("There is no room at your current location.");
+                Console.WriteLine("The enemy is here: " + currentRoom.Enemy.Name.Pastel("#ff00ff"));
+                Console.WriteLine("Fight - to fight the enemy");
             }
         }
     }
