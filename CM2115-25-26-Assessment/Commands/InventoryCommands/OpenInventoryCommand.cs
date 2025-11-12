@@ -42,8 +42,10 @@ public class OpenInventoryCommand : PlayerCommand
 
         // displays inventory
         player.Inventory.DisplayInventory();
-        Console.WriteLine("Commands: drop <number>, close");
-        
-
+        Console.WriteLine("Commands:");
+        Console.WriteLine("drop <number>");
+        Console.WriteLine("equip <number>");
+        Console.WriteLine("use <number>");
+        Console.WriteLine("close");
     }
 }

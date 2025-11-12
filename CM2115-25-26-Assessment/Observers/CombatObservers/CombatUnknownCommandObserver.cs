@@ -23,7 +23,9 @@ public class CombatUnknownCommandObserver : IGameObserver
     {
         if (!validCommands.Contains(command))
         {
-             Console.WriteLine("Unknown command: "  + command + ".");
+            Console.WriteLine("Unknown command: " + command.Pastel("#ff000d") + ".");
+            Console.WriteLine("Use: " + "attack ".Pastel("#a3101d") + "- to attack the enemy");
+            Console.WriteLine("Or " + "run ".Pastel("#30a310") + "- to try to escape the combat");
         }
     }
 }

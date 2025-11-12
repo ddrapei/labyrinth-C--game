@@ -16,6 +16,7 @@ public class PlayerStatsDisplay : IPlayerDisplay
         Console.WriteLine("Defense: : " + player.Defense.ToString().Pastel("#1900ff"));
         Console.WriteLine("Attack Power: " + player.AttackPower.ToString().Pastel("#fc030f"));
         Console.WriteLine("Blocking Chance: " + (player.BlockingDamageChance * 100).ToString().Pastel("#00e5ff") + "%".Pastel("#00e5ff"));
+        Console.WriteLine("Experience: " + player.Experience.ToString().Pastel("#00fc08") + " Exp".Pastel("#00fc08"));
         Console.WriteLine("Position: " + player.Xcoordinate + " : " + player.Ycoordinate);
         Console.WriteLine();
     }

@@ -182,6 +182,7 @@ InputManager.AddObserver(mainMenuObserver);
 
 // weapons
 var spoon_with_a_hole = new Weapon("Spoon with a hole", 3);
+Weapon rusty_sword = new Weapon("Rusty Sword", 7);  
 
 // potions
 var small_healing_potion = new HealingPotion("Small Healing Potion", 10);
@@ -243,7 +244,7 @@ RoomBuilder builder = new RoomBuilder(0, 0);
 // rooms setup
 Room room0 = builder
     .SetDescription("The first room")
-    .AddItem(circusAcrobatHelmet)
+    .AddItem(rusty_sword)
     .Build();
 
 Room room1 = new RoomBuilder(0, 1)
