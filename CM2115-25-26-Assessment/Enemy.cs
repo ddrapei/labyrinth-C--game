@@ -1,11 +1,12 @@
 using Pastel;
 
-public class Enemy
+public class Enemy : IPerceptible
 {
     private string name;
     private int health;
     private int attackPower;
     private int defense;
+    private double perception;
     private int expReward;
 
     public string Name
@@ -28,18 +29,24 @@ public class Enemy
         get { return defense; }
         set { defense = value; }
     }
+    public double Perception
+    {
+        get { return perception; }
+        set { perception = value; }
+    }
     public int ExpReward
     {
         get { return expReward; }
         set { expReward = value; }
     }
 
-    public Enemy(string name, int health, int attackPower, int defense, int expReward)
+    public Enemy(string name, int health, int attackPower, int defense, double perception, int expReward)
     {
         this.name = name;
         this.health = health;
         this.attackPower = attackPower;
         this.defense = defense;
+        this.perception = perception;
         this.expReward = expReward;
     }
 
@@ -68,6 +75,11 @@ public class Enemy
         }
     }
 
+    public void NoticePlayer()
+    {
+        Console.WriteLine($"{this.Name} has noticed you!");
+    }
+
     public void AttackPlayer()
     {
         Player player = Player.GetInstance();
@@ -80,6 +92,11 @@ public class Enemy
 
         player.Health -= damage;
         Console.WriteLine($"{this.Name} deals {damage.ToString().Pastel("#990000")} damage! You have {player.Health.ToString().Pastel("#126b00")} HP left.");
+    }
+
+    public double DicePerception()
+    {
+        return new Random().NextDouble();
     }
 
     public bool IsDead()
