@@ -269,6 +269,14 @@ Room room3 = new RoomBuilder(2, 0)
     .AddItem(circusAcrobatLegsArmour)
     .Build();
 
+Room room4 = new RoomBuilder(0, -1)
+    .SetDescription("The fifth room")
+    .Build();
+
+Room room5 = new RoomBuilder(-1, 0)
+    .SetDescription("The sixth room")
+    .Build();   
+
 // adding rooms to the room checker
 roomChecker.AddRoom(room0);
 roomChecker.AddRoom(room1);
