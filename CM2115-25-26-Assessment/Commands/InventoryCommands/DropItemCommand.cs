@@ -35,6 +35,12 @@ public class DropItemCommand : PlayerCommand
 
         Item? item = InventoryChecker.FindItemInInventory(player, itemIdentifier);
 
+        if (item == null)
+        {
+            Console.WriteLine("Item not found in inventory.");
+            return;
+        }
+
         if (player.Inventory.DropItem(item))
         {
             currentRoom.Item = item; // puts item in the room
