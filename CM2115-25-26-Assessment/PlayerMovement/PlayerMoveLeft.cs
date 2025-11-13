@@ -9,7 +9,7 @@ public class PlayerMoveLeft : IMoveBehavior
 {
     public void Move(Player player)
     {
-        player.StorePreviousPosition();
+        player.StorePreviousPosition.StorePosition(player);
         int newXcoordinate = player.Xcoordinate - 1;
 
         if (RoomChecker.GetInstance().doesRoomExist(newXcoordinate, player.Ycoordinate))

@@ -10,7 +10,7 @@ public class PlayerMoveDown : IMoveBehavior
     public void Move(Player player)
     {
 
-        player.StorePreviousPosition();
+        player.StorePreviousPosition.StorePosition(player);
         int newYcoordinate = player.Ycoordinate - 1;
 
         if (RoomChecker.GetInstance().doesRoomExist(player.Xcoordinate, newYcoordinate))

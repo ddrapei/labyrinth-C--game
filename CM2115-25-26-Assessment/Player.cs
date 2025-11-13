@@ -45,6 +45,7 @@ public class Player : IMoveBehavior
     private IMoveBehavior moveDownBehavior;
     private IMoveBehavior moveLeftBehavior;
     private IMoveBehavior moveRightBehavior;
+    private ITrackPosition storePreviousPosition;
 
     public int Health
     {
@@ -153,6 +154,11 @@ public class Player : IMoveBehavior
         get { return moveRightBehavior; }
         set { moveRightBehavior = value; }
     }
+    public ITrackPosition StorePreviousPosition
+    {
+        get { return storePreviousPosition; }
+        set { storePreviousPosition = value; }
+    }
 
 
     // --- Constructor ---
@@ -180,20 +186,14 @@ public class Player : IMoveBehavior
         this.moveDownBehavior = new PlayerMoveDown();
         this.moveLeftBehavior = new PlayerMoveLeft();
         this.moveRightBehavior = new PlayerMoveRight();
+        this.storePreviousPosition = new StorePreviousPosition();
     }
 
 
     public void Move(Player player)
     {
-        // default move method for composition
     }
 
-    // method to store previous position (for running away from combat)
-    public void StorePreviousPosition()
-    {
-        this.PreviousXcoordinate = xcoordinate;
-        this.PreviousYcoordinate = ycoordinate;
-    }
 
     // method to move to previous position (when running away)
     public bool MoveToPreviousPosition()

@@ -11,7 +11,7 @@ public class PlayerMoveUp : IMoveBehavior
     {
         
         // Store current position before moving
-        player.StorePreviousPosition();
+        player.StorePreviousPosition.StorePosition(player);
 
         // Calculate new coordinate
         int newYcoordinate = player.Ycoordinate + 1;
