@@ -33,6 +33,7 @@ namespace Commands.CombatCommands
         {
             Player player = Player.GetInstance();
             Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
-            currentRoom.Enemy.StartAttackingPlayer();        }
+            CombatSystem.GetInstance().StartCombat(currentRoom.Enemy);        
+        }
     }
 }
