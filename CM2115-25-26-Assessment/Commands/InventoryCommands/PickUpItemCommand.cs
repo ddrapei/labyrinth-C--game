@@ -1,6 +1,7 @@
 namespace Commands.InventoryCommands;
 
 using Items;
+using Rooms;
 
 public class PickUpItemCommand : PlayerCommand
 {

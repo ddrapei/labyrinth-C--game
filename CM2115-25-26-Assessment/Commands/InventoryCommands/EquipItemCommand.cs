@@ -2,6 +2,7 @@ namespace Commands.InventoryCommands;
 
 using Items;
 using Items.Armour;
+using Rooms;
 
 public class EquipItemCommand : PlayerCommand
 {

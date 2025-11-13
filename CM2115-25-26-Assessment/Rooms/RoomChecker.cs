@@ -1,3 +1,5 @@
+namespace Rooms;
+
 using Items;
 using Items.Armour;
 using Items.Armour.LeatherArmourSet;

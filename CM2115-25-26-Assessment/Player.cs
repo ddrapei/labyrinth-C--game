@@ -2,6 +2,7 @@ using System.Data.Common;
 using Items;
 using Items.Armour;
 using Items.Potions;
+using Rooms;
 
 using Pastel;
 // Singleton player class that represents the only one player in the game

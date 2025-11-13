@@ -1,3 +1,5 @@
+namespace Rooms;
+
 using Items;
 using Enemies;
 public class RoomBuilder

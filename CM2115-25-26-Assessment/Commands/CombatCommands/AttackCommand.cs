@@ -2,6 +2,7 @@ using Commands;
 using Enemies;
 using Observers;
 using Observers.CombatObservers;
+using Rooms;
 
 
 namespace Commands.CombatCommands

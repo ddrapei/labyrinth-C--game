@@ -16,6 +16,7 @@ using Items.Armour.CircusAcrobatArmourSet;
 using Items.Potions;
 using Perks;
 using Enemies;
+using Rooms;
 using PlayerDisplay;
 
 using Pastel;
