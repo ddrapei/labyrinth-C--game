@@ -32,7 +32,7 @@ player.RegisterMoveBehavior("move up", new PlayerMoveUp());
 player.RegisterMoveBehavior("move down", new PlayerMoveDown());
 player.RegisterMoveBehavior("move left", new PlayerMoveLeft());
 player.RegisterMoveBehavior("move right", new PlayerMoveRight());
-// player.RegisterMoveBehavior("move diagonally to the left", new PlayerMoveDiagonallyToTheLeft());
+// player.RegisterMoveBehavior("move up and right", new PlayerMoveDiagonallyUpAndRight()); - uncomment to test extandability of the movement commands
 
 // creates a game
 var game = new Game();
@@ -90,6 +90,7 @@ var moveDown = new MoveDownCommand();
 var moveUp = new MoveUpCommand();
 var moveLeft = new MoveLeftCommand();
 var moveRight = new MoveRightCommand();
+// var moveDiagonallyUpAndRight = new MoveDiagonallyUpAndRight(); - test movement command to easily test extandability
 
 // creates inventory commands (for when inventory is closed)
 var pickUpItemCommand = new PickUpItemCommand();
@@ -132,6 +133,8 @@ gameCommandMoveObserver.AddCommand("move up", moveUp);
 gameCommandMoveObserver.AddCommand("move down", moveDown);
 gameCommandMoveObserver.AddCommand("move left", moveLeft);
 gameCommandMoveObserver.AddCommand("move right", moveRight);
+// gameCommandMoveObserver.AddCommand("move up and right", moveDiagonallyUpAndRight); -- uncomment to test extendability of movement commands
+
 
 // registers inventory commands (work when inventory is closed)
 inventoryObserver.AddCommand("pick up", pickUpItemCommand);
@@ -174,6 +177,7 @@ unknownCommandObserver.RegisterValidCommand("pick up");
 unknownCommandObserver.RegisterValidCommand("fight");
 unknownCommandObserver.RegisterValidCommand("attack");
 unknownCommandObserver.RegisterValidCommand("look around");
+// unknownCommandObserver.RegisterValidCommand("move up and right"); - uncomment to test extendability of movement commands
 
 // registers valid commands with the unknown command observer in the inventory
 insideInventoryUnknownCommandObserver.RegisterValidCommand("equip");
@@ -279,7 +283,12 @@ Room room4 = new RoomBuilder(0, -1)
 
 Room room5 = new RoomBuilder(-1, 0)
     .SetDescription("The sixth room")
+    .Build();
+
+Room room6 = new RoomBuilder(1, 1)
+    .SetDescription("The seventh room")
     .Build();   
+
 
 // adding rooms to the room checker
 roomChecker.AddRoom(room0);
@@ -288,6 +297,8 @@ roomChecker.AddRoom(room2);
 roomChecker.AddRoom(room3);
 roomChecker.AddRoom(room4);
 roomChecker.AddRoom(room5);
+roomChecker.AddRoom(room6);
+
 
 
 // begginning of the game
