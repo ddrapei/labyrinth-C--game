@@ -25,10 +25,14 @@ using Pastel;
 // creates a player
 Player player = Player.GetInstance();
 
-        player.MoveUpBehavior = new PlayerMoveUp();
-        player.MoveDownBehavior = new PlayerMoveDown();
-        player.MoveLeftBehavior = new PlayerMoveLeft();
-        player.MoveRightBehavior = new PlayerMoveRight();
+// those are created as logic for commands
+// this set up allows to add new movement without touching player
+// strategy pattern was used
+player.RegisterMoveBehavior("move up", new PlayerMoveUp());
+player.RegisterMoveBehavior("move down", new PlayerMoveDown());
+player.RegisterMoveBehavior("move left", new PlayerMoveLeft());
+player.RegisterMoveBehavior("move right", new PlayerMoveRight());
+// player.RegisterMoveBehavior("move diagonally to the left", new PlayerMoveDiagonallyToTheLeft());
 
 // creates a game
 var game = new Game();
@@ -80,7 +84,7 @@ var playerStatsDisplay = new PlayerStatsDisplay();
 var playerEquippedDisplay = new PlayerEquippedDisplay();
 var lookAround = new LookAroundCommand();
 
-
+// those are just commands
 // creates commands for player movement
 var moveDown = new MoveDownCommand();
 var moveUp = new MoveUpCommand();
@@ -282,6 +286,9 @@ roomChecker.AddRoom(room0);
 roomChecker.AddRoom(room1);
 roomChecker.AddRoom(room2);
 roomChecker.AddRoom(room3);
+roomChecker.AddRoom(room4);
+roomChecker.AddRoom(room5);
+
 
 // begginning of the game
 Console.WriteLine("Welcome to the game");

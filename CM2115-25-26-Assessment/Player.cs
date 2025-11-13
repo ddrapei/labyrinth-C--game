@@ -8,7 +8,7 @@ using PlayerMovement;
 using Pastel;
 // Singleton player class that represents the only one player in the game
 
-public class Player : IMoveBehavior
+public class Player
 {
     private static Player? instance = null;
 
@@ -41,10 +41,7 @@ public class Player : IMoveBehavior
     private Inventory? inventory;
 
     // Composition: Movement behaviors
-    private IMoveBehavior moveUpBehavior;
-    private IMoveBehavior moveDownBehavior;
-    private IMoveBehavior moveLeftBehavior;
-    private IMoveBehavior moveRightBehavior;
+    private Dictionary<string, IMoveBehavior> movementBehaviors;
     private ITrackPosition storePreviousPosition;
 
     public int Health
@@ -125,35 +122,16 @@ public class Player : IMoveBehavior
         get { return legsArmourEquipped; }
         set { legsArmourEquipped = value; }
     }
-
+    public Dictionary<string, IMoveBehavior> MovementBehaviors
+    {
+        get { return movementBehaviors; }
+        set { movementBehaviors = value; }
+    }
     public Inventory Inventory
     {
         get { return inventory!; }
     }
 
-    public IMoveBehavior MoveUpBehavior
-    {
-        get { return moveUpBehavior; }
-        set { moveUpBehavior = value; }
-    }
-
-    public IMoveBehavior MoveDownBehavior
-    {
-        get { return moveDownBehavior; }
-        set { moveDownBehavior = value; }
-    }
-
-    public IMoveBehavior MoveLeftBehavior
-    {
-        get { return moveLeftBehavior; }
-        set { moveLeftBehavior = value; }
-    }
-
-    public IMoveBehavior MoveRightBehavior
-    {
-        get { return moveRightBehavior; }
-        set { moveRightBehavior = value; }
-    }
     public ITrackPosition StorePreviousPosition
     {
         get { return storePreviousPosition; }
@@ -182,18 +160,17 @@ public class Player : IMoveBehavior
         this.inventory = new Inventory(10);
 
         // initialise movements behavior
-        this.moveUpBehavior = new PlayerMoveUp();
-        this.moveDownBehavior = new PlayerMoveDown();
-        this.moveLeftBehavior = new PlayerMoveLeft();
-        this.moveRightBehavior = new PlayerMoveRight();
+        this.movementBehaviors = new Dictionary<string, IMoveBehavior>();
         this.storePreviousPosition = new StorePreviousPosition();
     }
 
-
-    public void Move(Player player)
+    public void RegisterMoveBehavior(string commandKey, IMoveBehavior behavior)
     {
+        if (!movementBehaviors.ContainsKey(commandKey))
+        {
+            movementBehaviors.Add(commandKey, behavior);
+        }
     }
-
 
     // method to move to previous position (when running away)
     public bool MoveToPreviousPosition()
