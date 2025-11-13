@@ -1,12 +1,30 @@
+using Observers;
 using Pastel;
 
 // Singleton used as there is only one combat system in the game
 public class CombatSystem
 {
+
+    public static CombatSystem GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = new CombatSystem();
+        }
+        return instance;
+    }
+
     private static CombatSystem instance = null;
     private Enemy currentEnemy;
     private bool isInCombat;
-    
+    private InputManager inputManager;
+    private IGameObserver combatObserver;
+    private IGameObserver combatUnknownCommandObserver;
+    private IGameObserver gameCommandMoveObserver;
+    private IGameObserver gameHandlerObserver;
+    private IGameObserver inventoryObserver;
+    private IGameObserver unknownCommandObserver;
+
     public bool IsInCombat
     {
         get { return isInCombat; }
@@ -23,20 +41,17 @@ public class CombatSystem
         this.isInCombat = false;
     }
 
-    public static CombatSystem GetInstance()
-    {
-        if (instance == null)
-        {
-            instance = new CombatSystem();
-        }
-        return instance;
-    }
-
     public CombatResult StartCombat(Enemy enemy)
     {
+        Player player = Player.GetInstance();
+
         currentEnemy = enemy;
         isInCombat = true;
 
+        // swapping observers for the combat
+        SwitchToCombatMode();
+
+        // Display combat UI
         Console.WriteLine("=== COMBAT STARTED ===".Pastel("#ff0000"));
         Console.WriteLine("You are fighting: " + enemy.Name.Pastel("#ff00ff"));
         enemy.DisplayEnemyInfo();
@@ -56,7 +71,6 @@ public class CombatSystem
             return new CombatResult(CombatOutcome.Ongoing, "Not in combat");
         }
 
-        Console.WriteLine("");
         Console.WriteLine("--- Your Turn ---".Pastel("#00ffff"));
 
         // Player attacks enemy
@@ -65,14 +79,20 @@ public class CombatSystem
         // Check if enemy is dead
         if (currentEnemy.IsDead())
         {
-            isInCombat = false;
             Console.WriteLine("");
             Console.WriteLine("=== VICTORY ===".Pastel("#00ff00"));
             Console.WriteLine("");
+
+            // Add experience reward
+            player.Experience += currentEnemy.ExperienceReward;
+            Console.WriteLine($"You gained {currentEnemy.ExperienceReward.ToString().Pastel("#ffff00")} experience!");
+            Console.WriteLine("");
+
+            EndCombat();
             return new CombatResult(CombatOutcome.Victory, "Enemy defeated!");
         }
 
-        // Enemy's turn to attack
+        // Enemys turn to attack
         Console.WriteLine("");
         Console.WriteLine("--- Enemy's Turn ---".Pastel("#ff00ff"));
         EnemyAttack();
@@ -80,11 +100,12 @@ public class CombatSystem
         // Check if player is dead
         if (player.Health <= 0)
         {
-            isInCombat = false;
             Console.WriteLine("");
             Console.WriteLine("=== DEFEAT ===".Pastel("#ff0000"));
-            Console.WriteLine("You have been slaughtered...".Pastel("#ff0000")); 
+            Console.WriteLine("You have been slaughtered...".Pastel("#ff0000"));
             Console.WriteLine("");
+
+            EndCombat();
             return new CombatResult(CombatOutcome.Defeat, "Player defeated!");
         }
 
@@ -93,15 +114,12 @@ public class CombatSystem
     }
 
     private void EnemyAttack()
-
     {
         Player player = Player.GetInstance();
-        
-        // creates a double between 0.0 and 1.0
-        double blockChance = new Random().NextDouble();
 
+        // creates a double between 0.0 and 1.0
         // if created random double is less than player's blocking chance, the attack is blocked
-        if (blockChance < player.BlockingDamageChance)
+        if (new Random().NextDouble() < player.BlockingDamageChance)
         {
             Console.WriteLine($"You blocked the {currentEnemy.Name}'s attack!".Pastel("#00ffff"));
             return;
@@ -132,21 +150,22 @@ public class CombatSystem
         Console.WriteLine("");
         Console.WriteLine("You attempt to flee!".Pastel("#ffaa00"));
 
+
         // 50% chance to escape
         // generates a random number between 0 and 1
         if (new Random().Next(0, 2) == 0)
         {
             Console.WriteLine("You successfully flee!".Pastel("#00ff00"));
-            isInCombat = false;
 
             // Move player to previous position
             if (player.MoveToPreviousPosition())
             {
-                Console.WriteLine("You fled back to (" + player.Xcoordinate.ToString().Pastel("#00ff00") + ") " + player.Ycoordinate.ToString().Pastel("#00ff00") + ")");
+                Console.WriteLine("You fled back to (" + player.Xcoordinate.ToString().Pastel("#00ff00") + ", " + player.Ycoordinate.ToString().Pastel("#00ff00") + ")");
                 RoomChecker.GetInstance().DisplayCurrentRoom(player);
             }
 
-            Console.WriteLine("");
+
+            EndCombat();
             return new CombatResult(CombatOutcome.Escaped, "Escaped successfully");
         }
         else
@@ -161,11 +180,12 @@ public class CombatSystem
             // Check if player is dead
             if (player.Health <= 0)
             {
-                isInCombat = false;
                 Console.WriteLine("");
                 Console.WriteLine("=== DEFEAT ===".Pastel("#ff0000"));
                 Console.WriteLine("You have been slaughtered...".Pastel("#ff0000"));
                 Console.WriteLine("");
+
+                EndCombat();
                 return new CombatResult(CombatOutcome.Defeat, "Player defeated!");
             }
 
@@ -174,10 +194,63 @@ public class CombatSystem
         }
     }
 
+    // Switch from normal game mode to combat mode
+    private void SwitchToCombatMode()
+    {
+        // Remove observers from the main game
+        inputManager.RemoveObserver(gameCommandMoveObserver);
+        inputManager.RemoveObserver(gameHandlerObserver);
+        inputManager.RemoveObserver(inventoryObserver);
+        inputManager.RemoveObserver(unknownCommandObserver);
+
+        // Add combat observers
+        inputManager.AddObserver(combatObserver);
+        inputManager.AddObserver(combatUnknownCommandObserver);
+    }
+
+    // Switch from combat mode back to normal game mode
+    private void SwitchToNormalMode()
+    {
+        // Remove combat observers
+        inputManager.RemoveObserver(combatObserver);
+        inputManager.RemoveObserver(combatUnknownCommandObserver);
+
+        // Add back main game observers
+        inputManager.AddObserver(gameCommandMoveObserver);
+        inputManager.AddObserver(gameHandlerObserver);
+        inputManager.AddObserver(inventoryObserver);
+        inputManager.AddObserver(unknownCommandObserver);
+    }
+
     public void EndCombat()
     {
         isInCombat = false;
+
+        // Remove enemy from room if defeated
+        if (currentEnemy != null && currentEnemy.IsDead())
+        {
+            Player player = Player.GetInstance();
+            Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
+            if (currentRoom != null && currentRoom.Enemy == currentEnemy)
+            {
+                currentRoom.Enemy = null;
+            }
+        }
+
         currentEnemy = null;
+
+        // Switch back to normal mode
+        SwitchToNormalMode();
+    }
+    public void Initialize(InputManager inputManager, IGameObserver combatObserver, IGameObserver combatUnknownCommandObserver, IGameObserver gameCommandMoveObserver, IGameObserver gameHandlerObserver, IGameObserver inventoryObserver, IGameObserver unknownCommandObserver)
+    {
+        this.inputManager = inputManager;
+        this.combatObserver = combatObserver;
+        this.combatUnknownCommandObserver = combatUnknownCommandObserver;
+        this.gameCommandMoveObserver = gameCommandMoveObserver;
+        this.gameHandlerObserver = gameHandlerObserver;
+        this.inventoryObserver = inventoryObserver;
+        this.unknownCommandObserver = unknownCommandObserver;
     }
 }
 
@@ -208,6 +281,7 @@ public class CombatResult
         get { return message; }
         set { message = value; }
     }
+
     public CombatResult(CombatOutcome combatOutcome, string message = "")
     {
         this.combatOutcome = combatOutcome;

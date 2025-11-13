@@ -237,7 +237,11 @@ CircusAcrobatArmourSet.AddPerk(increaseBlockingDamageChancePerk);
 armourSetManager.RegisterSet(CircusAcrobatArmourSet);
 
 // enemys
-Enemy wild_boar = new Enemy("Wild Boar", 20, 5, 2, 10);
+Enemy wild_boar = new Enemy("Wild Boar", 20, 5, 2, 1.0, 10);
+
+CombatSystem.GetInstance().Initialize(InputManager,combatObserver,combatUnknownCommandObserver,gameCommandMoveObserver,gameHandlerObserver,inventoryObserver,unknownCommandObserver
+);
+
 // creating room builder
 RoomBuilder builder = new RoomBuilder(0, 0);
 

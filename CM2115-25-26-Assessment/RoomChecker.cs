@@ -89,6 +89,11 @@ public class RoomChecker
                 Console.WriteLine("The enemy is here: " + currentRoom.Enemy.Name.Pastel("#ff00ff"));
                 Console.WriteLine("Fight - to fight the enemy");
             }
+
+            if (currentRoom.Enemy.NoticePlayer())
+            {
+                currentRoom.Enemy.StartAttackingPlayer();
+            }
         }
     }
 }    

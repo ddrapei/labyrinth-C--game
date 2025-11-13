@@ -6,109 +6,140 @@ public class Enemy : IPerceptible
     private int health;
     private int attackPower;
     private int defense;
-    private double perception;
-    private int expReward;
+    private double perceptionChance;
+    private bool hasNoticedPlayer;
+    private int experienceReward;
 
     public string Name
     {
         get { return name; }
         set { name = value; }
     }
+
     public int Health
     {
         get { return health; }
         set { health = value; }
     }
+
     public int AttackPower
     {
         get { return attackPower; }
         set { attackPower = value; }
     }
+
     public int Defense
     {
         get { return defense; }
         set { defense = value; }
     }
-    public double Perception
+
+    public double PerceptionChance
     {
-        get { return perception; }
-        set { perception = value; }
-    }
-    public int ExpReward
-    {
-        get { return expReward; }
-        set { expReward = value; }
+        get { return perceptionChance; }
+        set { perceptionChance = value; }
     }
 
-    public Enemy(string name, int health, int attackPower, int defense, double perception, int expReward)
+    public int ExperienceReward
+    {
+        get { return experienceReward; }
+        set { experienceReward = value; }
+    }
+
+    public bool HasNoticedPlayer
+    {
+        get { return hasNoticedPlayer; }
+        set { hasNoticedPlayer = value; }
+    }
+
+    // --- Constructor ---
+    public Enemy(string name, int health, int attackPower, int defense, double perceptionChance, int experienceReward)
     {
         this.name = name;
         this.health = health;
         this.attackPower = attackPower;
         this.defense = defense;
-        this.perception = perception;
-        this.expReward = expReward;
+        this.perceptionChance = perceptionChance;
+        this.experienceReward = experienceReward;
+        this.hasNoticedPlayer = false;
     }
 
+    // method to check if enemy is dead
+    public bool IsDead()
+    {
+        return health <= 0;
+    }
+
+    // method for enemy to take damage from player
     public void TakeDamage()
     {
         Player player = Player.GetInstance();
+        int damage = player.AttackPower - this.defense;
 
-        int damage = player.AttackPower - this.Defense;
-
-        // if the defense of the enemy is higher than the player's attack power, the damage ithat is taken is 0
-        // it prevents healing the enemy when attacked
-
+        // prevents healing the enemy when player attack is lower than enemy defense
         if (damage < 0)
         {
             damage = 0;
         }
 
-        this.Health -= damage;
-        Console.WriteLine($"You hit the {this.Name} for {damage} damage. It has {this.Health} HP left.");
+        this.health -= damage;
 
-        if (this.IsDead())
+        // prevents enemie's health to go below 0
+        if (this.health < 0)
         {
-            Console.WriteLine($"{this.Name} has been defeated!");
-            player.Experience += this.ExpReward;
-            Console.WriteLine($"You gained {this.ExpReward} experience!");
-        }
-    }
-
-    public void NoticePlayer()
-    {
-        Console.WriteLine($"{this.Name} has noticed you!");
-    }
-
-    public void AttackPlayer()
-    {
-        Player player = Player.GetInstance();
-
-        int damage = this.AttackPower - player.Defense;
-        if (damage < 0)
-        {
-            damage = 0;
+            this.health = 0;
         }
 
-        player.Health -= damage;
-        Console.WriteLine($"{this.Name} deals {damage.ToString().Pastel("#990000")} damage! You have {player.Health.ToString().Pastel("#126b00")} HP left.");
+        Console.WriteLine($"You hit {this.name} for {damage.ToString().Pastel("#ff0000")} damage! Enemy has {this.health.ToString().Pastel("#ff9d00")} HP");
     }
 
+    public void DisplayEnemyInfo()
+    {
+        Console.WriteLine("Enemy: " + this.name.Pastel("#ff00ff"));
+        Console.WriteLine("Health: " + this.health.ToString().Pastel("#ff9d00"));
+        Console.WriteLine("Attack: " + this.attackPower.ToString().Pastel("#ff0000"));
+        Console.WriteLine("Defense: " + this.defense.ToString().Pastel("#1900ff"));
+    }
+
+
+    // Perception and Player Notice implementation
+    // If the enemy notices the player the combat starts automatically
+
+
+    // Dice roll for perception - returns a value between 0.0 and 1.0
     public double DicePerception()
     {
         return new Random().NextDouble();
     }
 
-    public bool IsDead()
+    // Check if enemy notices the player based on perception chance
+    public bool NoticePlayer()
     {
-        return this.Health <= 0;
+        // If enemy already noticed player, return true
+        if (hasNoticedPlayer)
+        {
+            return true;
+        }
+
+        if (DicePerception() < perceptionChance)
+        {
+            hasNoticedPlayer = true;
+            Console.WriteLine("");
+            Console.WriteLine($"{this.name.Pastel("#ff00ff")} has noticed you!".Pastel("#ff9d00"));
+            Console.WriteLine("");
+            return true;
+        }
+
+        return false;
     }
 
-    public void DisplayEnemyInfo()
+    // Start attacking the player - triggers combat
+    public void StartAttackingPlayer()
     {
-        Console.WriteLine("Enemy: " + this.Name);
-        Console.WriteLine("Health: " + this.Health);
-        Console.WriteLine("Attack Power " + this.AttackPower);
-        Console.WriteLine("Defense: " + this.Defense);
+        if (hasNoticedPlayer)
+        {
+            CombatSystem combatSystem = CombatSystem.GetInstance();
+            combatSystem.StartCombat(this);
+        }
     }
 }

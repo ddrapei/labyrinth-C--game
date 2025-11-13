@@ -33,24 +33,6 @@ namespace Commands.CombatCommands
         {
             Player player = Player.GetInstance();
             Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
-
-            // Store current position as previous position before combat
-            player.StorePreviousPosition();
-
-            // Remove observers from the main game
-            inputManager.RemoveObserver(gameCommandMoveObserver);
-            inputManager.RemoveObserver(gameHandlerObserver);
-            inputManager.RemoveObserver(inventoryObserver);
-            inputManager.RemoveObserver(unknownCommandObserver);
-
-            // Add combat observers
-            inputManager.AddObserver(combatObserver);
-            inputManager.AddObserver(combatUnknownCommandObserver);
-
-            // Start combat
-            Enemy enemy = currentRoom.Enemy;
-            CombatSystem combatSystem = CombatSystem.GetInstance();
-            CombatResult result = combatSystem.StartCombat(enemy);
-        }
+            currentRoom.Enemy.StartAttackingPlayer();        }
     }
 }
