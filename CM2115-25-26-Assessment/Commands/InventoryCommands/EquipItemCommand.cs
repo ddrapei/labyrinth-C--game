@@ -35,7 +35,7 @@ public class EquipItemCommand : PlayerCommand
         }
 
 
-        Item item = InventoryChecker.FindItemInInventory(player, itemIdentifier);
+        Item? item = InventoryChecker.FindItemInInventory(player, itemIdentifier);
 
         if (item == null)
         {

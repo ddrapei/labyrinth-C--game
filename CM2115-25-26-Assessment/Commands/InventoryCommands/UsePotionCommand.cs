@@ -26,7 +26,7 @@ public class UsePotionCommand : PlayerCommand
         }
 
         // find the item
-        Item item = InventoryChecker.FindItemInInventory(player, itemIdentifier);
+        Item? item = InventoryChecker.FindItemInInventory(player, itemIdentifier);
 
         if (item == null)
         {

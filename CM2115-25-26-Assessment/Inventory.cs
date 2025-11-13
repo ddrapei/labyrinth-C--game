@@ -73,7 +73,7 @@ public class Inventory
     }
 
     // returns item by its number in the inventory
-    public Item GetItemByNumber(int number)
+    public Item? GetItemByNumber(int number)
     {
         // list starts from 0, however the player's interface is going to show 1 as the first item
         int index = number - 1;
@@ -88,7 +88,7 @@ public class Inventory
         return null;
     }
 
-    public Item GetItemByName(string name)
+    public Item? GetItemByName(string name)
     {
         for (int i = 0; i < items.Count; i++)
         {

@@ -11,7 +11,7 @@ using Pastel;
 // Singleton pattern, since it will always be the only one room checker in the game
 public class RoomChecker
 {
-    private static RoomChecker instance = null;
+    private static RoomChecker? instance = null;
     private List<Room> rooms;
 
     public static RoomChecker GetInstance()
@@ -36,7 +36,7 @@ public class RoomChecker
     }
 
     // method to get a room by its coordinates
-    public Room GetRoom(int xcoordinate, int ycoordinate)
+    public Room? GetRoom(int xcoordinate, int ycoordinate)
     {
         foreach (Room room in rooms)
         {

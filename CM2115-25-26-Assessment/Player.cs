@@ -127,7 +127,7 @@ public class Player : IMoveBehavior
 
     public Inventory Inventory
     {
-        get { return inventory; }
+        get { return inventory!; }
     }
 
     public IMoveBehavior MoveUpBehavior
@@ -174,6 +174,12 @@ public class Player : IMoveBehavior
         this.torsoArmourEquipped = null;
         this.legsArmourEquipped = null;
         this.inventory = new Inventory(10);
+
+        // initialise movements behavior
+        this.moveUpBehavior = new PlayerMoveUp();
+        this.moveDownBehavior = new PlayerMoveDown();
+        this.moveLeftBehavior = new PlayerMoveLeft();
+        this.moveRightBehavior = new PlayerMoveRight();
     }
 
 

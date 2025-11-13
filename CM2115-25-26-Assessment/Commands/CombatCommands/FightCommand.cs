@@ -21,7 +21,14 @@ namespace Commands.CombatCommands
         {
             Player player = Player.GetInstance();
             Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
-            CombatSystem.GetInstance().StartCombat(currentRoom.Enemy);        
+            if (currentRoom.Enemy != null)
+            {
+                CombatSystem.GetInstance().StartCombat(currentRoom.Enemy);
+            }
+            else
+            {
+                System.Console.WriteLine("There is no enemy here to fight!".Pastel("#ff7700ff"));
+            }
         }
     }
 }

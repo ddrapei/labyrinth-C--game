@@ -140,7 +140,7 @@ public class ArmourSetManager
         {
             if (!activeSets.ContainsKey(setName))
             {
-                ArmourSet set = GetSet(setName);
+                ArmourSet? set = GetSet(setName);
                 if (set != null)
                 {
                     set.Activate(player);

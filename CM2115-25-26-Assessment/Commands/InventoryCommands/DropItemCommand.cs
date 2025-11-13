@@ -33,7 +33,7 @@ public class DropItemCommand : PlayerCommand
             return;
         }
 
-        Item item = InventoryChecker.FindItemInInventory(player, itemIdentifier);
+        Item? item = InventoryChecker.FindItemInInventory(player, itemIdentifier);
 
         if (player.Inventory.DropItem(item))
         {

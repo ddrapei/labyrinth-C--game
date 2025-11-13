@@ -2,7 +2,7 @@ using Items;
 
 public static class InventoryChecker
 {
-    public static Item FindItemInInventory(Player player, string itemIdentifier)
+    public static Item? FindItemInInventory(Player player, string itemIdentifier)
     {
         // two options to select the item, via its number, or via its name
         if (IsNumericInput(itemIdentifier, out int itemNumber))

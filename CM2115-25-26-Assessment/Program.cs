@@ -199,12 +199,6 @@ var small_healing_potion = new HealingPotion("Small Healing Potion", 10);
 var buckler = new Shield("Buckler", 0.1);
 
 // armour factory set up for armour creation
-void CreateArmour(ArmourFactory factory)
-{
-    var headarmour = factory.CreateHeadArmour();
-    var torsoarmour = factory.CreateTorsoArmour();
-    var legsarmour = factory.CreateLegsArmour();
-}
 
 var leatherArmourFactory = new LeatherArmourFactory();
 var crudeKnightsArmourFactory = new CrudeKnightsArmourFactory();
