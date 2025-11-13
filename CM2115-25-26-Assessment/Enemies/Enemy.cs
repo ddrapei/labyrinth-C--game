@@ -1,3 +1,4 @@
+namespace Enemies;
 using Pastel;
 
 public class Enemy : IPerceptible

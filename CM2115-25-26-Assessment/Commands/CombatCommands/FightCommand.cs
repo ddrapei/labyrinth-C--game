@@ -1,5 +1,5 @@
 using Commands;
-using Commands.CombatCommands;
+using Enemies;
 using Observers;
 using Observers.CombatObservers;
 using Pastel;

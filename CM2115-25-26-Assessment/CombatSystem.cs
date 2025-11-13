@@ -1,4 +1,5 @@
 using Observers;
+using Enemies;
 using Pastel;
 
 // Singleton used as there is only one combat system in the game

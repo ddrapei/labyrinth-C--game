@@ -15,6 +15,7 @@ using Items.Armour.CrudeKnightsArmourSet;
 using Items.Armour.CircusAcrobatArmourSet;
 using Items.Potions;
 using Perks;
+using Enemies;
 using PlayerDisplay;
 
 using Pastel;

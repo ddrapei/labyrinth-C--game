@@ -1,4 +1,5 @@
 using Commands;
+using Enemies;
 using Observers;
 using Observers.CombatObservers;
 

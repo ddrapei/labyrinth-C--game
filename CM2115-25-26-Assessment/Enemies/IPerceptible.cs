@@ -1,3 +1,4 @@
+namespace Enemies;
 public interface IPerceptible
 {
     bool NoticePlayer();
