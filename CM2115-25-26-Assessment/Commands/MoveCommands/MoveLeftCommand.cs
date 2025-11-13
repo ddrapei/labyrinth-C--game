@@ -1,16 +1,21 @@
+using Commands;
+using PlayerMovement;
+
 namespace Commands.MoveCommands;
+
 // Concrete command to MoveLeft the player
+
 public class MoveLeftCommand : PlayerCommand
 {
-    private Player player;
+    private readonly IMoveBehavior moveBehavior;
 
-    public MoveLeftCommand(Player player)
+    public MoveLeftCommand()
     {
-        this.player = player;
+        this.moveBehavior = new PlayerMoveLeft();
     }
 
     public void Execute()
     {
-        player.MoveLeft();
+        moveBehavior.Move(Player.GetInstance());
     }
 }

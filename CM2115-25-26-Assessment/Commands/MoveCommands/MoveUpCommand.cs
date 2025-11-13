@@ -1,16 +1,21 @@
+using Commands;
+using PlayerMovement;
+
 namespace Commands.MoveCommands;
+
 // Concrete command to MoveUp the player
+
 public class MoveUpCommand : PlayerCommand
 {
-    private Player player;
+    private readonly IMoveBehavior moveBehavior;
 
-    public MoveUpCommand(Player player)
+    public MoveUpCommand()
     {
-        this.player = player;
+        this.moveBehavior = new PlayerMoveUp();
     }
 
     public void Execute()
     {
-        player.MoveUp();
+        moveBehavior.Move(Player.GetInstance());
     }
 }

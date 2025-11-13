@@ -1,23 +1,35 @@
-using System;
 
-namespace CM2115_25_26_Aassessment_Test;
+using System;
+using Rooms;
+
+namespace CM2115_25_26_Assessment_Tests;
 
 public class MoveDownTest
 {
-    [Theory]
-    [InlineData(0, -1)]
-    public void MoveDown_ReturnsSubstractedYCoordinate(int ydefault, int yestimated)
-    {
-        // arrange
-        Player player = Player.GetInstance();
+    [Fact]
 
-        int y = player.Ycoordinate;
+    public void MoveDown_ReturnsSubstractedYCoordinate()
+    {
+         // arrange
+        Player player = Player.GetInstance();
+        RoomChecker roomChecker = RoomChecker.GetInstance();
+        
+        // Set up room
+        Room room = new RoomBuilder(0, -1)
+            .SetDescription("Test Room")
+            .Build(); 
+        roomChecker.AddRoom(room);
 
         // act
         player.MoveDown();
 
-        //assert
-        Assert.Equal(ydefault, y);
+        // assert
+        Assert.Equal(0, player.Xcoordinate);
+        Assert.Equal(-1, player.Ycoordinate);
+        Assert.Equal(0, player.PreviousXcoordinate);
+        Assert.Equal(0, player.PreviousYcoordinate);
+
+        player.ResetPlayerLocation();
     }
 }
 

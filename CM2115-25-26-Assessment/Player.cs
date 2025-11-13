@@ -3,11 +3,12 @@ using Items;
 using Items.Armour;
 using Items.Potions;
 using Rooms;
+using PlayerMovement;
 
 using Pastel;
 // Singleton player class that represents the only one player in the game
 
-public class Player
+public class Player : IMoveBehavior
 {
     private static Player? instance = null;
 
@@ -39,6 +40,12 @@ public class Player
     private ILegsArmour? legsArmourEquipped;
     private Inventory? inventory;
 
+    // Composition: Movement behaviors
+    private IMoveBehavior moveUpBehavior;
+    private IMoveBehavior moveDownBehavior;
+    private IMoveBehavior moveLeftBehavior;
+    private IMoveBehavior moveRightBehavior;
+
     public int Health
     {
         get { return health; }
@@ -49,6 +56,17 @@ public class Player
     {
         get { return xcoordinate; }
         set { xcoordinate = value; }
+    }
+
+    public int PreviousXcoordinate
+    {
+        get { return previousXcoordinate; }
+        set { previousXcoordinate = value; }
+    }
+    public int PreviousYcoordinate
+    {
+        get { return previousYcoordinate; }
+        set { previousYcoordinate = value; }
     }
 
     public int Ycoordinate
@@ -112,6 +130,31 @@ public class Player
         get { return inventory; }
     }
 
+    public IMoveBehavior MoveUpBehavior
+    {
+        get { return moveUpBehavior; }
+        set { moveUpBehavior = value; }
+    }
+
+    public IMoveBehavior MoveDownBehavior
+    {
+        get { return moveDownBehavior; }
+        set { moveDownBehavior = value; }
+    }
+
+    public IMoveBehavior MoveLeftBehavior
+    {
+        get { return moveLeftBehavior; }
+        set { moveLeftBehavior = value; }
+    }
+
+    public IMoveBehavior MoveRightBehavior
+    {
+        get { return moveRightBehavior; }
+        set { moveRightBehavior = value; }
+    }
+
+
     // --- Constructor ---
     private Player(int health, int xcoordinate, int ycoordinate)
     {
@@ -133,11 +176,17 @@ public class Player
         this.inventory = new Inventory(10);
     }
 
+
+    public void Move(Player player)
+    {
+        // default move method for composition
+    }
+
     // method to store previous position (for running away from combat)
     public void StorePreviousPosition()
     {
-        previousXcoordinate = xcoordinate;
-        previousYcoordinate = ycoordinate;
+        this.PreviousXcoordinate = xcoordinate;
+        this.PreviousYcoordinate = ycoordinate;
     }
 
     // method to move to previous position (when running away)
@@ -150,81 +199,6 @@ public class Player
             return true;
         }
         return false;
-    }
-
-    // methods for player movement
-    public void MoveUp()
-    {
-        // Store current position before moving
-        StorePreviousPosition();
-
-        // new coordinate is created and added
-        int newYcoordinate = ycoordinate + 1;
-
-        if (RoomChecker.GetInstance().doesRoomExist(xcoordinate, newYcoordinate))
-        {
-            // only if a room exists the new coordinatate is assigned to the player's coordinate
-            ycoordinate = newYcoordinate;
-            Console.WriteLine($"Player moved up. Current position: ({xcoordinate}, {ycoordinate})");
-            RoomChecker.GetInstance().DisplayCurrentRoom(this);
-        }
-        else
-        {
-            // if a room in that direction doesn't exist, nothing is happening
-            // the player stays at the same place
-            // the message displays that the player can not move there
-            Console.WriteLine("There is no room in that direction.".Pastel("#ff9d00"));
-        }
-    }
-
-    public void MoveDown()
-    {
-        StorePreviousPosition();
-        int newYcoordinate = ycoordinate - 1;
-
-        if (RoomChecker.GetInstance().doesRoomExist(xcoordinate, newYcoordinate))
-        {
-            ycoordinate = newYcoordinate;
-            Console.WriteLine($"Player moved down. Current position: ({xcoordinate}, {ycoordinate})");
-            RoomChecker.GetInstance().DisplayCurrentRoom(this);
-        }
-        else
-        {
-            Console.WriteLine("There is no room in that direction.".Pastel("#ff9d00"));
-        }
-    }
-
-    public void MoveLeft()
-    {
-        StorePreviousPosition();
-        int newXcoordinate = xcoordinate - 1;
-
-        if (RoomChecker.GetInstance().doesRoomExist(newXcoordinate, ycoordinate))
-        {
-            xcoordinate = newXcoordinate;
-            Console.WriteLine($"Player moved left. Current position: ({xcoordinate}, {ycoordinate})");
-            RoomChecker.GetInstance().DisplayCurrentRoom(this);
-        }
-        else
-        {
-            Console.WriteLine("There is no room in that direction.".Pastel("#ff9d00"));
-        }
-    }
-    public void MoveRight()
-    {
-        StorePreviousPosition();
-        int newXcoordinate = xcoordinate + 1;
-
-        if (RoomChecker.GetInstance().doesRoomExist(newXcoordinate, ycoordinate))
-        {
-            xcoordinate = newXcoordinate;
-            Console.WriteLine($"Player moved right. Current position: ({xcoordinate}, {ycoordinate})");
-            RoomChecker.GetInstance().DisplayCurrentRoom(this);
-        }
-        else
-        {
-            Console.WriteLine("There is no room in that direction.".Pastel("#ff9d00"));
-        }
     }
 
     // method to equip weapon
@@ -256,7 +230,7 @@ public class Player
     }
 
     // method to equip shield
-    public bool EquipShield (Shield shield)
+    public bool EquipShield(Shield shield)
     {
         if (this.shieldEquipped != null)
         {
@@ -408,5 +382,13 @@ public class Player
     public void LookAround()
     {
         RoomChecker.GetInstance().DisplayCurrentRoom(this);
+    }
+
+    public void ResetPlayerLocation()
+    {
+        this.xcoordinate = 0;
+        this.ycoordinate = 0;
+        this.previousXcoordinate = 0;
+        this.previousYcoordinate = 0;
     }
 }

@@ -18,11 +18,17 @@ using Perks;
 using Enemies;
 using Rooms;
 using PlayerDisplay;
+using PlayerMovement;
 
 using Pastel;
 
 // creates a player
 Player player = Player.GetInstance();
+
+        player.MoveUpBehavior = new PlayerMoveUp();
+        player.MoveDownBehavior = new PlayerMoveDown();
+        player.MoveLeftBehavior = new PlayerMoveLeft();
+        player.MoveRightBehavior = new PlayerMoveRight();
 
 // creates a game
 var game = new Game();
@@ -76,10 +82,10 @@ var lookAround = new LookAroundCommand();
 
 
 // creates commands for player movement
-var moveDown = new MoveDownCommand(player);
-var moveUp = new MoveUpCommand(player);
-var moveLeft = new MoveLeftCommand(player);
-var moveRight = new MoveRightCommand(player);
+var moveDown = new MoveDownCommand();
+var moveUp = new MoveUpCommand();
+var moveLeft = new MoveLeftCommand();
+var moveRight = new MoveRightCommand();
 
 // creates inventory commands (for when inventory is closed)
 var pickUpItemCommand = new PickUpItemCommand();

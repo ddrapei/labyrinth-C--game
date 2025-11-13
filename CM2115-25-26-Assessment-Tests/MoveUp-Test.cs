@@ -1,6 +1,6 @@
 using System;
 
-namespace CM2115_25_26_Aassessment_Test;
+namespace CM2115_25_26_Aassessment_Tests;
 
 public class MoveUpTest
 {

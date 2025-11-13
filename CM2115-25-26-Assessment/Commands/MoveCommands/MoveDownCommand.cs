@@ -1,19 +1,20 @@
-using Observers;
+using Commands;
+using PlayerMovement;
 
 namespace Commands.MoveCommands;
 
 // Concrete command to MoveDown the player
 public class MoveDownCommand : PlayerCommand
 {
-    private Player player;
+    private readonly IMoveBehavior moveBehavior;
 
-    public MoveDownCommand(Player player)
+    public MoveDownCommand()
     {
-        this.player = player;
+        this.moveBehavior = new PlayerMoveDown();
     }
 
     public void Execute()
     {
-        player.MoveDown();
+        moveBehavior.Move(Player.GetInstance());
     }
 }
