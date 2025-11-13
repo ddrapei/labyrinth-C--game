@@ -9,7 +9,7 @@ using Pastel;
 
 public class Player
 {
-    private static Player instance = null;
+    private static Player? instance = null;
 
     public static Player GetInstance()
     {
@@ -21,8 +21,6 @@ public class Player
             return instance;
         }
     }
-
-    private Player() { }
 
     private int health;
     private int xcoordinate;
@@ -238,7 +236,7 @@ public class Player
             if (currentRoom != null && currentRoom.Item == null)
             {
                 currentRoom.Item = this.weaponEquipped;
-                Console.WriteLine("You placed the item in the room " + this.WeaponEquiped.Name.Pastel("#ff9d00") + " and equipped " + weapon.Name.Pastel("#ff9d00"));
+                Console.WriteLine("You placed the item in the room " + this.WeaponEquiped?.Name.Pastel("#ff9d00") + " and equipped " + weapon.Name.Pastel("#ff9d00"));
                 return true;
             }
             else
@@ -288,7 +286,7 @@ public class Player
     public bool EquipHeadArmour(IHeadArmour headArmour)
     {
 
-        IHeadArmour oldArmour = this.headArmourEquipped;
+        IHeadArmour? oldArmour = this.headArmourEquipped;
 
         // checks if something is equipped
         if (oldArmour != null)
@@ -325,7 +323,7 @@ public class Player
     // method to equip torso armour
     public bool EquipTorsoArmour(ITorsoArmour torsoArmour)
     {
-        ITorsoArmour oldArmour = this.torsoArmourEquipped;
+        ITorsoArmour? oldArmour = this.torsoArmourEquipped;
 
         if (oldArmour != null)
         {
@@ -357,7 +355,7 @@ public class Player
     // method to equip legs armour
     public bool EquipLegsArmour(ILegsArmour legsArmour)
     {
-        ILegsArmour oldArmour = this.legsArmourEquipped;
+        ILegsArmour? oldArmour = this.legsArmourEquipped;
 
         if (oldArmour != null)
         {

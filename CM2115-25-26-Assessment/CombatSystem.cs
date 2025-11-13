@@ -17,15 +17,15 @@ public class CombatSystem
     }
 
     private static CombatSystem instance = null;
-    private Enemy currentEnemy;
+    private Enemy? currentEnemy;
     private bool isInCombat;
-    private InputManager inputManager;
-    private IGameObserver combatObserver;
-    private IGameObserver combatUnknownCommandObserver;
-    private IGameObserver gameCommandMoveObserver;
-    private IGameObserver gameHandlerObserver;
-    private IGameObserver inventoryObserver;
-    private IGameObserver unknownCommandObserver;
+    private InputManager? inputManager;
+    private IGameObserver? combatObserver;
+    private IGameObserver? combatUnknownCommandObserver;
+    private IGameObserver? gameCommandMoveObserver;
+    private IGameObserver? gameHandlerObserver;
+    private IGameObserver? inventoryObserver;
+    private IGameObserver? unknownCommandObserver;
 
     public bool IsInCombat
     {
@@ -33,7 +33,7 @@ public class CombatSystem
         set { isInCombat = value; }
     }
 
-    public Enemy CurrentEnemy
+    public Enemy? CurrentEnemy
     {
         get { return currentEnemy; }
     }
