@@ -6,7 +6,6 @@ using Pastel;
 // Singleton used as there is only one combat system in the game
 public class CombatSystem
 {
-
     public static CombatSystem GetInstance()
     {
         if (instance == null)
@@ -16,7 +15,7 @@ public class CombatSystem
         return instance;
     }
 
-    private static CombatSystem instance = null;
+    private static CombatSystem? instance = null;
     private Enemy? currentEnemy;
     private bool isInCombat;
     private InputManager? inputManager;
@@ -94,7 +93,7 @@ public class CombatSystem
             return new CombatResult(CombatOutcome.Victory, "Enemy defeated!");
         }
 
-        // Enemys turn to attack
+        // Enemy's turn to attack
         Console.WriteLine("");
         Console.WriteLine("--- Enemy's Turn ---".Pastel("#ff00ff"));
         EnemyAttack();
@@ -118,6 +117,8 @@ public class CombatSystem
     private void EnemyAttack()
     {
         Player player = Player.GetInstance();
+
+        if (currentEnemy == null) return;
 
         // creates a double between 0.0 and 1.0
         // if created random double is less than player's blocking chance, the attack is blocked
@@ -152,7 +153,6 @@ public class CombatSystem
         Console.WriteLine("");
         Console.WriteLine("You attempt to flee!".Pastel("#ffaa00"));
 
-
         // 50% chance to escape
         // generates a random number between 0 and 1
         if (new Random().Next(0, 2) == 0)
@@ -165,7 +165,6 @@ public class CombatSystem
                 Console.WriteLine("You fled back to (" + player.Xcoordinate.ToString().Pastel("#00ff00") + ", " + player.Ycoordinate.ToString().Pastel("#00ff00") + ")");
                 RoomChecker.GetInstance().DisplayCurrentRoom(player);
             }
-
 
             EndCombat();
             return new CombatResult(CombatOutcome.Escaped, "Escaped successfully");
@@ -199,29 +198,45 @@ public class CombatSystem
     // Switch from normal game mode to combat mode
     private void SwitchToCombatMode()
     {
-        // Remove observers from the main game
-        inputManager.RemoveObserver(gameCommandMoveObserver);
-        inputManager.RemoveObserver(gameHandlerObserver);
-        inputManager.RemoveObserver(inventoryObserver);
-        inputManager.RemoveObserver(unknownCommandObserver);
+        if (inputManager == null) return;
 
-        // Add combat observers
-        inputManager.AddObserver(combatObserver);
-        inputManager.AddObserver(combatUnknownCommandObserver);
+        // Remove observers from the main game
+        if (gameCommandMoveObserver != null)
+            inputManager.RemoveObserver(gameCommandMoveObserver);
+        if (gameHandlerObserver != null)
+            inputManager.RemoveObserver(gameHandlerObserver);
+        if (inventoryObserver != null)
+            inputManager.RemoveObserver(inventoryObserver);
+        if (unknownCommandObserver != null)
+            inputManager.RemoveObserver(unknownCommandObserver);
+
+        // Add combat observers 
+        if (combatObserver != null)
+            inputManager.AddObserver(combatObserver);
+        if (combatUnknownCommandObserver != null)
+            inputManager.AddObserver(combatUnknownCommandObserver);
     }
 
     // Switch from combat mode back to normal game mode
     private void SwitchToNormalMode()
     {
+        if (inputManager == null) return;
+
         // Remove combat observers
-        inputManager.RemoveObserver(combatObserver);
-        inputManager.RemoveObserver(combatUnknownCommandObserver);
+        if (combatObserver != null)
+            inputManager.RemoveObserver(combatObserver);
+        if (combatUnknownCommandObserver != null)
+            inputManager.RemoveObserver(combatUnknownCommandObserver);
 
         // Add back main game observers
-        inputManager.AddObserver(gameCommandMoveObserver);
-        inputManager.AddObserver(gameHandlerObserver);
-        inputManager.AddObserver(inventoryObserver);
-        inputManager.AddObserver(unknownCommandObserver);
+        if (gameCommandMoveObserver != null)
+            inputManager.AddObserver(gameCommandMoveObserver);
+        if (gameHandlerObserver != null)
+            inputManager.AddObserver(gameHandlerObserver);
+        if (inventoryObserver != null)
+            inputManager.AddObserver(inventoryObserver);
+        if (unknownCommandObserver != null)
+            inputManager.AddObserver(unknownCommandObserver);
     }
 
     public void EndCombat()
@@ -244,6 +259,7 @@ public class CombatSystem
         // Switch back to normal mode
         SwitchToNormalMode();
     }
+
     public void Initialize(InputManager inputManager, IGameObserver combatObserver, IGameObserver combatUnknownCommandObserver, IGameObserver gameCommandMoveObserver, IGameObserver gameHandlerObserver, IGameObserver inventoryObserver, IGameObserver unknownCommandObserver)
     {
         this.inputManager = inputManager;
@@ -255,7 +271,6 @@ public class CombatSystem
         this.unknownCommandObserver = unknownCommandObserver;
     }
 }
-
 
 // enum is used since CombatOutcome is not going to be changed and 
 // it is more descriptive than array
