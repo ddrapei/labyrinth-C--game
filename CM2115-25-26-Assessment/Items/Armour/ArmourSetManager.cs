@@ -3,7 +3,7 @@ namespace Items.Armour;
 // singleton pattern is used, since there will be always only one ArmourSetManager
 public class ArmourSetManager
 {
-    private static ArmourSetManager instance = null;
+    private static ArmourSetManager? instance = null;
 
     public static ArmourSetManager GetInstance()
     {
@@ -39,7 +39,7 @@ public class ArmourSetManager
 
     }
 
-    public ArmourSet GetSet(string setName)
+    public ArmourSet? GetSet(string setName)
     {
         if (registeredSets.ContainsKey(setName))
         {
@@ -128,9 +128,11 @@ public class ArmourSetManager
 
         foreach (var setName in setsToDeactivate)
         {
-            ArmourSet set = activeSets[setName];
-            set.Deactivate(player);
-            activeSets.Remove(setName);
+            if (activeSets.TryGetValue(setName, out ArmourSet? set) && set != null)
+            {
+                set.Deactivate(player);
+                activeSets.Remove(setName);
+            }
         }
 
         // Activate newly complete sets
