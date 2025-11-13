@@ -91,9 +91,9 @@ var displayStatsCommand = new DisplayStatsCommand(playerStatsDisplay);
 var displayEquippedCommand = new DisplayEquippedCommand(playerEquippedDisplay);
 
 // creates combat commands
-var attackCommand = new AttackCommand(game, InputManager, combatObserver, combatUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver, unknownCommandObserver);
-var runAwayCommand = new RunAwayCommand(InputManager, combatObserver, combatUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver, unknownCommandObserver);
-var fightCommand = new FightCommand(game, InputManager, combatObserver, combatUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver, unknownCommandObserver);
+var attackCommand = new AttackCommand(game, InputManager);
+var runAwayCommand = new RunAwayCommand(InputManager);
+var fightCommand = new FightCommand(game, InputManager);
 
 // registers start game command with its observer 
 mainMenuObserver.AddCommand("start", startGameCommand);
