@@ -2,7 +2,6 @@ namespace Commands.InventoryCommands;
 
 using Items;
 using Items.Potions;
-
 using Pastel;
 
 public class UsePotionCommand : PlayerCommand
@@ -42,31 +41,19 @@ public class UsePotionCommand : PlayerCommand
             return;
         }
 
-        // Use potion
-        UsePotion(player, (Potion)item);
-    }
-
-    private void UsePotion(Player player, Potion potion)
-    {
-        // Handle different potion types
-        if (potion is HealingPotion healingPotion)
+        // IMPORTANT:
+        // Registering logic with the command
+        if (player.EquipmentBehaviors.TryGetValue("potion", out var behavior))
         {
-            player.UseHealingPotion(healingPotion);
+            if (behavior.Equip(player, item))
+            {
+                player.Inventory.RemoveItem(item);
+                player.Inventory.DisplayInventory();
+            }
         }
-
-        // for more potions in the future
-        // else if (potion is RagePotion ragePotion)
-        // {
-        //     wasUsed = player.UseRagePotion(ragePotion);
-        // }
         else
         {
-            Console.WriteLine("Cannot use " + potion.Name.Pastel("#ba6d00") + " - this potion type is not yet implemented.");
-            return;
+            Console.WriteLine("Cannot use " + item.Name.Pastel("#ba6d00"));
         }
-
-        // Remove the potion from inventory after successful use
-            player.Inventory.RemoveItem(potion);
-            player.Inventory.DisplayInventory();
     }
 }

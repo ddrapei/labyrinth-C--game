@@ -19,6 +19,7 @@ using Enemies;
 using Rooms;
 using PlayerDisplay;
 using PlayerMovement;
+using PlayerEquipment;
 
 using Pastel;
 
@@ -33,6 +34,14 @@ player.RegisterMoveBehavior("move down", new PlayerMoveDown());
 player.RegisterMoveBehavior("move left", new PlayerMoveLeft());
 player.RegisterMoveBehavior("move right", new PlayerMoveRight());
 // player.RegisterMoveBehavior("move up and right", new PlayerMoveDiagonallyUpAndRight()); - uncomment to test extandability of the movement commands
+
+// the same approach was implemented for the equiping behavious
+player.RegisterEquipBehavior("weapon", new EquipWeaponBehavior());
+player.RegisterEquipBehavior("shield", new EquipShieldBehavior());
+player.RegisterEquipBehavior("head", new EquipHeadArmourBehavior());
+player.RegisterEquipBehavior("torso", new EquipTorsoArmourBehavior());
+player.RegisterEquipBehavior("legs", new EquipLegsArmourBehavior());
+player.RegisterEquipBehavior("potion", new UseHealingPotionBehavior());
 
 // creates a game
 var game = new Game();
@@ -249,8 +258,7 @@ armourSetManager.RegisterSet(CircusAcrobatArmourSet);
 // enemys
 Enemy wild_boar = new Enemy("Wild Boar", 20, 5, 2, 0.1, 10);
 
-CombatSystem.GetInstance().Initialize(InputManager,combatObserver,combatUnknownCommandObserver,gameCommandMoveObserver,gameHandlerObserver,inventoryObserver,unknownCommandObserver
-);
+CombatSystem.GetInstance().Initialize(InputManager,combatObserver,combatUnknownCommandObserver,gameCommandMoveObserver,gameHandlerObserver,inventoryObserver,unknownCommandObserver);
 
 // creating room builder
 RoomBuilder builder = new RoomBuilder(0, 0);
@@ -283,10 +291,12 @@ Room room4 = new RoomBuilder(0, -1)
 
 Room room5 = new RoomBuilder(-1, 0)
     .SetDescription("The sixth room")
+    .AddItem(small_healing_potion)
     .Build();
 
 Room room6 = new RoomBuilder(1, 1)
     .SetDescription("The seventh room")
+    .AddItem(small_healing_potion)
     .Build();   
 
 

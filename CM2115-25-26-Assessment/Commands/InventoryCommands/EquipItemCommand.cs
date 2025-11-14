@@ -26,14 +26,13 @@ public class EquipItemCommand : PlayerCommand
 
         Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
 
-        // 
+        // Check if there's already an item in the room (needed for swapping equipment)
         if (currentRoom.Item != null)
         {
             Console.WriteLine("There is already an item in the room.");
-            Console.WriteLine("Find another room to drpop your equipment.");
+            Console.WriteLine("Find another room to drop your equipment.");
             return;
         }
-
 
         Item? item = InventoryChecker.FindItemInInventory(player, itemIdentifier);
 
@@ -43,45 +42,44 @@ public class EquipItemCommand : PlayerCommand
             return;
         }
 
-        // Equip the item based on its type
-        bool equipped = EquipItem(player, item);
-
-        // remove from inventory and display updated inventory if equipped successfully
-        if (equipped)
-        {
-            player.Inventory.RemoveItem(item);
-            player.Inventory.DisplayInventory();
-        }
+        // equips based on what is the item
+        EquipItem(item);
     }
 
-    private bool EquipItem(Player player, Item item)
+
+    // equips based on what is the item
+    private void EquipItem(Item item)
     {
-        // different items to equip
-        if (item is Weapon weapon)
+        PlayerCommand? specificCommand = null;
+
+        if (item is Weapon)
         {
-            return player.EquipWeapon(weapon);
+            specificCommand = new EquipWeaponCommand(itemIdentifier);
         }
-        else if (item is Shield shield)
+        else if (item is Shield)
         {
-            return player.EquipShield(shield);
+            specificCommand = new EquipShieldCommand(itemIdentifier);
         }
-        else if (item is IHeadArmour headArmour)
+        else if (item is IHeadArmour)
         {
-            return player.EquipHeadArmour(headArmour);
+            specificCommand = new EquipHeadArmourCommand(itemIdentifier);
         }
-        else if (item is ITorsoArmour torsoArmour)
+        else if (item is ITorsoArmour)
         {
-            return player.EquipTorsoArmour(torsoArmour);
+            specificCommand = new EquipTorsoArmourCommand(itemIdentifier);
         }
-        else if (item is ILegsArmour legsArmour)
+        else if (item is ILegsArmour)
         {
-            return player.EquipLegsArmour(legsArmour);
+            specificCommand = new EquipLegsArmourCommand(itemIdentifier);
         }
         else
         {
             Console.WriteLine("Cannot equip '" + item.Name + "' - this is not an equippable item.");
             Console.WriteLine("Try 'use <item>' for consumables like potions.");
-            return false;
+            return;
         }
+
+        // Execute the specific command
+        specificCommand?.Execute();
     }
 }

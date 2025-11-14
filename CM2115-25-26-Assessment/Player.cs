@@ -4,6 +4,8 @@ using Items.Armour;
 using Items.Potions;
 using Rooms;
 using PlayerMovement;
+using PlayerEquipment;
+
 
 using Pastel;
 // Singleton player class that represents the only one player in the game
@@ -43,6 +45,9 @@ public class Player
     // Composition: Movement behaviors
     private Dictionary<string, IMoveBehavior> movementBehaviors;
     private ITrackPosition storePreviousPosition;
+
+    // Composition: Equipment behavious
+    private Dictionary<string, PlayerEquipment.IEquipBehavior> equipmentBehaviors;
 
     public int Health
     {
@@ -122,20 +127,26 @@ public class Player
         get { return legsArmourEquipped; }
         set { legsArmourEquipped = value; }
     }
+    public Inventory Inventory
+    {
+        get { return inventory!; }
+    }
     public Dictionary<string, IMoveBehavior> MovementBehaviors
     {
         get { return movementBehaviors; }
         set { movementBehaviors = value; }
-    }
-    public Inventory Inventory
-    {
-        get { return inventory!; }
     }
 
     public ITrackPosition StorePreviousPosition
     {
         get { return storePreviousPosition; }
         set { storePreviousPosition = value; }
+    }
+
+    public Dictionary<string, PlayerEquipment.IEquipBehavior> EquipmentBehaviors
+    {
+        get { return equipmentBehaviors; }
+        set { equipmentBehaviors = value; }
     }
 
 
@@ -162,6 +173,9 @@ public class Player
         // initialise movements behavior
         this.movementBehaviors = new Dictionary<string, IMoveBehavior>();
         this.storePreviousPosition = new StorePreviousPosition();
+
+        // initialise equipent behavious
+        this.equipmentBehaviors = new Dictionary<string, IEquipBehavior>();
     }
 
     public void RegisterMoveBehavior(string commandKey, IMoveBehavior behavior)
@@ -169,6 +183,14 @@ public class Player
         if (!movementBehaviors.ContainsKey(commandKey))
         {
             movementBehaviors.Add(commandKey, behavior);
+        }
+    }
+
+    public void RegisterEquipBehavior(string itemType, IEquipBehavior behavior)
+    {
+        if (!equipmentBehaviors.ContainsKey(itemType))
+        {
+            equipmentBehaviors.Add(itemType, behavior);
         }
     }
 
@@ -183,185 +205,6 @@ public class Player
         }
         return false;
     }
-
-    // method to equip weapon
-    public bool EquipWeapon(Weapon weapon)
-    {
-        if (this.weaponEquipped != null)
-        {
-            Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(this);
-            if (currentRoom != null && currentRoom.Item == null)
-            {
-                currentRoom.Item = this.weaponEquipped;
-                Console.WriteLine("You placed the item in the room " + this.WeaponEquiped?.Name.Pastel("#ff9d00") + " and equipped " + weapon.Name.Pastel("#ff9d00"));
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("Cannot equip the weapon");
-                return false;
-            }
-        }
-        else
-        {
-            this.weaponEquipped = weapon;
-            this.attackPower = weapon.Damage;
-            this.baseAttackPower = weapon.Damage;
-            Console.WriteLine("Your damage now is: " + this.AttackPower.ToString().Pastel("#ff0000"));
-            return true;
-        }
-    }
-
-    // method to equip shield
-    public bool EquipShield(Shield shield)
-    {
-        if (this.shieldEquipped != null)
-        {
-            Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(this);
-            if (currentRoom != null && currentRoom.Item == null)
-            {
-                currentRoom.Item = this.shieldEquipped;
-                Console.WriteLine("You placed the item in the room " + this.shieldEquipped.Name.Pastel("#00e5ff") + " and equipped " + shieldEquipped.Name.Pastel("#00e5ff"));
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("Cannot equip the shield");
-                return false;
-            }
-        }
-        else
-        {
-            this.shieldEquipped = shield;
-            this.blockingDamageChance = shield.BlockingDamageChance;
-            Console.WriteLine("Your blocking change now is: " + this.BlockingDamageChance.ToString().Pastel("#00e5ff"));
-            return true;
-        }
-    }
-
-    // method to equip head armour
-    public bool EquipHeadArmour(IHeadArmour headArmour)
-    {
-
-        IHeadArmour? oldArmour = this.headArmourEquipped;
-
-        // checks if something is equipped
-        if (oldArmour != null)
-        {
-            // takes current room
-            Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(this);
-
-            // verifies that the room exist and there is currently no item in the room
-            if (currentRoom != null && currentRoom.Item == null)
-            {
-                currentRoom.Item = (Item)oldArmour;
-                this.defense -= ((Armour)oldArmour).Defense;
-                Console.WriteLine("You placed your " + ((Item)oldArmour).Name.Pastel("#ff9d00"));
-            }
-            else
-            {
-                Console.WriteLine("Cannot equip " + ((Item)headArmour).Name.Pastel("#ff9d00") + " - no space to place your current armour " + ((Item)oldArmour).Name.Pastel("#ff9d00"));
-                return false;
-            }
-        }
-        else
-        {
-            Console.WriteLine("You equipped " + ((Item)headArmour).Name.Pastel("#ff9d00"));
-        }
-
-        // equips armour if the checks are successful
-        this.headArmourEquipped = headArmour;
-        this.defense += ((Armour)headArmour).Defense;
-        Console.WriteLine("Your defense now is: " + this.Defense.ToString().Pastel("#1900ff"));
-        ArmourSetManager.GetInstance().CheckAndUpdateSetBonuses(this);
-        return true;
-    }
-
-    // method to equip torso armour
-    public bool EquipTorsoArmour(ITorsoArmour torsoArmour)
-    {
-        ITorsoArmour? oldArmour = this.torsoArmourEquipped;
-
-        if (oldArmour != null)
-        {
-            Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(this);
-            if (currentRoom != null && currentRoom.Item == null)
-            {
-                currentRoom.Item = (Item)oldArmour;
-                this.defense -= ((Armour)oldArmour).Defense;
-                Console.WriteLine("You placed your " + ((Item)oldArmour).Name.Pastel("#ff9d00"));
-            }
-            else
-            {
-                Console.WriteLine("Cannot equip " + ((Item)torsoArmour).Name.Pastel("#ff9d00") + " - no space to place your current armour " + ((Item)oldArmour).Name.Pastel("#ff9d00"));
-                return false;
-            }
-        }
-        else
-        {
-            Console.WriteLine("You equipped " + ((Item)torsoArmour).Name.Pastel("#ff9d00"));
-        }
-
-        this.torsoArmourEquipped = torsoArmour;
-        this.defense += ((Armour)torsoArmour).Defense;
-        Console.WriteLine("Your defense now is: " + this.Defense.ToString().Pastel("#1900ff"));
-        ArmourSetManager.GetInstance().CheckAndUpdateSetBonuses(this);
-        return true;
-    }
-
-    // method to equip legs armour
-    public bool EquipLegsArmour(ILegsArmour legsArmour)
-    {
-        ILegsArmour? oldArmour = this.legsArmourEquipped;
-
-        if (oldArmour != null)
-        {
-            Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(this);
-            if (currentRoom != null && currentRoom.Item == null)
-            {
-                currentRoom.Item = (Item)oldArmour;
-                this.defense -= ((Armour)oldArmour).Defense;
-                Console.WriteLine("You placed your " + ((Item)oldArmour).Name.Pastel("#ff9d00"));
-            }
-            else
-            {
-                Console.WriteLine("Cannot equip " + ((Item)legsArmour).Name.Pastel("#ff9d00") + " - no space to place your current armour " + ((Item)oldArmour).Name.Pastel("#ff9d00"));
-                return false;
-            }
-        }
-        else
-        {
-            Console.WriteLine("You equipped " + ((Item)legsArmour).Name.Pastel("#ff9d00"));
-        }
-
-        this.legsArmourEquipped = legsArmour;
-        this.defense += ((Armour)legsArmour).Defense;
-        Console.WriteLine("Your defense now is: " + this.Defense.ToString().Pastel("#1900ff"));
-        ArmourSetManager.GetInstance().CheckAndUpdateSetBonuses(this);
-        return true;
-    }
-
-    // method to use healing potion
-    public bool UseHealingPotion(HealingPotion healingPotion)
-    {
-        this.health = this.health + healingPotion.HealingPower;
-        if (this.health <= 0)
-        {
-            Console.WriteLine("");
-            Console.WriteLine("You have used " + healingPotion.Name.Pastel("#7CFC00") + " and it was a " + "DEADLY POISON".Pastel("#fc0303") + "!");
-            Console.WriteLine("Your heart stopped beating");
-            Console.WriteLine("");
-        }
-        else
-        {
-            Console.WriteLine("");
-            Console.WriteLine("You have used " + healingPotion.Name.Pastel("#7CFC00") + ", your health is increased by " + healingPotion.HealingPower.ToString().Pastel("#7CFC00"));
-            Console.WriteLine("Your health is " + this.health.ToString().Pastel("#7CFC00"));
-            Console.WriteLine("");
-        }
-        return true;
-    }
-
     public void LookAround()
     {
         RoomChecker.GetInstance().DisplayCurrentRoom(this);
