@@ -89,13 +89,29 @@ public class RoomChecker
                 }
             }
 
+            // Check for puzzle first - puzzles take priority
+            bool hasUnsolvedPuzzle = false;
             if (currentRoom.Puzzle != null)
             {
-                PuzzleSystem puzzleSystem = PuzzleSystem.GetInstance();
-                puzzleSystem.EnterPuzzle(currentRoom.Puzzle);
+                // Check if puzzle is solved using reflection to access IsSolved property
+                var puzzleType = currentRoom.Puzzle.GetType();
+                var isSolvedProperty = puzzleType.GetProperty("IsSolved");
+                
+                if (isSolvedProperty != null)
+                {
+                    bool isSolved = (bool)isSolvedProperty.GetValue(currentRoom.Puzzle);
+                    
+                    if (!isSolved)
+                    {
+                        hasUnsolvedPuzzle = true;
+                        PuzzleSystem puzzleSystem = PuzzleSystem.GetInstance();
+                        puzzleSystem.EnterPuzzle(currentRoom.Puzzle);
+                    }
+                }
             }
 
-            if (currentRoom.Enemy != null && !currentRoom.Enemy.IsDead())
+            // Only check for enemy if there's no unsolved puzzle
+            if (!hasUnsolvedPuzzle && currentRoom.Enemy != null && !currentRoom.Enemy.IsDead())
             {
                 Console.WriteLine("The enemy is here: " + currentRoom.Enemy.Name.Pastel("#ff00ff"));
                 Console.WriteLine("Fight - to fight the enemy");

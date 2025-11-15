@@ -37,5 +37,10 @@ public class PuzzleObserver : IGameObserver
 
             commands[commandKey].Execute();
         }
+        else
+        {
+            Console.WriteLine("Incorrect Command, try:");
+            Console.WriteLine("answer [your answer]");
+        }
     }
 }
