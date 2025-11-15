@@ -4,7 +4,7 @@ using Rooms;
 using Pastel;
 
 
-// Concrete implementation of down movement
+// Concrete implementation of level up
 public class PlayerLevelUpBehavior : ILevelUpBehavior
 {
     public void LevelUp(Player player)  
@@ -16,6 +16,8 @@ public class PlayerLevelUpBehavior : ILevelUpBehavior
             player.Level += 1;
             player.Health += 100;  
             player.Experience -= 100;
+
+            Console.WriteLine($"You reached new level: {(player.Level.ToString().Pastel("#3236a8"))}");
         }                
     }
 }

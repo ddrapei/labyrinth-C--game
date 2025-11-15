@@ -46,6 +46,8 @@ player.RegisterEquipBehavior("potion", new UseHealingPotionBehavior());
 
 // registering levelUp behaviours
 player.RegisterLevelUpBehavior("level up", new PlayerLevelUpBehavior());
+player.RegisterLevelUpBehavior("check level up", new PlayerCheckLevelUpBehavior());
+
 
 // creates a game
 var game = new Game();
