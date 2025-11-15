@@ -2,6 +2,7 @@ namespace Rooms;
 
 using Items;
 using Enemies;
+using Puzzles;
 public class RoomBuilder
 {
     private int xcoordinate;
@@ -9,6 +10,7 @@ public class RoomBuilder
     private string? description;
     private Item? item;
     private Enemy? enemy;
+    private IPuzzle? puzzle;
 
     public int Xcoordinate
     {
@@ -35,6 +37,12 @@ public class RoomBuilder
     {
         get { return enemy; }
         set { enemy = value; }
+    }
+
+    public IPuzzle? Puzzle
+    {
+        get { return puzzle; }
+        set{ puzzle = value; }
     }
 
     
@@ -64,9 +72,9 @@ public class RoomBuilder
         return this;
     }
 
-    public RoomBuilder AddPuzzle()
+    public RoomBuilder AddPuzzle(IPuzzle puzzle)
     {
-        // logic to add puzzle to the room
+        this.Puzzle = puzzle;
         return this;
     }
 

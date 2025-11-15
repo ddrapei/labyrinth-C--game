@@ -1,6 +1,7 @@
 namespace Observers.PuzzleObservers;
 
 using Commands;
+using Commands.PuzzleCommands;
 
 // this observer handles input for puzzles
 
@@ -22,9 +23,19 @@ public class PuzzleObserver : IGameObserver
 
     public void Update(string commandString)
     {
-        if (commands.ContainsKey(commandString))
+        
+        string[] parts = commandString.Split(' ', 2);
+        string commandKey = parts[0];
+        string? argument = parts.Length > 1 ? parts[1] : null;
+
+        if (commands.ContainsKey(commandKey))
         {
-            commands[commandString].Execute();
+            if (commands[commandKey] is AnswerRiddleCommand answerCommand && argument != null)
+            {
+                answerCommand.SetAnswer(argument);
+            }
+
+            commands[commandKey].Execute();
         }
     }
 }

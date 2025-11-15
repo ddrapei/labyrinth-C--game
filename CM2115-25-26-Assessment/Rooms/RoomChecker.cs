@@ -4,6 +4,8 @@ using Items;
 using Items.Armour;
 using Items.Armour.LeatherArmourSet;
 using Enemies;
+using Puzzles;
+
 
 
 using Pastel;
@@ -85,6 +87,12 @@ public class RoomChecker
                 {
                     Console.WriteLine("You see an item here: " + currentRoom.Item.Name.Pastel("#ffa200"));
                 }
+            }
+
+            if (currentRoom.Puzzle != null)
+            {
+                PuzzleSystem puzzleSystem = PuzzleSystem.GetInstance();
+                puzzleSystem.EnterPuzzle(currentRoom.Puzzle);
             }
 
             if (currentRoom.Enemy != null && !currentRoom.Enemy.IsDead())

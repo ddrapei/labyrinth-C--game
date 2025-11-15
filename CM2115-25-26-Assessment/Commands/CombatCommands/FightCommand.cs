@@ -29,6 +29,7 @@ namespace Commands.CombatCommands
             {
                 System.Console.WriteLine("There is no enemy here to fight!".Pastel("#ff7700ff"));
             }
+            
         }
     }
 }

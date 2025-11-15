@@ -1,6 +1,7 @@
 namespace Observers.PuzzleObservers;
 
 using Commands;
+using Commands.PuzzleCommands;
 
 // this observer handles unknown command input for puzzles
 public class UnknownCommandPuzzleObserver : IGameObserver
@@ -21,9 +22,20 @@ public class UnknownCommandPuzzleObserver : IGameObserver
 
     public void Update(string commandString)
     {
-        if (commands.ContainsKey(commandString))
+        // Parse multi-word commands to get the base command
+        string[] parts = commandString.Split(' ', 2);
+        string commandKey = parts[0];
+        string? argument = parts.Length > 1 ? parts[1] : null;
+
+        if (commands.ContainsKey(commandKey))
         {
-            commands[commandString].Execute();
+            // Special handling for AnswerRiddleCommand
+            if (commands[commandKey] is AnswerRiddleCommand answerCommand && argument != null)
+            {
+                answerCommand.SetAnswer(argument);
+            }
+
+            commands[commandKey].Execute();
         }
     }
 }

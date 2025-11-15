@@ -2,6 +2,7 @@ namespace Rooms;
 
 using Items;
 using Enemies;
+using Puzzles;
 public class Room
 {
     private int xcoordinate;
@@ -9,6 +10,7 @@ public class Room
     private string? description;
     private Item? item;
     private Enemy? enemy;
+    private IPuzzle? puzzle;
     public int Xcoordinate
     {
         get { return xcoordinate; }
@@ -35,6 +37,11 @@ public class Room
         get { return enemy; }
         set { enemy = value; }
     }
+    public IPuzzle? Puzzle
+    {
+        get { return puzzle; }
+        set { puzzle = value; }
+    }
 
     // --- Constructor --- 
     public Room(RoomBuilder builder)
@@ -44,5 +51,6 @@ public class Room
         this.description = builder.Description;
         this.item = builder.Item;
         this.enemy = builder.Enemy;
+        this.puzzle = builder.Puzzle;
     }
 }

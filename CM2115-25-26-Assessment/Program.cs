@@ -2,12 +2,14 @@
 using Observers.MainMenuObservers;
 using Observers.InsideInventoryObservers;
 using Observers.CombatObservers;
+using Observers.PuzzleObservers;
 using Commands;
 using Commands.DisplayCommands;
 using Commands.MainMenuCommands;
 using Commands.MoveCommands;
 using Commands.InventoryCommands;
 using Commands.CombatCommands;
+using Commands.PuzzleCommands;
 using Items;
 using Items.Armour;
 using Items.Armour.LeatherArmourSet;
@@ -21,6 +23,7 @@ using PlayerDisplay;
 using PlayerMovement;
 using PlayerEquipment;
 using PlayerLevelUp;
+using Puzzles;
 
 
 using Pastel;
@@ -89,6 +92,10 @@ var combatUnknownCommandObserver = new CombatUnknownCommandObserver(game);
 // handles unknown commands
 var unknownCommandObserver = new UnknownCommandObserver(game);
 
+// puzzle observers
+var puzzleObserver = new PuzzleObserver(game);
+var unknownCommandPuzzleObserver = new UnknownCommandPuzzleObserver(game);
+
 // command to start the game
 var startGameCommand = new StartGameCommand(game, InputManager, mainMenuObserver, mainMenuUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver ,unknownCommandObserver);
 
@@ -124,6 +131,12 @@ var attackCommand = new AttackCommand(game, InputManager);
 var runAwayCommand = new RunAwayCommand(InputManager);
 var fightCommand = new FightCommand(game, InputManager);
 
+// puzzle commands
+
+var sphynxPuzzle = new SphynxPuzzle();
+var enterPuzzleCommand = new EnterPuzzleCommand(sphynxPuzzle);
+var answerRiddleCommand = new AnswerRiddleCommand(sphynxPuzzle);
+
 // registers start game command with its observer 
 mainMenuObserver.AddCommand("start", startGameCommand);
 mainMenuObserver.AddCommand("start game", startGameCommand);
@@ -143,6 +156,12 @@ gameHandlerObserver.AddCommand("look around", lookAround);
 // fight command
 gameHandlerObserver.AddCommand("fight", fightCommand);
 gameHandlerObserver.AddCommand("attack", fightCommand);
+
+// puzzle commands
+gameHandlerObserver.AddCommand("enter puzzle", enterPuzzleCommand);
+gameHandlerObserver.AddCommand("talk", enterPuzzleCommand);
+gameHandlerObserver.AddCommand("interact", enterPuzzleCommand);
+gameHandlerObserver.AddCommand("speak", enterPuzzleCommand);
 
 // registers movement commands
 gameCommandMoveObserver.AddCommand("move up", moveUp);
@@ -193,6 +212,10 @@ unknownCommandObserver.RegisterValidCommand("pick up");
 unknownCommandObserver.RegisterValidCommand("fight");
 unknownCommandObserver.RegisterValidCommand("attack");
 unknownCommandObserver.RegisterValidCommand("look around");
+unknownCommandObserver.RegisterValidCommand("enter puzzle");
+unknownCommandObserver.RegisterValidCommand("talk");
+unknownCommandObserver.RegisterValidCommand("interact");
+unknownCommandObserver.RegisterValidCommand("speak");
 // unknownCommandObserver.RegisterValidCommand("move up and right"); - uncomment to test extendability of movement commands
 
 // registers valid commands with the unknown command observer in the inventory
@@ -265,7 +288,20 @@ armourSetManager.RegisterSet(CircusAcrobatArmourSet);
 // enemys
 Enemy wild_boar = new Enemy("Wild Boar", 20, 5, 2, 0.1, 110);
 
+// combat system init
 CombatSystem.GetInstance().Initialize(InputManager,combatObserver,combatUnknownCommandObserver,gameCommandMoveObserver,gameHandlerObserver,inventoryObserver,unknownCommandObserver);
+
+// puzzle sustem init
+PuzzleSystem.GetInstance().Initialize(InputManager,puzzleObserver,unknownCommandPuzzleObserver,gameCommandMoveObserver,gameHandlerObserver,inventoryObserver,unknownCommandObserver);
+
+// register puzzle with puzzle manager
+var puzzleManager = PuzzleManager.GetInstance();
+puzzleManager.RegisterPuzzle("sphynx", sphynxPuzzle);
+
+// register puzzle commands with puzzle observer
+puzzleObserver.AddCommand("answer", answerRiddleCommand);
+puzzleObserver.AddCommand("say", answerRiddleCommand);
+puzzleObserver.AddCommand("guess", answerRiddleCommand);
 
 // creating room builder
 RoomBuilder builder = new RoomBuilder(0, 0);
@@ -280,6 +316,7 @@ Room room1 = new RoomBuilder(0, 1)
     .SetDescription("The second room")
     .AddItem(rusty_sword)
     .AddEnemy(wild_boar)
+    .AddPuzzle(sphynxPuzzle)
     .Build();
 
 Room room2 = new RoomBuilder(1, 0)
