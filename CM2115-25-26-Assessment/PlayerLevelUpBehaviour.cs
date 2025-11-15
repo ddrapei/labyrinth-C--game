@@ -1,23 +1,50 @@
 namespace PlayerLevelUp;
 
-using Rooms;
+using Commands.DisplayCommands;
+using Commands;
 using Pastel;
+using PlayerDisplay;
 
 
 // Concrete implementation of level up
 public class PlayerLevelUpBehavior : ILevelUpBehavior
 {
-    public void LevelUp(Player player)  
-    {
-        
 
+    public void LevelUp(Player player)
+    {
+
+        
+        double diceRollForLevelUp = Random.Shared.NextDouble();
+        
         if (player.Experience >= 100)
         {
-            player.Level += 1;
-            player.Health += 100;  
-            player.Experience -= 100;
+            if (diceRollForLevelUp <= 0.3)
+            {
+                player.Level += 1;
+                player.Health += 20;
+                player.Experience -= 100;
 
-            Console.WriteLine($"You reached new level: {(player.Level.ToString().Pastel("#3236a8"))}");
-        }                
+                Console.WriteLine($"You reached new level: {(player.Level.ToString().Pastel("#3236a8"))}");
+                Console.WriteLine($"You gained " + "+ 20 health".Pastel("#1aff00"));
+            } 
+            else if (diceRollForLevelUp >= 0.6)
+            {
+                player.Level += 1;
+                player.BlockingDamageChance += 0.05;
+                player.Experience -= 100;
+
+                Console.WriteLine($"You reached new level: {(player.Level.ToString().Pastel("#3236a8"))}");
+                Console.WriteLine($"You gained " + "+ 0.05% blocking damage chance".Pastel("#1aff00"));
+            } 
+            else
+            {
+                player.Level += 1;
+                player.AttackPower += 5;
+                player.Experience -= 100;
+
+                Console.WriteLine($"You reached new level: {(player.Level.ToString().Pastel("#3236a8"))}");
+                Console.WriteLine($"You gained " + "+ 5 attack power".Pastel("#1aff00"));
+            }
+        }
     }
 }
