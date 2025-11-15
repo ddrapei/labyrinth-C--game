@@ -7,6 +7,7 @@ public class SphynxPuzzle : IPuzzle
     private string question;
     private string correctAnswer;
     private bool isSolved;
+    private int damage;
 
     public bool IsSolved
     {
@@ -18,6 +19,11 @@ public class SphynxPuzzle : IPuzzle
     {
         get { return correctAnswer; }
     }
+    public int Damage
+    {
+        get { return damage; }
+        set { damage = value; }
+    }
 
     public SphynxPuzzle()
     {
@@ -25,6 +31,7 @@ public class SphynxPuzzle : IPuzzle
         this.question = "I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?";
         this.correctAnswer = "echo";
         this.isSolved = false;
+        this.damage = 25;
     }
 
     public void StartPuzzle()
@@ -46,12 +53,14 @@ public class SphynxPuzzle : IPuzzle
 
     public void CheckAnswer(string playerAnswer)
     {
+        Player player = Player.GetInstance();
+
         if (playerAnswer.Trim().ToLower() == correctAnswer.ToLower())
         {
-            Console.WriteLine("═══════════════════════════════════════════════════════════".Pastel("#00FF00"));
-            Console.WriteLine("The Sphynx nods".Pastel("#32CD32"));
-            Console.WriteLine("Correct! You may pass.".Pastel("#7FFF00"));
-            Console.WriteLine("═══════════════════════════════════════════════════════════".Pastel("#00FF00"));
+            Console.WriteLine("╔═══════════════════════════════════════════════════════════╗".Pastel("#00FF00"));
+            Console.WriteLine("║".Pastel("#00FF00") + "                 The Sphynx nods                           ".Pastel("#32CD32") + "║".Pastel("#00FF00"));
+            Console.WriteLine("║".Pastel("#00FF00") + "              Correct! You may pass.                       ".Pastel("#7FFF00")+ "║".Pastel("#00FF00"));
+            Console.WriteLine("╚═══════════════════════════════════════════════════════════╝".Pastel("#00FF00"));
             Console.WriteLine("The Sphynx disapperars".Pastel("#90EE90"));
             
             isSolved = true;
@@ -61,10 +70,15 @@ public class SphynxPuzzle : IPuzzle
         }
         else
         {
-            Console.WriteLine("═══════════════════════════════════════════════════════════".Pastel("#FF0000"));
-            Console.WriteLine("The Sphynx says no".Pastel("#DC143C"));
-            Console.WriteLine("Incorrect.".Pastel("#FF4500"));
-            Console.WriteLine("═══════════════════════════════════════════════════════════".Pastel("#FF0000"));
+            player.Health -= this.damage;
+            Console.WriteLine("╔═══════════════════════════════════════════════════════════╗".Pastel("#d4020d"));
+            Console.WriteLine("║".Pastel("#d4020d") + "                   The Sphynx says no                      ".Pastel("#f72530") + "║".Pastel("#d4020d"));
+            Console.WriteLine("║".Pastel("#d4020d") + "                        Incorrect                          ".Pastel("#ab262d")+ "║".Pastel("#d4020d"));
+            Console.WriteLine("╚═══════════════════════════════════════════════════════════╝".Pastel("#d4020d"));
+            Console.WriteLine("The Sphynx is angry!".Pastel("#b30009"));
+            Console.WriteLine("The Sphynx pecks you");
+            Console.WriteLine($"The Sphynx deals {this.damage}");
+            Console.WriteLine("The Sphynx repeats the question!".Pastel("#b30009"));
             Console.WriteLine("Try again. Type 'answer [your answer]' to respond.".Pastel("#FFFFFF"));
         }
     }
