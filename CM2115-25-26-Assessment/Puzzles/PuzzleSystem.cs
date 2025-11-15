@@ -1,3 +1,6 @@
+namespace Puzzles;
+
+
 using Observers;
 using Observers.PuzzleObservers;
 using Puzzles;

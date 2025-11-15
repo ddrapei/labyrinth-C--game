@@ -1,6 +1,6 @@
-using Pastel;
-
 namespace Puzzles;
+
+using Pastel;
 
 public class SphynxPuzzle : IPuzzle
 {
