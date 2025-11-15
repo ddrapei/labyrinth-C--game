@@ -5,6 +5,7 @@ using Items.Potions;
 using Rooms;
 using PlayerMovement;
 using PlayerEquipment;
+using PlayerLevelUp;
 
 
 using Pastel;
@@ -35,6 +36,7 @@ public class Player
     private int attackPower;
     private double blockingDamageChance;
     private int experience;
+    private int level;
     private Weapon? weaponEquipped;
     private Shield? shieldEquipped;
     private IHeadArmour? headArmourEquipped;
@@ -48,6 +50,9 @@ public class Player
 
     // Composition: Equipment behavious
     private Dictionary<string, PlayerEquipment.IEquipBehavior> equipmentBehaviors;
+
+    // Composition: LevelUp behavious
+    private Dictionary<string, ILevelUpBehavior> levelUpBehaviors;
 
     public int Health
     {
@@ -102,6 +107,12 @@ public class Player
         get { return experience; }
         set { experience = value; }
     }
+
+    public int Level
+    {
+        get { return level; }
+        set { level = value; }
+    }
     public Weapon? WeaponEquiped
     {
         get { return weaponEquipped; }
@@ -149,6 +160,12 @@ public class Player
         set { equipmentBehaviors = value; }
     }
 
+    public Dictionary<string, ILevelUpBehavior> LevelUpBehaviors
+    {
+        get { return levelUpBehaviors; }
+        set { levelUpBehaviors = value; }
+    }
+
 
     // --- Constructor ---
     private Player(int health, int xcoordinate, int ycoordinate)
@@ -163,6 +180,7 @@ public class Player
         this.attackPower = 1;
         this.blockingDamageChance = 0.00;
         this.experience = 0;
+        this.level = 1;
         this.weaponEquipped = null;
         this.shieldEquipped = null;
         this.headArmourEquipped = null;
@@ -176,6 +194,9 @@ public class Player
 
         // initialise equipent behavious
         this.equipmentBehaviors = new Dictionary<string, IEquipBehavior>();
+
+        // initialise level up behavious
+        this.levelUpBehaviors = new Dictionary<string, ILevelUpBehavior>();
     }
 
     public void RegisterMoveBehavior(string commandKey, IMoveBehavior behavior)
@@ -194,6 +215,14 @@ public class Player
         }
     }
 
+    public void RegisterLevelUpBehavior(string behaviorKey, ILevelUpBehavior behavior) 
+    {
+        if (!levelUpBehaviors.ContainsKey(behaviorKey))
+        {
+            levelUpBehaviors.Add(behaviorKey, behavior);
+        }
+    }
+
     // method to move to previous position (when running away)
     public bool MoveToPreviousPosition()
     {
@@ -205,6 +234,8 @@ public class Player
         }
         return false;
     }
+
+
     public void LookAround()
     {
         RoomChecker.GetInstance().DisplayCurrentRoom(this);

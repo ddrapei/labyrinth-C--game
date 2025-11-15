@@ -20,6 +20,7 @@ using Rooms;
 using PlayerDisplay;
 using PlayerMovement;
 using PlayerEquipment;
+using PlayerLevelUp;
 
 using Pastel;
 
@@ -42,6 +43,9 @@ player.RegisterEquipBehavior("head", new EquipHeadArmourBehavior());
 player.RegisterEquipBehavior("torso", new EquipTorsoArmourBehavior());
 player.RegisterEquipBehavior("legs", new EquipLegsArmourBehavior());
 player.RegisterEquipBehavior("potion", new UseHealingPotionBehavior());
+
+// registering levelUp behaviours
+player.RegisterLevelUpBehavior("level up", new PlayerLevelUpBehavior());
 
 // creates a game
 var game = new Game();
@@ -207,7 +211,7 @@ InputManager.AddObserver(mainMenuObserver);
 
 // weapons
 var spoon_with_a_hole = new Weapon("Spoon with a hole", 3);
-Weapon rusty_sword = new Weapon("Rusty Sword", 7);  
+Weapon rusty_sword = new Weapon("Rusty Sword", 100);  
 
 // potions
 var small_healing_potion = new HealingPotion("Small Healing Potion", 10);
@@ -256,7 +260,7 @@ CircusAcrobatArmourSet.AddPerk(increaseBlockingDamageChancePerk);
 armourSetManager.RegisterSet(CircusAcrobatArmourSet);
 
 // enemys
-Enemy wild_boar = new Enemy("Wild Boar", 20, 5, 2, 0.1, 10);
+Enemy wild_boar = new Enemy("Wild Boar", 20, 5, 2, 0.1, 110);
 
 CombatSystem.GetInstance().Initialize(InputManager,combatObserver,combatUnknownCommandObserver,gameCommandMoveObserver,gameHandlerObserver,inventoryObserver,unknownCommandObserver);
 
@@ -271,7 +275,7 @@ Room room0 = builder
 
 Room room1 = new RoomBuilder(0, 1)
     .SetDescription("The second room")
-    .AddItem(spoon_with_a_hole)
+    .AddItem(rusty_sword)
     .AddEnemy(wild_boar)
     .Build();
 

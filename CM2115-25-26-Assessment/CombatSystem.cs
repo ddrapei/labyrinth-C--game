@@ -88,7 +88,7 @@ public class CombatSystem
             player.Experience += currentEnemy.ExperienceReward;
             Console.WriteLine($"You gained {currentEnemy.ExperienceReward.ToString().Pastel("#ffff00")} experience!");
             Console.WriteLine("");
-
+            
             EndCombat();
             return new CombatResult(CombatOutcome.Victory, "Enemy defeated!");
         }
