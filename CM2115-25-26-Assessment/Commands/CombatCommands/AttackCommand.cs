@@ -24,12 +24,6 @@ namespace Commands.CombatCommands
         {
             CombatSystem combatSystem = CombatSystem.GetInstance();
             CombatResult result = combatSystem.PlayerAttack();
-
-            // Handle game ending if player died
-            if (result.CombatOutcome == CombatOutcome.Defeat)
-            {
-                game.IsFinished = true;
-            }
         }
     }
 }

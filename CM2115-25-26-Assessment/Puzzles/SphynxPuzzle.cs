@@ -41,10 +41,10 @@ public class SphynxPuzzle : IPuzzle
             Console.WriteLine("The Sphynx's puzzle has already been solved.".Pastel("#808080"));
             return;
         }
-        
+
         // Display the puzzle
         Console.WriteLine("" + "╔═══════════════════════════════════════════════════════════╗".Pastel("#8B4513"));
-        Console.WriteLine("║".Pastel("#8B4513")+"           A primeval Sphynx blocks your path!             ".Pastel("#DAA520") + "║".Pastel("#8B4513").Pastel("#DAA520"));
+        Console.WriteLine("║".Pastel("#8B4513") + "           A primeval Sphynx blocks your path!             ".Pastel("#DAA520") + "║".Pastel("#8B4513").Pastel("#DAA520"));
         Console.WriteLine("╚═══════════════════════════════════════════════════════════╝".Pastel("#8B4513"));
         Console.WriteLine("The Sphynx speaks:".Pastel("#FFD700"));
         Console.WriteLine($"{question}".Pastel("#FFA500"));
@@ -59,21 +59,32 @@ public class SphynxPuzzle : IPuzzle
         {
             Console.WriteLine("╔═══════════════════════════════════════════════════════════╗".Pastel("#00FF00"));
             Console.WriteLine("║".Pastel("#00FF00") + "                 The Sphynx nods                           ".Pastel("#32CD32") + "║".Pastel("#00FF00"));
-            Console.WriteLine("║".Pastel("#00FF00") + "              Correct! You may pass.                       ".Pastel("#7FFF00")+ "║".Pastel("#00FF00"));
+            Console.WriteLine("║".Pastel("#00FF00") + "              Correct! You may pass.                       ".Pastel("#7FFF00") + "║".Pastel("#00FF00"));
             Console.WriteLine("╚═══════════════════════════════════════════════════════════╝".Pastel("#00FF00"));
             Console.WriteLine("The Sphynx disapperars".Pastel("#90EE90"));
-            
+
             isSolved = true;
-            
+
             // Exit puzzle
             PuzzleSystem.GetInstance().ExitPuzzle();
         }
         else
         {
+
+            if (player.Health <= 0)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("=== DEAD ===".Pastel("#ff0000"));
+                Console.WriteLine("You have been slaughtered...".Pastel("#ff0000"));
+                Console.WriteLine("");
+                PuzzleSystem.GetInstance().ExitPuzzle();
+                return;
+            }
+
             player.Health -= this.damage;
             Console.WriteLine("╔═══════════════════════════════════════════════════════════╗".Pastel("#d4020d"));
             Console.WriteLine("║".Pastel("#d4020d") + "                   The Sphynx says no                      ".Pastel("#f72530") + "║".Pastel("#d4020d"));
-            Console.WriteLine("║".Pastel("#d4020d") + "                        Incorrect                          ".Pastel("#ab262d")+ "║".Pastel("#d4020d"));
+            Console.WriteLine("║".Pastel("#d4020d") + "                        Incorrect                          ".Pastel("#ab262d") + "║".Pastel("#d4020d"));
             Console.WriteLine("╚═══════════════════════════════════════════════════════════╝".Pastel("#d4020d"));
             Console.WriteLine("The Sphynx is angry!".Pastel("#b30009"));
             Console.WriteLine("The Sphynx pecks you");

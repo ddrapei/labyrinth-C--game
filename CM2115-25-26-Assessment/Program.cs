@@ -286,7 +286,7 @@ CircusAcrobatArmourSet.AddPerk(increaseBlockingDamageChancePerk);
 armourSetManager.RegisterSet(CircusAcrobatArmourSet);
 
 // enemys
-Enemy wild_boar = new Enemy("Wild Boar", 20, 5, 2, 0.1, 110);
+Enemy wild_boar = new Enemy("Wild Boar", 20, 200, 2, 0.1, 110);
 
 // combat system init
 CombatSystem.GetInstance().Initialize(InputManager,combatObserver,combatUnknownCommandObserver,gameCommandMoveObserver,gameHandlerObserver,inventoryObserver,unknownCommandObserver);
@@ -367,4 +367,18 @@ Console.WriteLine("Exit".Pastel("#ff0000") + " - to exit a game");
 while (!game.IsFinished)
 {
     InputManager.ProcessInput();
+
+        if (player.Health <= 0 && !game.IsFinished)
+    {
+        Console.WriteLine("");
+        Console.WriteLine("▓▓▓▓GAME OVER▓▓▓▓".Pastel("#ff0000"));
+        Console.WriteLine(" ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓".Pastel("#ff0000"));
+        Console.WriteLine(" ▓▓▓▓▓▓  ▓▓▓ ▓▓▓".Pastel("#ff0000"));
+        Console.WriteLine("  ▓▓▓▓   ▓▓   ▓ ".Pastel("#ff0000"));
+        Console.WriteLine("   ▓▓     ▓     ".Pastel("#ff0000"));
+        Console.WriteLine("   ▓            ".Pastel("#ff0000"));
+        Console.WriteLine("You have been defeated...".Pastel("#ff0000"));
+        Console.WriteLine("");
+        game.IsFinished = true;
+    }
 }

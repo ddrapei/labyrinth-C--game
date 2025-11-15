@@ -106,11 +106,6 @@ public class CombatSystem
         // Check if player is dead
         if (player.Health <= 0)
         {
-            Console.WriteLine("");
-            Console.WriteLine("=== DEFEAT ===".Pastel("#ff0000"));
-            Console.WriteLine("You have been slaughtered...".Pastel("#ff0000"));
-            Console.WriteLine("");
-
             EndCombat();
             return new CombatResult(CombatOutcome.Defeat, "Player defeated!");
         }
@@ -186,11 +181,6 @@ public class CombatSystem
             // Check if player is dead
             if (player.Health <= 0)
             {
-                Console.WriteLine("");
-                Console.WriteLine("=== DEFEAT ===".Pastel("#ff0000"));
-                Console.WriteLine("You have been slaughtered...".Pastel("#ff0000"));
-                Console.WriteLine("");
-
                 EndCombat();
                 return new CombatResult(CombatOutcome.Defeat, "Player defeated!");
             }
