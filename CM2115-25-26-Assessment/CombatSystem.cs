@@ -130,6 +130,13 @@ public class CombatSystem
 
         int damage = currentEnemy.AttackPower - player.Defense;
 
+
+        // prevents showing damage higher than player's health 
+        if (damage > player.Health)
+        {
+            damage = player.Health;
+        }
+
         // prevents healing the player when defense is higher than enemy attack power
         if (damage < 0)
         {
