@@ -131,11 +131,13 @@ var attackCommand = new AttackCommand(game, InputManager);
 var runAwayCommand = new RunAwayCommand(InputManager);
 var fightCommand = new FightCommand(game, InputManager);
 
-// puzzle commands
-
+// creating puzzles
 var sphynxPuzzle = new SphynxPuzzle();
-var enterPuzzleCommand = new EnterPuzzleCommand(sphynxPuzzle);
-var answerRiddleCommand = new AnswerRiddleCommand(sphynxPuzzle);
+var oedipusPuzzle = new OedipusPuzzle();
+
+// puzzle commands
+var enterPuzzleCommand = new EnterPuzzleCommand();
+var answerRiddleCommand = new AnswerRiddleCommand();  
 
 // registers start game command with its observer 
 mainMenuObserver.AddCommand("start", startGameCommand);
@@ -158,10 +160,11 @@ gameHandlerObserver.AddCommand("fight", fightCommand);
 gameHandlerObserver.AddCommand("attack", fightCommand);
 
 // puzzle commands
-gameHandlerObserver.AddCommand("enter puzzle", enterPuzzleCommand);
-gameHandlerObserver.AddCommand("talk", enterPuzzleCommand);
-gameHandlerObserver.AddCommand("interact", enterPuzzleCommand);
-gameHandlerObserver.AddCommand("speak", enterPuzzleCommand);
+
+
+// Register the universal answer command with puzzle observer
+puzzleObserver.AddCommand("answer", answerRiddleCommand);
+puzzleObserver.AddCommand("say", answerRiddleCommand);
 
 // registers movement commands
 gameCommandMoveObserver.AddCommand("move up", moveUp);
@@ -297,11 +300,7 @@ PuzzleSystem.GetInstance().Initialize(InputManager,puzzleObserver,unknownCommand
 // register puzzle with puzzle manager
 var puzzleManager = PuzzleManager.GetInstance();
 puzzleManager.RegisterPuzzle("sphynx", sphynxPuzzle);
-
-// register puzzle commands with puzzle observer
-puzzleObserver.AddCommand("answer", answerRiddleCommand);
-puzzleObserver.AddCommand("say", answerRiddleCommand);
-puzzleObserver.AddCommand("guess", answerRiddleCommand);
+puzzleManager.RegisterPuzzle("oedipus", oedipusPuzzle);
 
 // creating room builder
 RoomBuilder builder = new RoomBuilder(0, 0);
@@ -316,7 +315,7 @@ Room room1 = new RoomBuilder(0, 1)
     .SetDescription("The second room")
     .AddItem(rusty_sword)
     .AddEnemy(wild_boar)
-    .AddPuzzle(sphynxPuzzle)
+    .AddPuzzle(oedipusPuzzle)
     .Build();
 
 Room room2 = new RoomBuilder(1, 0)

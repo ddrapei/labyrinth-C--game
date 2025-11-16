@@ -2,7 +2,7 @@ namespace Puzzles;
 
 using Pastel;
 
-public class SphynxPuzzle : IPuzzle
+public class OedipusPuzzle : IPuzzle
 {
     private string question;
     private string correctAnswer;
@@ -31,13 +31,13 @@ public class SphynxPuzzle : IPuzzle
         set { failedAttempts = value; }
     }
 
-    public SphynxPuzzle()
+    public OedipusPuzzle()
     {
         // question
-        this.question = "I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?";
-        this.correctAnswer = "echo";
+        this.question = "What walks on four feet in the morning, two in the afternoon, and three at night?";
+        this.correctAnswer = "man";
         this.isSolved = false;
-        this.damage = 25;
+        this.damage = 30;
         this.failedAttempts = 0;
     }
 
@@ -45,17 +45,17 @@ public class SphynxPuzzle : IPuzzle
     {
         if (isSolved)
         {
-            Console.WriteLine("The Sphynx's puzzle has already been solved.".Pastel("#808080"));
+            Console.WriteLine("The Oedipus puzzle has already been solved.".Pastel("#808080"));
             return;
         }
 
         // Display the puzzle
         Console.WriteLine("" + "╔═══════════════════════════════════════════════════════════╗".Pastel("#8B4513"));
-        Console.WriteLine("║".Pastel("#8B4513") + "           A primeval Sphynx blocks your path!             ".Pastel("#DAA520") + "║".Pastel("#8B4513").Pastel("#DAA520"));
+        Console.WriteLine("║".Pastel("#8B4513") + "           Oedipus - King of Thebes blocks your path!    ".Pastel("#DAA520") + "║".Pastel("#8B4513").Pastel("#DAA520"));
         Console.WriteLine("╚═══════════════════════════════════════════════════════════╝".Pastel("#8B4513"));
-        Console.WriteLine("The Sphynx speaks:".Pastel("#FFD700"));
+        Console.WriteLine("Oedipus speaks:".Pastel("#FFD700"));
         Console.WriteLine($"{question}".Pastel("#FFA500"));
-        Console.WriteLine("Type 'answer [your answer]' to respond.".Pastel("#FFFFFF"));
+        Console.WriteLine("Type 'answer [your answer]' to respond.".Pastel("#90EE90"));
     }
 
     public void CheckAnswer(string playerAnswer)
@@ -69,7 +69,7 @@ public class SphynxPuzzle : IPuzzle
             Console.WriteLine("║".Pastel("#00FF00") + "                 The Sphynx nods                           ".Pastel("#32CD32") + "║".Pastel("#00FF00"));
             Console.WriteLine("║".Pastel("#00FF00") + "              Correct! You may pass.                       ".Pastel("#7FFF00") + "║".Pastel("#00FF00"));
             Console.WriteLine("╚═══════════════════════════════════════════════════════════╝".Pastel("#00FF00"));
-            Console.WriteLine("The Sphynx disapperars".Pastel("#90EE90"));
+            Console.WriteLine("Oedipus disapperars".Pastel("#90EE90"));
             Console.WriteLine($"You gained + {experienceGranted}xp".Pastel("#90EE90"));
 
 
@@ -82,7 +82,7 @@ public class SphynxPuzzle : IPuzzle
         {
             player.Health -= this.damage;
             Console.WriteLine("╔═══════════════════════════════════════════════════════════╗".Pastel("#d4020d"));
-            Console.WriteLine("║".Pastel("#d4020d") + "                   The Sphynx says no                      ".Pastel("#f72530") + "║".Pastel("#d4020d"));
+            Console.WriteLine("║".Pastel("#d4020d") + "                   Oedipus says no                      ".Pastel("#f72530") + "║".Pastel("#d4020d"));
             Console.WriteLine("║".Pastel("#d4020d") + "                        Incorrect                          ".Pastel("#ab262d") + "║".Pastel("#d4020d"));
             Console.WriteLine("╚═══════════════════════════════════════════════════════════╝".Pastel("#d4020d"));
             Console.WriteLine("The Sphynx is angry!".Pastel("#b30009"));

@@ -1,18 +1,21 @@
 using Puzzles;
+using Rooms;
 
 namespace Commands.PuzzleCommands;
 
 public class EnterPuzzleCommand : PlayerCommand
 {
-    private IPuzzle puzzle;
 
-    public EnterPuzzleCommand(IPuzzle puzzle)
+    public EnterPuzzleCommand()
     {
-        this.puzzle = puzzle;
+        
     }
 
     public void Execute()
     {
+        Player player = Player.GetInstance();
+        Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
+        IPuzzle puzzle = currentRoom.Puzzle;
         PuzzleSystem.GetInstance().EnterPuzzle(puzzle);
     }
 }

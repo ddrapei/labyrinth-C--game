@@ -1,15 +1,16 @@
-using Puzzles;
-
 namespace Commands.PuzzleCommands;
+
+using Puzzles;
+using Rooms;
+
 
 public class AnswerRiddleCommand : PlayerCommand
 {
-    private IPuzzle puzzle;
     private string? answer;
 
-    public AnswerRiddleCommand(IPuzzle puzzle)
+    public AnswerRiddleCommand()
     {
-        this.puzzle = puzzle;
+        
     }
 
     public void SetAnswer(string answer)
@@ -19,12 +20,15 @@ public class AnswerRiddleCommand : PlayerCommand
 
     public void Execute()
     {
+        Player player = Player.GetInstance();
+        Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
+
         if (string.IsNullOrWhiteSpace(answer))
         {
             Console.WriteLine("Usage: answer [your answer]");
             return;
         }
 
-        puzzle.CheckAnswer(answer);
+        currentRoom.Puzzle.CheckAnswer(answer);
     }
 }
