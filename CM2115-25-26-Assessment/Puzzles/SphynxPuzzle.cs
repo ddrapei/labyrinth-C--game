@@ -8,6 +8,7 @@ public class SphynxPuzzle : IPuzzle
     private string correctAnswer;
     private bool isSolved;
     private int damage;
+    private int failedAttempts;
 
     public bool IsSolved
     {
@@ -24,6 +25,11 @@ public class SphynxPuzzle : IPuzzle
         get { return damage; }
         set { damage = value; }
     }
+    public int FailedAttempts
+    {
+        get { return failedAttempts; }
+        set { failedAttempts = value; }
+    }
 
     public SphynxPuzzle()
     {
@@ -32,6 +38,7 @@ public class SphynxPuzzle : IPuzzle
         this.correctAnswer = "echo";
         this.isSolved = false;
         this.damage = 25;
+        this.failedAttempts = 0;
     }
 
     public void StartPuzzle()
@@ -57,11 +64,14 @@ public class SphynxPuzzle : IPuzzle
 
         if (playerAnswer.Trim().ToLower() == correctAnswer.ToLower())
         {
+            int experienceGranted = player.Experience += 50;
             Console.WriteLine("╔═══════════════════════════════════════════════════════════╗".Pastel("#00FF00"));
             Console.WriteLine("║".Pastel("#00FF00") + "                 The Sphynx nods                           ".Pastel("#32CD32") + "║".Pastel("#00FF00"));
             Console.WriteLine("║".Pastel("#00FF00") + "              Correct! You may pass.                       ".Pastel("#7FFF00") + "║".Pastel("#00FF00"));
             Console.WriteLine("╚═══════════════════════════════════════════════════════════╝".Pastel("#00FF00"));
             Console.WriteLine("The Sphynx disapperars".Pastel("#90EE90"));
+            Console.WriteLine($"You gained + {experienceGranted}xp".Pastel("#90EE90"));
+
 
             isSolved = true;
 
@@ -70,7 +80,6 @@ public class SphynxPuzzle : IPuzzle
         }
         else
         {
-
             if (player.Health <= 0)
             {
                 Console.WriteLine("");
@@ -87,15 +96,22 @@ public class SphynxPuzzle : IPuzzle
             Console.WriteLine("║".Pastel("#d4020d") + "                        Incorrect                          ".Pastel("#ab262d") + "║".Pastel("#d4020d"));
             Console.WriteLine("╚═══════════════════════════════════════════════════════════╝".Pastel("#d4020d"));
             Console.WriteLine("The Sphynx is angry!".Pastel("#b30009"));
-            Console.WriteLine("The Sphynx pecks you");
-            Console.WriteLine($"The Sphynx deals {this.damage}");
+            Console.WriteLine("The Sphynx pecks you".Pastel("#ff001a"));
+            Console.WriteLine($"The Sphynx deals {this.damage} damage".Pastel("#ff001a"));
             Console.WriteLine("The Sphynx repeats the question!".Pastel("#b30009"));
-            Console.WriteLine("Try again. Type 'answer [your answer]' to respond.".Pastel("#FFFFFF"));
+            Console.WriteLine($"{question}".Pastel("#FFA500"));
+            Console.WriteLine("Try again. Type 'answer [your answer]' to respond.".Pastel("#6ba832"));
+            failedAttempts++;
+
+            if (failedAttempts >= 3)
+            {
+                this.GetHint();
+            }
         }
     }
 
-    public string GetHint()
+    public void GetHint()
     {
-        return "Think about sound and how it travels...";
+        Console.WriteLine("Think about sound and how it travels...".Pastel("#FFA500"));
     }
 }
