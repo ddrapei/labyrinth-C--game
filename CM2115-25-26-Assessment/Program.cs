@@ -134,6 +134,10 @@ var fightCommand = new FightCommand(game, InputManager);
 // creating puzzles
 var sphynxPuzzle = new SphynxPuzzle();
 var oedipusPuzzle = new OedipusPuzzle();
+var persephonePuzzle = new PersephonePuzzle();
+var sisyphusPuzzle = new SisyphusPuzzle();
+
+
 
 // puzzle commands
 var enterPuzzleCommand = new EnterPuzzleCommand();
@@ -301,6 +305,9 @@ PuzzleSystem.GetInstance().Initialize(InputManager,puzzleObserver,unknownCommand
 var puzzleManager = PuzzleManager.GetInstance();
 puzzleManager.RegisterPuzzle("sphynx", sphynxPuzzle);
 puzzleManager.RegisterPuzzle("oedipus", oedipusPuzzle);
+puzzleManager.RegisterPuzzle("persephone", persephonePuzzle);
+puzzleManager.RegisterPuzzle("sisyphus", sisyphusPuzzle);
+
 
 // creating room builder
 RoomBuilder builder = new RoomBuilder(0, 0);
@@ -315,7 +322,7 @@ Room room1 = new RoomBuilder(0, 1)
     .SetDescription("The second room")
     .AddItem(rusty_sword)
     .AddEnemy(wild_boar)
-    .AddPuzzle(oedipusPuzzle)
+    .AddPuzzle(sisyphusPuzzle)
     .Build();
 
 Room room2 = new RoomBuilder(1, 0)
