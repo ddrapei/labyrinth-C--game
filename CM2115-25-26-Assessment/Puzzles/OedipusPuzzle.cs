@@ -51,7 +51,7 @@ public class OedipusPuzzle : IPuzzle
 
         // Display the puzzle
         Console.WriteLine("" + "╔═══════════════════════════════════════════════════════════╗".Pastel("#8B4513"));
-        Console.WriteLine("║".Pastel("#8B4513") + "           Oedipus - King of Thebes blocks your path!    ".Pastel("#DAA520") + "║".Pastel("#8B4513").Pastel("#DAA520"));
+        Console.WriteLine("║".Pastel("#8B4513") + "           Oedipus - King of Thebes blocks your path!      ".Pastel("#DAA520") + "║".Pastel("#8B4513").Pastel("#DAA520"));
         Console.WriteLine("╚═══════════════════════════════════════════════════════════╝".Pastel("#8B4513"));
         Console.WriteLine("Oedipus speaks:".Pastel("#FFD700"));
         Console.WriteLine($"{question}".Pastel("#FFA500"));
@@ -66,8 +66,8 @@ public class OedipusPuzzle : IPuzzle
         {
             int experienceGranted = player.Experience += 50;
             Console.WriteLine("╔═══════════════════════════════════════════════════════════╗".Pastel("#00FF00"));
-            Console.WriteLine("║".Pastel("#00FF00") + "                 The Sphynx nods                           ".Pastel("#32CD32") + "║".Pastel("#00FF00"));
-            Console.WriteLine("║".Pastel("#00FF00") + "              Correct! You may pass.                       ".Pastel("#7FFF00") + "║".Pastel("#00FF00"));
+            Console.WriteLine("║".Pastel("#00FF00") + "                     Oedipus nods                          ".Pastel("#32CD32") + "║".Pastel("#00FF00"));
+            Console.WriteLine("║".Pastel("#00FF00") + "                 Correct! You may pass.                    ".Pastel("#7FFF00") + "║".Pastel("#00FF00"));
             Console.WriteLine("╚═══════════════════════════════════════════════════════════╝".Pastel("#00FF00"));
             Console.WriteLine("Oedipus disapperars".Pastel("#90EE90"));
             Console.WriteLine($"You gained + {experienceGranted}xp".Pastel("#90EE90"));
@@ -82,13 +82,13 @@ public class OedipusPuzzle : IPuzzle
         {
             player.Health -= this.damage;
             Console.WriteLine("╔═══════════════════════════════════════════════════════════╗".Pastel("#d4020d"));
-            Console.WriteLine("║".Pastel("#d4020d") + "                   Oedipus says no                      ".Pastel("#f72530") + "║".Pastel("#d4020d"));
-            Console.WriteLine("║".Pastel("#d4020d") + "                        Incorrect                          ".Pastel("#ab262d") + "║".Pastel("#d4020d"));
+            Console.WriteLine("║".Pastel("#d4020d") + "                   Oedipus says No                         ".Pastel("#f72530") + "║".Pastel("#d4020d"));
+            Console.WriteLine("║".Pastel("#d4020d") + "                      Incorrect                            ".Pastel("#ab262d") + "║".Pastel("#d4020d"));
             Console.WriteLine("╚═══════════════════════════════════════════════════════════╝".Pastel("#d4020d"));
-            Console.WriteLine("The Sphynx is angry!".Pastel("#b30009"));
-            Console.WriteLine("The Sphynx pecks you".Pastel("#ff001a"));
-            Console.WriteLine($"The Sphynx deals {this.damage} damage".Pastel("#ff001a"));
-            Console.WriteLine("The Sphynx repeats the question!".Pastel("#b30009"));
+            Console.WriteLine("Oedipus` eyes are filling with blood!".Pastel("#b30009"));
+            Console.WriteLine("Oedipus is beating with a twisted staff.".Pastel("#ff001a"));
+            Console.WriteLine($"Oedipus deals {this.damage} damage".Pastel("#ff001a"));
+            Console.WriteLine("Oedipus repeats the question!".Pastel("#b30009"));
             Console.WriteLine($"{question}".Pastel("#FFA500"));
             Console.WriteLine("Try again. Type 'answer [your answer]' to respond.".Pastel("#6ba832"));
             failedAttempts++;
@@ -102,6 +102,6 @@ public class OedipusPuzzle : IPuzzle
 
     public void GetHint()
     {
-        Console.WriteLine("Think about sound and how it travels...".Pastel("#FFA500"));
+        Console.WriteLine("Count not the hours, but the ages of a single traveler.".Pastel("#FFA500"));
     }
 }
