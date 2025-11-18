@@ -2,6 +2,9 @@ namespace Observers;
 
 using Rooms;
 using Commands;
+using Pastel;
+
+using System.Threading;
 
 // manages user's input by adding and removing observers and notifing observers added to the list
 public class InputManager
@@ -33,7 +36,25 @@ public class InputManager
     }
 
     public void ProcessInput()
-    {
+    {   
+        bool isVisible = true;
+        while (!Console.KeyAvailable)
+        {
+            if (isVisible)
+            {
+                Console.Write("\r> ".Pastel("#059e00"));
+            }
+            else
+            {
+                Console.Write("\r  ");
+            }
+
+            isVisible = !isVisible;
+            Thread.Sleep(500);
+        }
+
+        Console.Write("\r> ".Pastel("#059e00"));
+        
         // enshures that input is trimmed and lowercase
         string command = Console.ReadLine().ToLower().Trim();
         this.NotifyObservers(command);
