@@ -2,6 +2,8 @@ namespace Commands.MainMenuCommands;
 
 using Observers;
 
+using Pastel;
+
 // Command to start the game
 public class StartGameCommand : PlayerCommand
 {
@@ -30,9 +32,9 @@ public class StartGameCommand : PlayerCommand
     {
         if (!game.IsRunning)
         {
-            
+            Player player = Player.GetInstance();
             game.IsRunning = true;
-            Console.WriteLine("Game started!");
+            Console.WriteLine("∘˙○˚.•Game started!∘˙○˚.•".Pastel("#00ff00"));
 
             // remove the start game observer since game has started
             inputManager.RemoveObserver(mainMenuUnknownCommandObserver);
@@ -43,6 +45,9 @@ public class StartGameCommand : PlayerCommand
             inputManager.AddObserver(gameHandlerObserver);
             inputManager.AddObserver(inventoryObserver);
             inputManager.AddObserver(unknownCommandObserver);
+
+            // displaying the first room
+            player.LookAround();
         }
     }
 }

@@ -349,11 +349,8 @@ puzzleManager.RegisterPuzzle("persephone", persephonePuzzle);
 puzzleManager.RegisterPuzzle("sisyphus", sisyphusPuzzle);
 
 
-// creating room builder
-RoomBuilder builder = new RoomBuilder(0, 0);
-
 // rooms setup
-Room room0 = builder
+Room room0 = new RoomBuilder(0, 0)
     .SetDescription("The first room")
     .AddItem(circusAcrobatHelmet)
     .Build();
