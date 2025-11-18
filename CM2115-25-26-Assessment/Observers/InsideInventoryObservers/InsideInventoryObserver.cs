@@ -3,6 +3,8 @@ namespace Observers.InsideInventoryObservers;
 using Commands;
 using Commands.InventoryCommands;
 
+using Pastel;
+
 // This observer is active only when inventory is open
 public class InsideInventoryObserver : IGameObserver
 {
@@ -75,10 +77,10 @@ public class InsideInventoryObserver : IGameObserver
         Console.WriteLine("Unknown inventory command: " + commandString + "."); 
         Console.WriteLine();
         Console.WriteLine("Available inventory commands:");
-        Console.WriteLine("use <item number or name>");
-        Console.WriteLine("equip <item number or name>");
-        Console.WriteLine("drop <item number or name>");
-        Console.WriteLine("close");
+        Console.WriteLine("use ".Pastel("#6f9e00") +  "<item number or name>");
+        Console.WriteLine("equip ".Pastel("#6f9e00") +  "<item number or name>");
+        Console.WriteLine("drop ".Pastel("#6f9e00") +  "<item number or name>");
+        Console.WriteLine("close".Pastel("#ff0318"));
     }
 
 

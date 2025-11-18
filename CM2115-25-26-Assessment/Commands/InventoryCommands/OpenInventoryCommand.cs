@@ -3,6 +3,8 @@ namespace Commands.InventoryCommands;
 using Observers;
 using Observers.InsideInventoryObservers;
 
+using Pastel;
+
 // Command to open inventory and add InsideInventoryObserver
 public class OpenInventoryCommand : PlayerCommand
 {
@@ -42,10 +44,10 @@ public class OpenInventoryCommand : PlayerCommand
 
         // displays inventory
         player.Inventory.DisplayInventory();
-        Console.WriteLine("Commands:");
-        Console.WriteLine("drop <number>");
-        Console.WriteLine("equip <number>");
-        Console.WriteLine("use <number>");
-        Console.WriteLine("close");
+        Console.WriteLine("Available inventory commands:");
+        Console.WriteLine("use ".Pastel("#6f9e00") +  "<item number or name>");
+        Console.WriteLine("equip ".Pastel("#6f9e00") +  "<item number or name>");
+        Console.WriteLine("drop ".Pastel("#6f9e00") +  "<item number or name>");
+        Console.WriteLine("close".Pastel("#ff0318"));
     }
 }
