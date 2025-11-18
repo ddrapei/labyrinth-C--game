@@ -243,11 +243,32 @@ InputManager.AddObserver(mainMenuObserver);
 // all other observers are added and removed depending on the state of the game
 
 // weapons
-var spoon_with_a_hole = new Weapon("Spoon with a hole", 3);
+Weapon spoon_with_a_hole = new Weapon("Spoon with a hole", 1);
+Weapon rusty_shank = new Weapon("Rusty Shank", 2);
 Weapon rusty_sword = new Weapon("Rusty Sword", 1000);  
+Weapon wooden_club = new Weapon("Wooden Club", 7);
+Weapon iron_sword = new Weapon("Iron Sword", 15);
+Weapon steel_axe = new Weapon("Steel Axe", 25);
+Weapon enchanted_bow = new Weapon("Enchanted Bow", 20);
+Weapon roman_pilum = new Weapon("Roman Pilum", 27);
+Weapon flaming_sword = new Weapon("Flaming Sword", 40);
+Weapon ice_dagger = new Weapon("Ice Dagger", 30);
+Weapon thunder_hammer = new Weapon("Thunder Hammer", 50);
+Weapon malevolent_falchion = new Weapon("Malevolent Falchion", 46);
+Weapon hebron_sickle = new Weapon("Hebron, the Accursed Sickle", 200);
+Weapon bethlehem_spear = new Weapon("Bethlehem, Spear of the Traitor", 320);
+Weapon headsman_of_memphis = new Weapon("Headsman of Memphis", 400);
+Weapon jericho_sword = new Weapon("Jericho, the Sanctified Sword", 690);
+
+
 
 // potions
-var small_healing_potion = new HealingPotion("Small Healing Potion", 10);
+Potion open_healing_potion = new HealingPotion("Open Healing Potion", 5);
+Potion small_healing_potion = new HealingPotion("Small Healing Potion", 10);
+Potion medium_healing_potion = new HealingPotion("Medium Healing Potion", 25);
+Potion large_healing_potion = new HealingPotion("Large Healing Potion", 50);
+Potion elixir_of_life = new HealingPotion("Elixir of Life", 100);
+Potion sinister_potion = new HealingPotion("Accursed Philtre", -1000000);
 
 // shields
 var buckler = new Shield("Buckler", 0.1);
@@ -339,9 +360,8 @@ Room room0 = builder
 
 Room room1 = new RoomBuilder(0, 1)
     .SetDescription("The second room")
-    .AddItem(rusty_sword)
-    .AddEnemy(broodmother_gargoyle)
-    .AddPuzzle(sisyphusPuzzle)
+    .AddItem(sinister_potion)
+    .AddEnemy(shriveled_slug)
     .Build();
 
 Room room2 = new RoomBuilder(1, 0)

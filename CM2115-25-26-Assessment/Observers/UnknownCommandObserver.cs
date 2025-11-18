@@ -33,6 +33,7 @@ public class UnknownCommandObserver : IGameObserver
             Console.WriteLine("Move down".Pastel("#de8100"));
             Console.WriteLine("Move left".Pastel("#de8100"));
             Console.WriteLine("Move right".Pastel("#de8100"));
+            Console.WriteLine("Inventory".Pastel("#0800ff"));
             Console.WriteLine("Pick up".Pastel("#ff00fb"));
             Console.WriteLine("Stats".Pastel("#0800ff"));
             Console.WriteLine("Attack".Pastel("#ff000d"));
