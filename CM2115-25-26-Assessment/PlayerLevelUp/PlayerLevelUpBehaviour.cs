@@ -9,19 +9,31 @@ using PlayerDisplay;
 // Concrete implementation of level up
 public class PlayerLevelUpBehavior : ILevelUpBehavior
 {
+    private int experienceRequiredForNewLevel;
 
+    public int ExperienceRequiredForNewLevel
+    {
+        get { return experienceRequiredForNewLevel; }
+        set { experienceRequiredForNewLevel = value; }
+    }
+
+    public PlayerLevelUpBehavior()
+    {
+        this.experienceRequiredForNewLevel = 50;
+    }
     public void LevelUp(Player player)
     {
 
         
         double diceRollForLevelUp = Random.Shared.NextDouble();
         
-        if (player.Experience >= 100)
+        if (player.Experience >= this.experienceRequiredForNewLevel)
         {
+            this.experienceRequiredForNewLevel += 50;
             if (diceRollForLevelUp <= 0.3)
             {
                 player.Level += 1;
-                player.Health += 20;
+                player.Health += 5;
                 player.Experience -= 100;
 
                 Console.WriteLine($"You reached new level: {(player.Level.ToString().Pastel("#3236a8"))}");
@@ -30,7 +42,7 @@ public class PlayerLevelUpBehavior : ILevelUpBehavior
             else if (diceRollForLevelUp >= 0.6)
             {
                 player.Level += 1;
-                player.BlockingDamageChance += 0.05;
+                player.BlockingDamageChance += 0.01;
                 player.Experience -= 100;
 
                 Console.WriteLine($"You reached new level: {(player.Level.ToString().Pastel("#3236a8"))}");
@@ -39,7 +51,7 @@ public class PlayerLevelUpBehavior : ILevelUpBehavior
             else
             {
                 player.Level += 1;
-                player.AttackPower += 5;
+                player.AttackPower += 1;
                 player.Experience -= 100;
 
                 Console.WriteLine($"You reached new level: {(player.Level.ToString().Pastel("#3236a8"))}");

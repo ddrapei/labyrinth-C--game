@@ -244,7 +244,7 @@ InputManager.AddObserver(mainMenuObserver);
 
 // weapons
 var spoon_with_a_hole = new Weapon("Spoon with a hole", 3);
-Weapon rusty_sword = new Weapon("Rusty Sword", 100);  
+Weapon rusty_sword = new Weapon("Rusty Sword", 1000);  
 
 // potions
 var small_healing_potion = new HealingPotion("Small Healing Potion", 10);
@@ -293,7 +293,26 @@ CircusAcrobatArmourSet.AddPerk(increaseBlockingDamageChancePerk);
 armourSetManager.RegisterSet(CircusAcrobatArmourSet);
 
 // enemys
-Enemy wild_boar = new Enemy("Wild Boar", 20, 200, 2, 0.1, 110);
+Enemy wild_boar = new Enemy("Wild Boar", 20, 5, 2, 0.1, 10);
+Enemy tralalelo_tralala = new Enemy("Tralalelo Tralala", 10, 1, 1, 0.90, 10);
+Enemy shriveled_slug = new Enemy("Shriveled Slug", 200, 3, 0, 0.01, 50);
+Enemy nasty_beaver = new Enemy("Nasty Beaver", 10, 4, 1, 0.2, 50);
+Enemy old_hermit = new Enemy("Old Hermit", 7, 2, 1, 0.3, 30);
+Enemy caustic_horsefly = new Enemy("Caustic Horsefly", 15, 10, 1, 0.7, 45);
+Enemy deranged_brigand = new Enemy("Deranged Brigand", 100, 14, 5, 0.8, 80);
+Enemy spiked_beast = new Enemy("Spiked Beast", 80, 25, 5, 0.3, 130);
+Enemy carnivorous_plant = new Enemy("Carnivorous Plant", 80, 2, 20, 0.01, 200);
+Enemy broodmother_gargoyle = new Enemy("Broodmother Gargoyle", 200, 45, 22, 0.5, 1000);
+Enemy ancient_atelaid_machine = new Enemy("Ancient Atelaid Machine", 150, 25, 5, 0.6, 200);
+Enemy howling_barrel = new Enemy("Howling Barrel", 80, 3, 20, 0.01, 40);
+Enemy hell_boar = new Enemy("Hell Boar", 50, 10, 1, 0.3, 80);
+Enemy infernal_living_log = new Enemy("Infernal Living Log", 50, 2, 10, 0.04, 50);
+Enemy weary_knight = new Enemy("Weary Knight", 300, 50, 15, 0.80, 250);
+Enemy sanctified_remains = new Enemy("Sanctified Remains", 120, 20, 1, 0.80, 60);
+
+
+
+
 
 // combat system init
 CombatSystem.GetInstance().Initialize(InputManager,combatObserver,combatUnknownCommandObserver,gameCommandMoveObserver,gameHandlerObserver,inventoryObserver,unknownCommandObserver);
@@ -321,7 +340,7 @@ Room room0 = builder
 Room room1 = new RoomBuilder(0, 1)
     .SetDescription("The second room")
     .AddItem(rusty_sword)
-    .AddEnemy(wild_boar)
+    .AddEnemy(broodmother_gargoyle)
     .AddPuzzle(sisyphusPuzzle)
     .Build();
 
