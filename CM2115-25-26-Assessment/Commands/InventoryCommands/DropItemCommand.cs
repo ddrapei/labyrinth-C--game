@@ -23,7 +23,13 @@ public class DropItemCommand : PlayerCommand
             return;
         }
 
-        Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
+        Room? currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
+
+        if (currentRoom == null)
+        {
+            Console.WriteLine("You are not in a valid room.");
+            return;
+        }
 
         // currently there can be only one item in the room
         if (currentRoom.Item != null)

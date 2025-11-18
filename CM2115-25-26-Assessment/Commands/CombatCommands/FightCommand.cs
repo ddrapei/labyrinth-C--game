@@ -20,7 +20,13 @@ namespace Commands.CombatCommands
         public void Execute()
         {
             Player player = Player.GetInstance();
-            Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
+            Room? currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
+
+            if (currentRoom == null)
+            {
+                Console.WriteLine("You are not in a valid room.");
+                return;
+            }
             if (currentRoom.Enemy != null)
             {
                 CombatSystem.GetInstance().StartCombat(currentRoom.Enemy);
@@ -29,7 +35,7 @@ namespace Commands.CombatCommands
             {
                 System.Console.WriteLine("There is no enemy here to fight!".Pastel("#ff7700ff"));
             }
-            
+
         }
     }
 }

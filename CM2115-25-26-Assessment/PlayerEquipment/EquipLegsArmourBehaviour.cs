@@ -19,7 +19,7 @@ public class EquipLegsArmourBehavior : IEquipBehavior
 
         if (oldArmour != null)
         {
-            Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
+            Room? currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
             if (currentRoom != null && currentRoom.Item == null)
             {
                 currentRoom.Item = (Item)oldArmour;

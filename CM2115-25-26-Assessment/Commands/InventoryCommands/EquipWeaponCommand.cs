@@ -17,7 +17,7 @@ public class EquipWeaponCommand : PlayerCommand
 
     public void Execute()
     {
-        Player player = Player.GetInstance();
+        Player? player = Player.GetInstance();
 
         if (string.IsNullOrEmpty(itemIdentifier))
         {

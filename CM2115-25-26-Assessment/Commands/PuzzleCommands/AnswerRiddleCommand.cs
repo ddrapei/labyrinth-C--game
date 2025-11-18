@@ -21,7 +21,13 @@ public class AnswerRiddleCommand : PlayerCommand
     public void Execute()
     {
         Player player = Player.GetInstance();
-        Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
+        Room? currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
+
+        if (currentRoom == null)
+        {
+            Console.WriteLine("You are not in a valid room.");
+            return;
+        }
 
         if (string.IsNullOrWhiteSpace(answer))
         {

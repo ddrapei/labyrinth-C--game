@@ -5,9 +5,6 @@ using Items.Armour;
 using Items.Armour.LeatherArmourSet;
 using Enemies;
 using Puzzles;
-
-
-
 using Pastel;
 
 // Singleton pattern, since it will always be the only one room checker in the game
@@ -51,7 +48,7 @@ public class RoomChecker
     }
 
     // method get current room from player's coordinates
-    public Room GetCurrentRoom(Player player)
+    public Room? GetCurrentRoom(Player player)
     {
         return GetRoom(player.Xcoordinate, player.Ycoordinate);
     }
@@ -65,7 +62,8 @@ public class RoomChecker
     // method to display current room's description, enemyes and puzzles in the future
     public void DisplayCurrentRoom(Player player)
     {
-        Room currentRoom = GetCurrentRoom(player);
+        Room? currentRoom = GetCurrentRoom(player);
+
         if (currentRoom != null)
         {
             Console.WriteLine($"You are in room at ({currentRoom.Xcoordinate}, {currentRoom.Ycoordinate}): {currentRoom.Description}");
@@ -99,7 +97,9 @@ public class RoomChecker
 
                 if (isSolvedProperty != null)
                 {
-                    bool isSolved = (bool)isSolvedProperty.GetValue(currentRoom.Puzzle);
+                    // FIXED: Safe cast to bool? and null check
+                    // If GetValue returns null, it defaults to false
+                    bool isSolved = (bool?)isSolvedProperty.GetValue(currentRoom.Puzzle) ?? false;
 
                     if (!isSolved)
                     {
@@ -109,8 +109,6 @@ public class RoomChecker
                     }
                 }
             }
-
-
 
             // Only check for enemy if there's no unsolved puzzle
             if (!hasUnsolvedPuzzle && currentRoom.Enemy != null && !currentRoom.Enemy.IsDead())

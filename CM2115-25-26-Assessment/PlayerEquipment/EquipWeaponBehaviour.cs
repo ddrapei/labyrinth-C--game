@@ -16,7 +16,7 @@ public class EquipWeaponBehavior : IEquipBehavior
 
         if (player.WeaponEquiped != null)
         {
-            Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
+            Room? currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
             if (currentRoom != null && currentRoom.Item == null)
             {
                 currentRoom.Item = player.WeaponEquiped;

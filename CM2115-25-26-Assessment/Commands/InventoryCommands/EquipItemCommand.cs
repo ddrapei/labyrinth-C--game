@@ -24,8 +24,13 @@ public class EquipItemCommand : PlayerCommand
             return;
         }
 
-        Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
+        Room? currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
 
+        if (currentRoom == null)
+        {
+            Console.WriteLine("You are not in a valid room.");
+            return;
+        }
         // Check if there's already an item in the room (needed for swapping equipment)
         if (currentRoom.Item != null)
         {

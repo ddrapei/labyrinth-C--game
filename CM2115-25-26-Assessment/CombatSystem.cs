@@ -253,7 +253,7 @@ public class CombatSystem
         if (currentEnemy != null && currentEnemy.IsDead())
         {
             Player player = Player.GetInstance();
-            Room currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
+            Room? currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
             if (currentRoom != null && currentRoom.Enemy == currentEnemy)
             {
                 currentRoom.Enemy = null;
