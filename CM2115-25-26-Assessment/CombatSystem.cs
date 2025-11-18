@@ -89,7 +89,7 @@ public class CombatSystem
             Console.WriteLine($"You gained {currentEnemy.ExperienceReward.ToString().Pastel("#ffff00")} experience!");
             Console.WriteLine("");
 
-            while(player.Experience >= 100)
+            while(player.Experience >= player.ExperienceRequiredForNewLevel)
             {
             if (player.LevelUpBehaviors.ContainsKey("check level up"))
             {

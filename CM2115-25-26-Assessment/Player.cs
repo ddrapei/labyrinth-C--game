@@ -36,6 +36,7 @@ public class Player
     private int attackPower;
     private double blockingDamageChance;
     private int experience;
+    private int experienceRequiredForNewLevel;
     private int level;
     private Weapon? weaponEquipped;
     private Shield? shieldEquipped;
@@ -106,6 +107,11 @@ public class Player
     {
         get { return experience; }
         set { experience = value; }
+    }
+    public int ExperienceRequiredForNewLevel
+    {
+        get { return experienceRequiredForNewLevel; }
+        set { experienceRequiredForNewLevel = value; }
     }
 
     public int Level
@@ -180,6 +186,7 @@ public class Player
         this.attackPower = 1;
         this.blockingDamageChance = 0.00;
         this.experience = 0;
+        this.experienceRequiredForNewLevel = 50;
         this.level = 1;
         this.weaponEquipped = null;
         this.shieldEquipped = null;

@@ -9,17 +9,9 @@ using PlayerDisplay;
 // Concrete implementation of level up
 public class PlayerLevelUpBehavior : ILevelUpBehavior
 {
-    private int experienceRequiredForNewLevel;
-
-    public int ExperienceRequiredForNewLevel
-    {
-        get { return experienceRequiredForNewLevel; }
-        set { experienceRequiredForNewLevel = value; }
-    }
 
     public PlayerLevelUpBehavior()
     {
-        this.experienceRequiredForNewLevel = 50;
     }
     public void LevelUp(Player player)
     {
@@ -27,9 +19,9 @@ public class PlayerLevelUpBehavior : ILevelUpBehavior
         
         double diceRollForLevelUp = Random.Shared.NextDouble();
         
-        if (player.Experience >= this.experienceRequiredForNewLevel)
+        if (player.Experience >= player.ExperienceRequiredForNewLevel)
         {
-            this.experienceRequiredForNewLevel += 50;
+            player.ExperienceRequiredForNewLevel += 50;
             if (diceRollForLevelUp <= 0.3)
             {
                 player.Level += 1;
@@ -37,7 +29,7 @@ public class PlayerLevelUpBehavior : ILevelUpBehavior
                 player.Experience -= 100;
 
                 Console.WriteLine($"You reached new level: {(player.Level.ToString().Pastel("#3236a8"))}");
-                Console.WriteLine($"You gained " + "+ 20 health".Pastel("#1aff00"));
+                Console.WriteLine($"You gained " + "+ 5 health".Pastel("#1aff00"));
             } 
             else if (diceRollForLevelUp >= 0.6)
             {
@@ -46,7 +38,7 @@ public class PlayerLevelUpBehavior : ILevelUpBehavior
                 player.Experience -= 100;
 
                 Console.WriteLine($"You reached new level: {(player.Level.ToString().Pastel("#3236a8"))}");
-                Console.WriteLine($"You gained " + "+ 0.05% blocking damage chance".Pastel("#1aff00"));
+                Console.WriteLine($"You gained " + "+ 0.01% blocking damage chance".Pastel("#1aff00"));
             } 
             else
             {
@@ -55,7 +47,7 @@ public class PlayerLevelUpBehavior : ILevelUpBehavior
                 player.Experience -= 100;
 
                 Console.WriteLine($"You reached new level: {(player.Level.ToString().Pastel("#3236a8"))}");
-                Console.WriteLine($"You gained " + "+ 5 attack power".Pastel("#1aff00"));
+                Console.WriteLine($"You gained " + "+ 1 attack power".Pastel("#1aff00"));
             }
         }
     }
