@@ -29,6 +29,6 @@ public class AnswerRiddleCommand : PlayerCommand
             return;
         }
 
-        currentRoom.Puzzle.CheckAnswer(answer);
+        currentRoom.Puzzle?.CheckAnswer(answer);
     }
 }

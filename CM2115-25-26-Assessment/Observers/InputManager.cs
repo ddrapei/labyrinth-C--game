@@ -54,9 +54,9 @@ public class InputManager
         }
 
         Console.Write("\r> ".Pastel("#059e00"));
-        
+
         // enshures that input is trimmed and lowercase
-        string command = Console.ReadLine().ToLower().Trim();
+        string command = Console.ReadLine() ?? "".ToLower().Trim();
         this.NotifyObservers(command);
     }
 }
