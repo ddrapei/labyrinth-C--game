@@ -361,7 +361,7 @@ Room room0 = builder
 Room room1 = new RoomBuilder(0, 1)
     .SetDescription("The second room")
     .AddItem(sinister_potion)
-    .AddEnemy(shriveled_slug)
+    .AddEnemy(broodmother_gargoyle)
     .Build();
 
 Room room2 = new RoomBuilder(1, 0)

@@ -22,7 +22,7 @@ public class PlayerLevelUpBehavior : ILevelUpBehavior
         if (player.Experience >= player.ExperienceRequiredForNewLevel)
         {
             player.ExperienceRequiredForNewLevel += 50;
-            if (diceRollForLevelUp <= 0.3)
+            if (diceRollForLevelUp <= 0.25)
             {
                 player.Level += 1;
                 player.Health += 5;
@@ -31,7 +31,7 @@ public class PlayerLevelUpBehavior : ILevelUpBehavior
                 Console.WriteLine($"You reached new level: {(player.Level.ToString().Pastel("#3236a8"))}");
                 Console.WriteLine($"You gained " + "+ 5 health".Pastel("#1aff00"));
             } 
-            else if (diceRollForLevelUp >= 0.6)
+            else if (diceRollForLevelUp >= 0.5)
             {
                 player.Level += 1;
                 player.BlockingDamageChance += 0.01;
@@ -39,7 +39,16 @@ public class PlayerLevelUpBehavior : ILevelUpBehavior
 
                 Console.WriteLine($"You reached new level: {(player.Level.ToString().Pastel("#3236a8"))}");
                 Console.WriteLine($"You gained " + "+ 0.01% blocking damage chance".Pastel("#1aff00"));
-            } 
+            }
+            else if (diceRollForLevelUp >= 0.75)
+            {
+                player.Level += 1;
+                player.Inventory.MaxCapacity += 1;
+                player.Experience -= 100;
+
+                Console.WriteLine($"You reached new level: {(player.Level.ToString().Pastel("#3236a8"))}");
+                Console.WriteLine($"You gained " + "+ 1 inventory size".Pastel("#1aff00"));
+            }  
             else
             {
                 player.Level += 1;

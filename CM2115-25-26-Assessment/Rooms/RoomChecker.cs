@@ -96,11 +96,11 @@ public class RoomChecker
                 // Check if puzzle is solved using reflection to access IsSolved property
                 var puzzleType = currentRoom.Puzzle.GetType();
                 var isSolvedProperty = puzzleType.GetProperty("IsSolved");
-                
+
                 if (isSolvedProperty != null)
                 {
                     bool isSolved = (bool)isSolvedProperty.GetValue(currentRoom.Puzzle);
-                    
+
                     if (!isSolved)
                     {
                         hasUnsolvedPuzzle = true;
@@ -110,9 +110,51 @@ public class RoomChecker
                 }
             }
 
+
+
             // Only check for enemy if there's no unsolved puzzle
             if (!hasUnsolvedPuzzle && currentRoom.Enemy != null && !currentRoom.Enemy.IsDead())
             {
+                if (currentRoom.Enemy.Name == "Broodmother Gargoyle")
+                {
+                    Console.WriteLine(@"                            __,                  ,__");
+                    Console.WriteLine(@"                           //                      \\");
+                    Console.WriteLine(@"                          / L/|                  |\J |");
+                    Console.WriteLine(@"                          |  /                    \  |");
+                    Console.WriteLine(@"                         ,/^|       ,~-_,--`,      |^\");
+                    Console.WriteLine(@"                        / /\|      /         \,    ||\\~,");
+                    Console.WriteLine(@"                       / //\\     / ,\,./';.  `,   || \\ ~,");
+                    Console.WriteLine(@"                      / //  \\    | (~Q'Q~';   ; ,//   \\  ~.");
+                    Console.WriteLine(@"                    ,/ //    \\   (, \ ^_,    / //'     \\   ~-.");
+                    Console.WriteLine(@"                   / //'      \`,.__\_`--' \,/,'L        `\\    \.");
+                    Console.WriteLine(@"                 ,/ //         `~---/ //         \.        `\\    \,");
+                    Console.WriteLine(@"                / ,/'               | |\,          \.        `:,    \");
+                    Console.WriteLine(@"               |  ;;                !/   `-_  ,`-_   \_,      \`,    :,");
+                    Console.WriteLine(@"               |  ||                (  ,:    )/\. `.  /        ||     |");
+                    Console.WriteLine(@"               |  |!               / `-- `--'/  \,/  /         !|     :,");
+                    Console.WriteLine(@"              ,; ,;'              ;  /\     <    / /'          ':,     |");
+                    Console.WriteLine(@"              |  ||              /  ;/ )     \,-' /\            ||     |");
+                    Console.WriteLine(@"              |  ||             / ./; /_ ,  _{=_.'  | __        ||     :,");
+                    Console.WriteLine(@"              |  ||        __  ; /_/ |--:==:--""\    |/  \       ||      |");
+                    Console.WriteLine(@"              |  ||       /  \| (   / \       / |        \      ||      |");
+                    Console.WriteLine(@"              |  |!      /    | ,] |   |     /  \         \     |!      |");
+                    Console.WriteLine(@"             ,; ,;' __  |      \L, |    \   |    \         |   ,;;      |");
+                    Console.WriteLine(@"             |  || /  \ |          \    |  /      |        | __|!       |");
+                    Console.WriteLine(@"             |  ||/    \|           \    \ |      |        |/ ,;;       |");
+                    Console.WriteLine(@"             |  ||                   \    \|      |           !;        ;");
+                    Console.WriteLine(@"             |  ::                   <\   (""\|  /\(          ,:'       /");
+                    Console.WriteLine(@"             :  \\                    \    ` \.:  i\,        ||       /");
+                    Console.WriteLine(@"              \  \\                   |    |  `,   | `-_     ;!      /");
+                    Console.WriteLine(@"               \ ||                   |  ,/    |`  |_,  `-_  '.\    /");
+                    Console.WriteLine(@"                \|!                  /  /       \  |  `-_  `-__\\  /");
+                    Console.WriteLine(@"                 :;                 /  /_       _) !     `-_____\\|-,");
+                    Console.WriteLine(@"                 /                 /  ,--~      \.  \            \|-,\");
+                    Console.WriteLine(@"                               ,-_/  /            ;  \            \  \\");
+                    Console.WriteLine(@"                              _--,  |             |   \_              |:");
+                    Console.WriteLine(@"                             (---, /             :,; `,_)            /-'");
+                    Console.WriteLine(@"                              (--'               ' \,] '           ");
+                }
+
                 Console.WriteLine("The enemy is here: " + currentRoom.Enemy.Name.Pastel("#ff00ff"));
                 Console.WriteLine("Fight - to fight the enemy");
 
