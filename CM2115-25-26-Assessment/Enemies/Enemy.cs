@@ -77,11 +77,18 @@ public class Enemy : IPerceptible
         Player player = Player.GetInstance();
         int damage = player.AttackPower - this.defense;
 
-        // prevents healing the enemy when player attack is lower than enemy defense
+        // prevents showing damage higher than enemy's health
+        if (player.AttackPower >= this.Health)
+        {
+            damage = this.Health;
+        }
+        // prevents healing the enemy when defense is higher than player attack power
         if (damage < 0)
         {
             damage = 0;
         }
+        // writes to statistics
+        GameStatistics.AddDamageDealt(damage);
 
         this.health -= damage;
 

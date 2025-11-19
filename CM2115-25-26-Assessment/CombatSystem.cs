@@ -76,7 +76,7 @@ public class CombatSystem
 
         // Player attacks enemy
         currentEnemy.TakeDamage();
-        GameStatistics.AddDamageDealt(player.AttackPower);
+        
         // Check if enemy is dead
         if (currentEnemy.IsDead())
         {
