@@ -20,6 +20,8 @@ public static class GameStatistics
     }
 
     public static int GamesStarted { get; private set; }
+    public static int Wins { get; private set; }
+    public static int Deaths { get; private set; }
 
     private static void InitializeStatsFile()
     {
@@ -27,21 +29,31 @@ public static class GameStatistics
         {
             if (!File.Exists(filePath))
             {
-                // Create new file with initial value of 0
-                File.WriteAllText(filePath, "0");
+                // Create new file with initial values
                 GamesStarted = 0;
+                Wins = 0;
+                Deaths = 0;
+                SaveStats();
                 return;
             }
 
             // Read existing statistics
-            string content = File.ReadAllText(filePath);
-            if (int.TryParse(content.Trim(), out int gamesStarted))
+            string[] lines = File.ReadAllLines(filePath);
+            
+            if (lines.Length >= 3)
             {
-                GamesStarted = gamesStarted;
+                if (int.TryParse(lines[0].Trim(), out int gamesStarted))
+                    GamesStarted = gamesStarted;
+                
+                if (int.TryParse(lines[1].Trim(), out int wins))
+                    Wins = wins;
+                
+                if (int.TryParse(lines[2].Trim(), out int deaths))
+                    Deaths = deaths;
             }
             else
             {
-                // If file is corrupted, reset it
+                // If file format is incorrect, reset it
                 ResetStats();
             }
         }
@@ -60,11 +72,25 @@ public static class GameStatistics
         SaveStats();
     }
 
+    public static void AddWin()
+    {
+        Wins++;
+        SaveStats();
+    }
+    
+    public static void AddDeath()
+    {
+        Deaths++;
+        SaveStats();
+    }
+
     private static void SaveStats()
     {
         try
         {
-            File.WriteAllText(filePath, GamesStarted.ToString());
+            // Save all three statistics, each on a separate line
+            string content = $"{GamesStarted}\n{Wins}\n{Deaths}";
+            File.WriteAllText(filePath, content);
         }
         catch (Exception ex)
         {
@@ -78,20 +104,28 @@ public static class GameStatistics
     public static void ShowStats()
     {
         Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("\n▒▒▒▒▒ Game Statistics ▒▒▒▒▒");
 
         Console.ResetColor();
         
         Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine($"Games Started: {GamesStarted}");
+        Console.WriteLine($"■ Games Started: {GamesStarted}");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"■ Wins: {Wins}");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine($"■ Deaths: {Deaths}");
         Console.ResetColor();
         
-        Console.WriteLine($"Statistics file: {filePath}");
+        
+        Console.WriteLine($"\nStatistics file: {filePath}");
         Console.WriteLine();
     }
 
     public static void ResetStats()
     {
         GamesStarted = 0;
+        Wins = 0;
+        Deaths = 0;
         SaveStats();
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine("Statistics have been reset.");

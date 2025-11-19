@@ -420,6 +420,7 @@ while (!game.IsFinished)
 
         if (player.Health <= 0 && !game.IsFinished)
     {
+        GameStatistics.AddDeath();
         Console.WriteLine("");
         Console.WriteLine("▓▓▓▓GAME OVER▓▓▓▓".Pastel("#ff0000"));
         Console.WriteLine(" ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓".Pastel("#ff0000"));

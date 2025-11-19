@@ -80,6 +80,7 @@ public class CombatSystem
         // Check if enemy is dead
         if (currentEnemy.IsDead())
         {
+            GameStatistics.AddWin();
             Console.WriteLine("");
             Console.WriteLine("=== VICTORY ===".Pastel("#00ff00"));
             Console.WriteLine("");
