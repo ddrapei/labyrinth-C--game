@@ -14,9 +14,7 @@ public static class GameStatistics
     static GameStatistics()
     {
         // Looking for the statistics file in the project root directory
-        filePath = Path.Combine(
-            Directory.GetParent(Directory.GetCurrentDirectory())!.Parent!.Parent!.FullName,
-            "GameStats.txt");
+        filePath = Path.Combine(Directory.GetCurrentDirectory(), "GameStats.txt");
         
         InitializeStatsFile();
     }
