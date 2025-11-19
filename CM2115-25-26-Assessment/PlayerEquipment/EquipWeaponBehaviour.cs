@@ -18,7 +18,8 @@ public class EquipWeaponBehavior : IEquipBehavior
         {
             Room? currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
             if (currentRoom != null && currentRoom.Item == null)
-            {
+            {   
+                player.AttackPower -= player.WeaponEquiped.Damage;
                 currentRoom.Item = player.WeaponEquiped;
                 Console.WriteLine("You placed the item in the room " + player.WeaponEquiped.Name.Pastel("#ff9d00") + " and equipped " + weapon.Name.Pastel("#ff9d00"));
             }
@@ -34,7 +35,7 @@ public class EquipWeaponBehavior : IEquipBehavior
         }
 
         player.WeaponEquiped = weapon;
-        player.AttackPower = weapon.Damage;
+        player.AttackPower += weapon.Damage;
         player.BaseAttackPower = weapon.Damage;
         Console.WriteLine("Your damage now is: " + player.AttackPower.ToString().Pastel("#ff0000"));
         return true;

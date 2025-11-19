@@ -251,7 +251,7 @@ InputManager.AddObserver(mainMenuObserver);
 // weapons
 Weapon spoon_with_a_hole = new Weapon("Spoon with a hole", 1);
 Weapon rusty_shank = new Weapon("Rusty Shank", 2);
-Weapon rusty_sword = new Weapon("Rusty Sword", 1000);  
+Weapon rusty_sword = new Weapon("Rusty Sword", 3);  
 Weapon wooden_club = new Weapon("Wooden Club", 7);
 Weapon iron_sword = new Weapon("Iron Sword", 15);
 Weapon steel_axe = new Weapon("Steel Axe", 25);
@@ -277,7 +277,13 @@ Potion elixir_of_life = new HealingPotion("Elixir of Life", 100);
 Potion sinister_potion = new HealingPotion("Accursed Philtre", -1000000);
 
 // shields
-var buckler = new Shield("Buckler", 0.1);
+var buckler = new Shield("Buckler", 0.05);
+var leather_shield = new Shield("Leather Shield of a Primitive Men", 0.07);
+var centurion_shield = new Shield("Large shield of Centurion", 0.1);
+var vociferant_shield = new Shield("The vociferant shield of the Demon", 0.12);
+var smaugla_shield = new Shield("The dread-wrought shield of Smaugla", 0.15);
+
+
 
 // armour factory set up for armour creation
 
@@ -320,8 +326,8 @@ CircusAcrobatArmourSet.AddPerk(increaseBlockingDamageChancePerk);
 armourSetManager.RegisterSet(CircusAcrobatArmourSet);
 
 // enemys
-Enemy wild_boar = new Enemy("Wild Boar", 20, 5, 2, 0.1, 10);
-Enemy tralalelo_tralala = new Enemy("Tralalelo Tralala", 10, 1, 1, 0.90, 10);
+Enemy wild_boar = new Enemy("Wild Boar", 20, 5, 0, 0.1, 10);
+Enemy tralalelo_tralala = new Enemy("Tralalelo Tralala", 10, 1, 0, 0.90, 10);
 Enemy shriveled_slug = new Enemy("Shriveled Slug", 200, 3, 0, 0.01, 50);
 Enemy nasty_beaver = new Enemy("Nasty Beaver", 10, 4, 1, 0.2, 50);
 Enemy old_hermit = new Enemy("Old Hermit", 7, 2, 1, 0.3, 30);
@@ -357,39 +363,77 @@ puzzleManager.RegisterPuzzle("sisyphus", sisyphusPuzzle);
 
 // rooms setup
 Room room0 = new RoomBuilder(0, 0)
-    .SetDescription("The first room")
-    .AddItem(rusty_sword)
+    .SetDescription("Stagnant air hangs heavy in this silent stone chamber, offering a peace that feels dangerously like decay. A rough table sits in the gloom, bearing a place setting that seems to mock the very concept of sustenance.")
+    .AddItem(spoon_with_a_hole)
     .Build();
 
 Room room1 = new RoomBuilder(0, 1)
-    .SetDescription("The second room")
-    .AddItem(sinister_potion)
-    .AddEnemy(sanctified_remains)
+    .SetDescription("The stench of musk fills the air, accompanied by the restless scraping of hooves. A battered shield lies discarded in the filth.")
+    .AddItem(leather_shield)
+    .AddEnemy(wild_boar)
     .Build();
 
 Room room2 = new RoomBuilder(1, 0)
-    .SetDescription("The third room")
-    .AddItem(circusAcrobatTorsoArmour)
+    .SetDescription("The sound of wet, grinding teeth fills this damp hollow, where a discarded helm lies amongst the splintered remains of previous intruders.")
+    .AddItem(leatherHelmet)
+    .AddEnemy(nasty_beaver)
     .Build();
 
 Room room3 = new RoomBuilder(2, 0)
-    .SetDescription("The fourth room")
-    .AddItem(circusAcrobatLegsArmour)
+    .SetDescription("An uncorked vial sits forgotten in the gloom, offering a salvation that came too late for its previous owner.")
+    .AddItem(open_healing_potion)
     .Build();
 
 Room room4 = new RoomBuilder(0, -1)
-    .SetDescription("The fifth room")
+    .SetDescription("A shriveled, writhing horror guards a discarded leather jerkin, leaving a trail of dry rot across the floor.")
+    .AddItem(leatherChestArmour)
+    .AddEnemy(shriveled_slug)
     .Build();
 
 Room room5 = new RoomBuilder(-1, 0)
-    .SetDescription("The sixth room")
+    .SetDescription("A modest vial of crimson fluid sits amidst the suffocating silence, offering a fleeting delay to the inevitable.")
     .AddItem(small_healing_potion)
     .Build();
 
 Room room6 = new RoomBuilder(1, 1)
     .SetDescription("The seventh room")
-    .AddItem(small_healing_potion)
-    .Build();   
+    .AddItem(rusty_shank)
+    .AddEnemy(deranged_brigand)
+    .Build();
+
+Room room7 = new RoomBuilder(1, 2)
+    .SetDescription("A manic, humming figure dances disturbingly in the shadows near a set of discarded leather leggings.")
+    .AddItem(leatherLegsArmour)
+    .AddEnemy(tralalelo_tralala)
+    .Build();
+    
+Room room8 = new RoomBuilder(0, 2)
+    .SetDescription("A jagged, corroded blade lies in the dust, whispering of a violent struggle fueled by utter desperation.")
+    .AddItem(rusty_shank)
+    .Build();
+
+Room room9 = new RoomBuilder(0, 3)
+    .SetDescription("A withered recluse cowers in the shadows, clutching an unstoppered vial with jealous madness.")
+    .AddItem(open_healing_potion)
+    .AddEnemy(old_hermit)
+    .Build();
+
+Room room10 = new RoomBuilder(1, 3)
+    .SetDescription("The air vibrates with a sickening drone as a bloated insect drips searing ichor onto the melting stones.")
+    .AddEnemy(caustic_horsefly)
+    .Build();
+
+Room room11 = new RoomBuilder(2, 3)
+    .SetDescription("A heavy blade lies forgotten in the filth, its edge consumed by the slow, red cancer of rust.")
+    .AddItem(rusty_sword)
+    .Build();  
+
+Room room12 = new RoomBuilder(3, 3)
+    .SetDescription("A voracious flora constricts a crude helm, flourishing beneath the silent judgment of a stone sphinx.")
+    .AddPuzzle(sphynxPuzzle)
+    .AddItem(crudeKnightsHelmet)
+    .AddEnemy(carnivorous_plant)
+    .Build();    
 
 
 // adding rooms to the room checker
@@ -400,6 +444,13 @@ roomChecker.AddRoom(room3);
 roomChecker.AddRoom(room4);
 roomChecker.AddRoom(room5);
 roomChecker.AddRoom(room6);
+roomChecker.AddRoom(room7);
+roomChecker.AddRoom(room8);
+roomChecker.AddRoom(room9);
+roomChecker.AddRoom(room10);
+roomChecker.AddRoom(room11);
+roomChecker.AddRoom(room12);
+
 
 
 
