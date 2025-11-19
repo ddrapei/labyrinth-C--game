@@ -358,13 +358,13 @@ puzzleManager.RegisterPuzzle("sisyphus", sisyphusPuzzle);
 // rooms setup
 Room room0 = new RoomBuilder(0, 0)
     .SetDescription("The first room")
-    .AddItem(circusAcrobatHelmet)
+    .AddItem(rusty_sword)
     .Build();
 
 Room room1 = new RoomBuilder(0, 1)
     .SetDescription("The second room")
     .AddItem(sinister_potion)
-    .AddEnemy(broodmother_gargoyle)
+    .AddEnemy(sanctified_remains)
     .Build();
 
 Room room2 = new RoomBuilder(1, 0)

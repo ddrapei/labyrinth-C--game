@@ -22,6 +22,8 @@ public static class GameStatistics
     public static int GamesStarted { get; private set; }
     public static int Wins { get; private set; }
     public static int Deaths { get; private set; }
+    public static int DamageDealt { get; private set; }
+
 
     private static void InitializeStatsFile()
     {
@@ -33,6 +35,7 @@ public static class GameStatistics
                 GamesStarted = 0;
                 Wins = 0;
                 Deaths = 0;
+                DamageDealt = 0;
                 SaveStats();
                 return;
             }
@@ -40,7 +43,7 @@ public static class GameStatistics
             // Read existing statistics
             string[] lines = File.ReadAllLines(filePath);
             
-            if (lines.Length >= 3)
+            if (lines.Length >= 4)
             {
                 if (int.TryParse(lines[0].Trim(), out int gamesStarted))
                     GamesStarted = gamesStarted;
@@ -50,6 +53,9 @@ public static class GameStatistics
                 
                 if (int.TryParse(lines[2].Trim(), out int deaths))
                     Deaths = deaths;
+
+                    if (int.TryParse(lines[3].Trim(), out int damageDealt))
+                    DamageDealt = damageDealt;
             }
             else
             {
@@ -84,12 +90,18 @@ public static class GameStatistics
         SaveStats();
     }
 
+    public static void AddDamageDealt(int damage)
+    {
+        DamageDealt += damage;
+        SaveStats();
+    }
+
     private static void SaveStats()
     {
         try
         {
             // Save all three statistics, each on a separate line
-            string content = $"{GamesStarted}\n{Wins}\n{Deaths}";
+            string content = $"{GamesStarted}\n{Wins}\n{Deaths}\n{DamageDealt}";
             File.WriteAllText(filePath, content);
         }
         catch (Exception ex)
@@ -114,6 +126,8 @@ public static class GameStatistics
         Console.WriteLine($"■ Wins: {Wins}");
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine($"■ Deaths: {Deaths}");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine($"■ Damage dealt: {DamageDealt}");
         Console.ResetColor();
         
         
@@ -126,6 +140,7 @@ public static class GameStatistics
         GamesStarted = 0;
         Wins = 0;
         Deaths = 0;
+        DamageDealt = 0;
         SaveStats();
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine("Statistics have been reset.");
