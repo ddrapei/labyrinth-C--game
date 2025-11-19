@@ -34,6 +34,11 @@ public class StartGameCommand : PlayerCommand
         {
             Player player = Player.GetInstance();
             game.IsRunning = true;
+
+            // that's for statistics
+            GameStatistics.AddGamesStarted();
+
+
             Console.WriteLine("∘˙○˚.•Game started!∘˙○˚.•".Pastel("#00ff00"));
 
             // remove the start game observer since game has started

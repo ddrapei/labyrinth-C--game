@@ -26,6 +26,7 @@ public class MainMenuUnknownCommandObserver : IGameObserver
             Console.WriteLine("Unknown command: "  + command.Pastel("#00eaff") + ".");
             Console.WriteLine("Availible commands:");
             Console.WriteLine("Start".Pastel("#00ff00"));
+            Console.WriteLine("Statistics".Pastel("#00eaff"));
             Console.WriteLine("Exit".Pastel("#ff0000"));
         }
     }

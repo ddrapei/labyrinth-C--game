@@ -96,11 +96,13 @@ var unknownCommandObserver = new UnknownCommandObserver(game);
 var puzzleObserver = new PuzzleObserver(game);
 var unknownCommandPuzzleObserver = new UnknownCommandPuzzleObserver(game);
 
+
+// Main Menu Commands
 // command to start the game
 var startGameCommand = new StartGameCommand(game, InputManager, mainMenuObserver, mainMenuUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver ,unknownCommandObserver);
-
 // command to exit the game
 var exitGameCommand = new ExitGameCommand(game);
+var ShowGameStatsCommand = new ShowGameStatsCommand();
 
 // display commands
 var playerStatsDisplay = new PlayerStatsDisplay();
@@ -146,6 +148,8 @@ var answerRiddleCommand = new AnswerRiddleCommand();
 // registers start game command with its observer 
 mainMenuObserver.AddCommand("start", startGameCommand);
 mainMenuObserver.AddCommand("start game", startGameCommand);
+mainMenuObserver.AddCommand("stats", ShowGameStatsCommand);
+mainMenuObserver.AddCommand("statistics", ShowGameStatsCommand);
 mainMenuObserver.AddCommand("exit", exitGameCommand);
 
 
@@ -200,6 +204,8 @@ combatObserver.AddCommand("escape", runAwayCommand);
 // registers valid commands with the unknown command observer in the main menu
 mainMenuUnknownCommandObserver.RegisterValidCommand("start");
 mainMenuUnknownCommandObserver.RegisterValidCommand("start game");
+mainMenuUnknownCommandObserver.RegisterValidCommand("stats");
+mainMenuUnknownCommandObserver.RegisterValidCommand("statistics");
 mainMenuUnknownCommandObserver.RegisterValidCommand("exit");
 
 // registers valid commands with the unknown command observer in the main game
@@ -403,6 +409,8 @@ Console.WriteLine("LABYRINTH OF SUFFERING".Pastel("#3d2307"));
 Console.WriteLine("Type:");
 Console.WriteLine("Start".Pastel("#eb34c0") + " - to start a game");
 Console.WriteLine("Exit".Pastel("#ff0000") + " - to exit a game");
+Console.WriteLine("Statistics".Pastel("#03fcf8") + " - to show your game statistics");
+
 
 
 // main game loop
