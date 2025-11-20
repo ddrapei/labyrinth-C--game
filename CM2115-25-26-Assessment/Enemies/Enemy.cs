@@ -72,33 +72,32 @@ public class Enemy : IPerceptible
     }
 
     // method for enemy to take damage from player
-    public void TakeDamage()
+    public void DealDamage(Player player)
     {
-        Player player = Player.GetInstance();
-        int damage = player.AttackPower - this.defense;
-
-        // prevents showing damage higher than enemy's health
-        if (player.AttackPower >= this.Health)
+        // creates a double between 0.0 and 1.0
+        // if created random double is less than player's blocking chance, the attack is blocked
+        if (new Random().NextDouble() < player.BlockingDamageChance)
         {
-            damage = this.Health;
+            Console.WriteLine($"You blocked the {this.name}'s attack!".Pastel("#00ffff"));
+            return;
         }
-        // prevents healing the enemy when defense is higher than player attack power
+
+        int damage = this.AttackPower - player.Defense;
+
+        // prevents showing damage higher than player's health 
+        if (damage > player.Health)
+        {
+            damage = player.Health;
+        }
+
+        // prevents healing the player when defense is higher than enemy attack power
         if (damage < 0)
         {
             damage = 0;
         }
-        // writes to statistics
-        GameStatistics.AddDamageDealt(damage);
 
-        this.health -= damage;
-
-        // prevents enemie's health to go below 0
-        if (this.health < 0)
-        {
-            this.health = 0;
-        }
-
-        Console.WriteLine($"You hit {this.name} for {damage.ToString().Pastel("#ff0000")} damage! Enemy has {this.health.ToString().Pastel("#ff9d00")} HP");
+        player.Health -= damage;
+        Console.WriteLine($"The {this.name} hits you for {damage.ToString().Pastel("#ff0000")} damage! You have {player.Health.ToString().Pastel("#7CFC00")} HP left.");
     }
 
     public void DisplayEnemyInfo()

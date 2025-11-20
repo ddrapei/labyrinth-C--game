@@ -75,7 +75,7 @@ public class CombatSystem
         Console.WriteLine("--- Your Turn ---".Pastel("#00ffff"));
 
         // Player attacks enemy
-        currentEnemy.TakeDamage();
+        player.DealDamage(currentEnemy);
         
         // Check if enemy is dead
         if (currentEnemy.IsDead())
@@ -92,12 +92,11 @@ public class CombatSystem
 
             while(player.Experience >= player.ExperienceRequiredForNewLevel)
             {
-            if (player.LevelUpBehaviors.ContainsKey("check level up"))
-            {
-                player.LevelUpBehaviors["check level up"].LevelUp(player);
+                if (player.LevelUpBehaviors.ContainsKey("check level up"))
+                {
+                    player.LevelUpBehaviors["check level up"].LevelUp(player);
+                }
             }
-            }
-
             
             EndCombat();
             return new CombatResult(CombatOutcome.Victory, "Enemy defeated!");
@@ -119,37 +118,12 @@ public class CombatSystem
         return new CombatResult(CombatOutcome.Ongoing);
     }
 
-    private void EnemyAttack()
+    public void EnemyAttack()
     {
         Player player = Player.GetInstance();
 
         if (currentEnemy == null) return;
-
-        // creates a double between 0.0 and 1.0
-        // if created random double is less than player's blocking chance, the attack is blocked
-        if (new Random().NextDouble() < player.BlockingDamageChance)
-        {
-            Console.WriteLine($"You blocked the {currentEnemy.Name}'s attack!".Pastel("#00ffff"));
-            return;
-        }
-
-        int damage = currentEnemy.AttackPower - player.Defense;
-
-
-        // prevents showing damage higher than player's health 
-        if (damage > player.Health)
-        {
-            damage = player.Health;
-        }
-
-        // prevents healing the player when defense is higher than enemy attack power
-        if (damage < 0)
-        {
-            damage = 0;
-        }
-
-        player.Health -= damage;
-        Console.WriteLine($"The {currentEnemy.Name} hits you for {damage.ToString().Pastel("#ff0000")} damage! You have {player.Health.ToString().Pastel("#7CFC00")} HP left.");
+        currentEnemy.DealDamage(player);
     }
 
     public CombatResult TryToRun()

@@ -6,6 +6,7 @@ using Rooms;
 using PlayerMovement;
 using PlayerEquipment;
 using PlayerLevelUp;
+using Enemies;
 
 
 using Pastel;
@@ -242,6 +243,33 @@ public class Player
         return false;
     }
 
+    public void DealDamage(Enemy enemy)
+    {
+        int damage = this.AttackPower - enemy.Defense;
+
+        // prevents showing damage higher than enemy's health
+        if (damage > enemy.Health)
+        {
+            damage = enemy.Health;
+        }
+        // prevents healing the enemy when defense is higher than player attack power
+        if (damage < 0)
+        {
+            damage = 0;
+        }
+        // writes to statistics
+        GameStatistics.AddDamageDealt(damage);
+
+        enemy.Health -= damage;
+
+        // prevents enemie's health to go below 0
+        if (enemy.Health < 0)
+        {
+            enemy.Health = 0;
+        }
+
+        Console.WriteLine($"You hit {enemy.Name} for {damage.ToString().Pastel("#ff0000")} damage! Enemy has {enemy.Health.ToString().Pastel("#ff9d00")} HP");
+    }
 
     public void LookAround()
     {

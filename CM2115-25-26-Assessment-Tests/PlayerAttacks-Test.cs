@@ -15,12 +15,13 @@ public class EnemyTakeDamageTest
     {
          // arrange
         Player player = Player.GetInstance();
-
+        CombatSystem combatSystem = CombatSystem.GetInstance();
         player.AttackPower = 5;
-
         Enemy wild_boar = new Enemy("Wild Boar", 20, 5, 0, 0.1, 10);
+        combatSystem.StartCombat(wild_boar);
+        
         // act
-        wild_boar.TakeDamage();
+        combatSystem.PlayerAttack();
 
         // assert
         Assert.Equal(15, wild_boar.Health);
