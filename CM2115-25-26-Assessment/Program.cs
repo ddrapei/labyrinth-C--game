@@ -433,7 +433,15 @@ Room room12 = new RoomBuilder(3, 3)
     .AddPuzzle(sphynxPuzzle)
     .AddItem(crudeKnightsHelmet)
     .AddEnemy(carnivorous_plant)
+    .Build();
+
+Room room13 = new RoomBuilder(-2, 0)
+    .SetDescription("A rampant beast guards a flask of vital fluid, pacing restlessly before a tragic riddle carved in stone.")
+    .AddPuzzle(oedipusPuzzle)
+    .AddItem(medium_healing_potion)
+    .AddEnemy(wild_boar)
     .Build();    
+
 
 
 // adding rooms to the room checker
@@ -450,6 +458,7 @@ roomChecker.AddRoom(room9);
 roomChecker.AddRoom(room10);
 roomChecker.AddRoom(room11);
 roomChecker.AddRoom(room12);
+roomChecker.AddRoom(room13);
 
 
 

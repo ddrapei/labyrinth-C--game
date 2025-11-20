@@ -1,9 +1,11 @@
 
 using System;
 using Rooms;
+using Commands.MoveCommands;
 
 namespace CM2115_25_26_Assessment_Tests;
 
+[Collection("Sequential-MoveTests")]
 public class MoveDownTest
 {
     [Fact]
@@ -13,6 +15,8 @@ public class MoveDownTest
          // arrange
         Player player = Player.GetInstance();
         RoomChecker roomChecker = RoomChecker.GetInstance();
+        MoveDownCommand moveCommand = new MoveDownCommand();
+
         
         // Set up room
         Room room = new RoomBuilder(0, -1)
@@ -21,7 +25,7 @@ public class MoveDownTest
         roomChecker.AddRoom(room);
 
         // act
-        player.MoveDown();
+        moveCommand.Execute();
 
         // assert
         Assert.Equal(0, player.Xcoordinate);

@@ -1,23 +1,39 @@
 using System;
+using Rooms;
+using Commands.MoveCommands;
 
-namespace CM2115_25_26_Aassessment_Tests;
+namespace CM2115_25_26_Assessment_Tests;
 
+// the idea how to handle Singleton pollution was taken from here:
+// https://medium.com/selectstarfromweb/xunit-tests-in-parallel-ad32788ce1bd
+[Collection("Sequential-MoveTests")]
 public class MoveUpTest
 {
-    [Theory]
-    [InlineData(0, 1)]
-    public void MoveUp_ReturnsAddedYCoordinate(int ydefault, int yestimated)
-    {
-        // arrange
-        Player player = Player.GetInstance();
+    [Fact]
 
-        int y = player.Ycoordinate;
+    public void MoveUp_ReturnsAddedYCoordinate()
+    {
+         // arrange
+        Player player = Player.GetInstance();
+        RoomChecker roomChecker = RoomChecker.GetInstance();
+        MoveUpCommand moveCommand = new MoveUpCommand();
+
+        
+        // Set up room
+        Room room = new RoomBuilder(0, 1)
+            .SetDescription("Test Room")
+            .Build(); 
+        roomChecker.AddRoom(room);
 
         // act
-        player.MoveUp();
+        moveCommand.Execute();
 
-        //assert
-        Assert.Equal(ydefault, y);
+        // assert
+        Assert.Equal(0, player.Xcoordinate);
+        Assert.Equal(1, player.Ycoordinate);
+        Assert.Equal(0, player.PreviousXcoordinate);
+        Assert.Equal(0, player.PreviousYcoordinate);
+
+        player.ResetPlayerLocation();
     }
 }
-
