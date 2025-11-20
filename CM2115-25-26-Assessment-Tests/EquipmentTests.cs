@@ -59,5 +59,25 @@ public class EquipmentTests
         Assert.Equal(player.Inventory.GetInventoryCount(), initialInventoryCount);
     }
 
+    [Fact]
+    public void AddItem_ItemAddedToInventory()
+    {
+        // arrange
+        Player player = Player.GetInstance();
+        Inventory inventory = player.Inventory;
+        int initialCount = inventory.GetInventoryCount();
+        
+        Weapon rusty_sword = new Weapon("Rusty Sword", 3);
+
+        // act
+        bool result = inventory.AddItem(rusty_sword);
+
+        // assert
+        Assert.True(result);
+        Assert.Equal(initialCount + 1, inventory.GetInventoryCount());
+        Assert.True(inventory.HasItem(rusty_sword));
+        Assert.Equal(rusty_sword.Name, inventory.GetItemByName("Rusty Sword")?.Name);
+    }
+
 
 }
