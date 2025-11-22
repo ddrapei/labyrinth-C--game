@@ -1,4 +1,5 @@
 using Items;
+using Items.Potions;
 public class InventoryTests
 {
 
@@ -8,7 +9,7 @@ public class InventoryTests
     [InlineData(2, 3, true)]
     [InlineData(2, 100, true)]
     [InlineData(100, 100, true)]
-    [InlineData(3, 3, true)]  
+    [InlineData(3, 3, true)]
     [InlineData(5, 2, false)]
     public void InventoryIsFull_ReturnsExpectedFullness(int capacity, int amountToAdd, bool IsFull)
     {
@@ -65,11 +66,45 @@ public class InventoryTests
         {
             Assert.Null(result);
         }
-
-
-
-
-
-
     }
-}    
+
+    [Theory]
+    [InlineData("Health Potion", "Health Potion", true)]
+    [InlineData("Health potion", "Health Potion", true)]
+    [InlineData("health potion", "Health Potion", true)]
+    [InlineData("health Potion", "Health Potion", true)]
+    [InlineData("HEALTH POTION", "Health Potion", true)]
+    [InlineData("Big Potion", "Big Potion", true)]
+    [InlineData("big Potion", "Big Potion", true)]
+    [InlineData("Big potion", "Big Potion", true)]
+    [InlineData("big potion", "Big Potion", true)]
+    [InlineData("ig potion", "Big Potion", false)]
+    [InlineData("health otion", "Health Potion", false)]
+    [InlineData("sadkfkas", "Health Potion", false)]
+    [InlineData("", "Health Potion", false)]
+    [InlineData(" ", "Health Potion", false)]
+    [InlineData("escalibur", "Health Potion", false)]
+
+    public void GetItemByName_ReturnsItemByNameIfThatItemExistsInTheInventory(string search, string itemNameInInventory, bool itemExistInInventory)
+    {
+        // arrange
+        Inventory inventory = new Inventory(100);
+        Potion potion = new HealingPotion("Health Potion", 5);
+        Potion big_potion = new HealingPotion("Big Potion", 10);
+        inventory.AddItem(potion);
+        inventory.AddItem(big_potion);
+        // act
+        var result = inventory.GetItemByName(search);
+
+        if (itemExistInInventory)
+        {
+            Assert.NotNull(result);
+
+            Assert.Equal(itemNameInInventory, result.Name);
+        }
+        else
+        {
+            Assert.Null(result);
+        }
+    }
+}
