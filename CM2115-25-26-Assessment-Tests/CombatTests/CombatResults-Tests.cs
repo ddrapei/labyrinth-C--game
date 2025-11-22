@@ -62,6 +62,7 @@ public class CombatResultTests
         {
             combatSystem.EndCombat();
         }
+        
         player.Health = 1;
         player.AttackPower = 1;
         Enemy enemy = new Enemy("enemy_test", 10000, 10, 10000, 0.99, 10);

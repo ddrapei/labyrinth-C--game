@@ -196,7 +196,9 @@ insideInventoryObserver.AddCommand("exit", closeInventoryCommand);
 
 // registers combat commands
 combatObserver.AddCommand("attack", attackCommand);
+combatObserver.AddCommand("a", attackCommand);
 combatObserver.AddCommand("run", runAwayCommand);
+combatObserver.AddCommand("r", runAwayCommand);
 combatObserver.AddCommand("flee", runAwayCommand);
 combatObserver.AddCommand("escape", runAwayCommand);
 
@@ -242,6 +244,8 @@ combatUnknownCommandObserver.RegisterValidCommand("attack");
 combatUnknownCommandObserver.RegisterValidCommand("run");
 combatUnknownCommandObserver.RegisterValidCommand("flee");
 combatUnknownCommandObserver.RegisterValidCommand("escape");
+combatUnknownCommandObserver.RegisterValidCommand("a");
+combatUnknownCommandObserver.RegisterValidCommand("r");
 
 // observers that are required to start the game
 InputManager.AddObserver(mainMenuUnknownCommandObserver);
@@ -440,8 +444,146 @@ Room room13 = new RoomBuilder(-2, 0)
     .AddPuzzle(oedipusPuzzle)
     .AddItem(medium_healing_potion)
     .AddEnemy(wild_boar)
-    .Build();    
+    .Build();
 
+Room room14 = new RoomBuilder(-2, 1)
+    .SetDescription("Under the silent judgment of a stone sphinx, a desecrated saint in tattered vestments rises from the dust to guard a solitary flask of crimson vitality.")
+    .AddPuzzle(sphynxPuzzle)
+    .AddItem(large_healing_potion)
+    .AddEnemy(sanctified_remains)
+    .Build();  
+
+Room room15 = new RoomBuilder(-2, 2)
+    .SetDescription("A feral monstrosity bristling with jagged spines stalks the shadows, circling the rusted, discarded husk of a crude iron breastplate.")
+    .AddItem(crudeKnightsTorsoArmour)
+    .AddEnemy(spiked_beast)
+    .Build();
+
+Room room16 = new RoomBuilder(-1, 2)
+    .SetDescription("In the oppressive silence, a weathered centurion's shield leans against the rot-slicked masonry, a silent monument to a forgotten legion's demise.")
+    .AddItem(centurion_shield)
+    .Build();
+
+Room room17 = new RoomBuilder(-1, 3)
+    .SetDescription("Beneath a cryptic altar to the stolen goddess of spring, a pair of crude, heavy greaves lies abandoned in the damp, suffocating gloom.")
+    .AddItem(crudeKnightsLegsArmour)
+    .AddPuzzle(persephonePuzzle)
+    .Build();
+
+Room room18 = new RoomBuilder(-1, 4)
+    .SetDescription("A rusting Atelaid construct, grinding with the heavy weight of a forgotten age, looms over a flask of crimson respite in the oil-stained dark.")
+    .AddItem(large_healing_potion)
+    .AddEnemy(ancient_atelaid_machine)
+    .Build();
+
+Room room19 = new RoomBuilder(1, 4)
+    .SetDescription("A frenzied boar paws at the gore-slicked stones, guarding a grotesque shield that appears to be frozen in an eternal, deafening shriek.")
+    .AddItem(vociferant_shield)
+    .AddEnemy(wild_boar)
+    .Build();
+
+Room room20 = new RoomBuilder(2, 4)
+    .SetDescription("A withered hermit mutters madly in the filth, jealously guarding the peeling, painted grin of a forgotten acrobat's helm.")
+    .AddItem(circusAcrobatHelmet)
+    .AddEnemy(old_hermit)
+    .Build();
+
+Room room21 = new RoomBuilder(3, 4)
+    .SetDescription("Amidst a slurry of wet rot and splintered wood, a bloated, vicious rodent bares yellowed incisors over a vial of mending fluid.")
+    .AddItem(medium_healing_potion)
+    .AddEnemy(nasty_beaver)
+    .Build();
+
+Room room22 = new RoomBuilder(4, 4)
+    .SetDescription("Bowed by the weight of rusted plate and endless fatigue, a broken sentinel leans upon his sword, silently guarding a vial that pulses with the impossible light of eternal life.")
+    .AddItem(elixir_of_life)
+    .AddEnemy(weary_knight)
+    .Build();
+    
+Room room23 = new RoomBuilder(4, 5)
+    .SetDescription("A charred, living timber crackles with infernal malice, shedding dying embers upon the gaudy, torn vestments of a forgotten acrobat.")
+    .AddItem(circusAcrobatTorsoArmour)
+    .AddEnemy(infernal_living_log)
+    .Build();
+
+Room room24 = new RoomBuilder(0, -2)
+    .SetDescription("A vicious, sludge-slicked rodent bares its yellowed teeth in the gloom, jealously guarding a flask of restorative amber.")
+    .AddItem(medium_healing_potion)
+    .AddEnemy(nasty_beaver)
+    .Build();
+
+Room room25 = new RoomBuilder(0, -3)
+    .SetDescription("A vicious, sludge-slicked rodent bares its yellowed teeth in the gloom, jealously guarding a flask of restorative amber.")
+    .AddItem(steel_axe)
+    .AddPuzzle(oedipusPuzzle)
+    .Build();
+
+Room room26 = new RoomBuilder(1, -3)
+    .SetDescription("In the deafening silence of the crypt, a solitary vessel pulses with a blinding, golden heartbeat, mocking the surrounding rot with the forbidden essence of eternity.")
+    .AddItem(elixir_of_life)
+    .Build();
+
+Room room27 = new RoomBuilder(2, -3)
+    .SetDescription("The stagnant air vibrates with a sickening drone as a bloated, insectoid horror drips sizzling bile onto the ancient stones.")
+    .AddEnemy(caustic_horsefly)
+    .Build();
+
+Room room28 = new RoomBuilder(3, -3)
+    .SetDescription("An innocuous wooden cask violently vibrates with the shrieks of the damned, guarding a heavy shield forged from the scales of an avaricious drake.")
+    .AddEnemy(howling_barrel)
+    .AddItem(smaugla_shield)
+    .Build();
+
+Room room29 = new RoomBuilder(4, -3)
+    .SetDescription("Abandoned in the breathless dark, a rusted sickle lies upon the stones, a silent crescent moon yearning for a harvest of blood.")
+    .AddItem(hebron_sickle)
+    .Build();
+
+Room room30 = new RoomBuilder(5, -3)
+    .SetDescription("In the shadow of a trial dedicated to endless, futile toil, a desiccated slug writhes blindly in the dust, guarding a pulsing vial of eternity it is too wretched to consume.")
+    .AddItem(elixir_of_life)
+    .AddEnemy(shriveled_slug)
+    .AddPuzzle(sisyphusPuzzle)
+    .Build();
+
+Room room31 = new RoomBuilder(5, -2)
+    .SetDescription("A broken sentinel, his spirit eroding faster than his rusted plate, stands a ragged vigil over a blade said to have once shattered the walls of a city.")
+    .AddItem(jericho_sword)
+    .AddEnemy(weary_knight)
+    .Build();
+
+Room room32 = new RoomBuilder(0, 4)
+    .SetDescription("In the humid, choking dark, a ravenous floral monstrosity drips digestive ichor upon the rusted shaft of a forgotten legionnaire's spear.")
+    .AddItem(roman_pilum)
+    .AddEnemy(carnivorous_plant)
+    .Build();
+
+Room room33 = new RoomBuilder(0, 5)
+    .SetDescription("A heavy flask of crimson vitality rests undisturbed in the suffocating silence, offering a singular, suspicious mercy amidst the surrounding rot.")
+    .AddItem(large_healing_potion)
+    .Build();
+
+Room room34 = new RoomBuilder(0, 6)
+    .SetDescription("A flask of viscous, swirling gloom rests upon the cold stones, radiating a palpable malice that suggests this draught offers not salvation, but ruin.")
+    .AddItem(sinister_potion)
+    .Build();  
+
+Room room35 = new RoomBuilder(1, 6)
+    .SetDescription("The colossal, curved blade of a foreign executioner rests in the dust, a silent monument to the brutal justice of a distant, sand-swept empire.")
+    .AddItem(headsman_of_memphis)
+    .Build();
+
+Room room36 = new RoomBuilder(0, -4)
+    .SetDescription("A frothing beast, mad with hunger, paws the cold stone, oblivious to the vial of golden immortality pulsing softly in the muck beneath its hooves.")
+    .AddItem(elixir_of_life)
+    .AddEnemy(wild_boar)
+    .Build();
+
+Room room37 = new RoomBuilder(1, -4)
+    .SetDescription("A bloated insectoid horror drips searing bile onto the stones, circling a wicked, curved blade that radiates a palpable, cold hatred.")
+    .AddItem(malevolent_falchion)
+    .AddEnemy(caustic_horsefly)
+    .Build();        
 
 
 // adding rooms to the room checker
@@ -459,6 +601,32 @@ roomChecker.AddRoom(room10);
 roomChecker.AddRoom(room11);
 roomChecker.AddRoom(room12);
 roomChecker.AddRoom(room13);
+roomChecker.AddRoom(room14);
+roomChecker.AddRoom(room15);
+roomChecker.AddRoom(room16);
+roomChecker.AddRoom(room17);
+roomChecker.AddRoom(room18);
+roomChecker.AddRoom(room19);
+roomChecker.AddRoom(room20);
+roomChecker.AddRoom(room21);
+roomChecker.AddRoom(room22);
+roomChecker.AddRoom(room23);
+roomChecker.AddRoom(room24);
+roomChecker.AddRoom(room24);
+roomChecker.AddRoom(room25);
+roomChecker.AddRoom(room26);
+roomChecker.AddRoom(room27);
+roomChecker.AddRoom(room28);
+roomChecker.AddRoom(room29);
+roomChecker.AddRoom(room30);
+roomChecker.AddRoom(room31);
+roomChecker.AddRoom(room32);
+roomChecker.AddRoom(room33);
+roomChecker.AddRoom(room34);
+roomChecker.AddRoom(room35);
+roomChecker.AddRoom(room36);
+roomChecker.AddRoom(room37);
+
 
 
 

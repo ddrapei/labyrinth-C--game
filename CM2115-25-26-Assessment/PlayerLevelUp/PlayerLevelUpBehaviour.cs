@@ -28,20 +28,20 @@ public class PlayerLevelUpBehavior : ILevelUpBehavior
             if (diceRollForLevelUp < 0.25)
             {
                 player.Level += 1;
-                player.Health += 5;
+                player.Health += 50;
                 player.Experience -= experienceCost;
 
                 Console.WriteLine($"You reached new level: {(player.Level.ToString().Pastel("#3236a8"))}");
-                Console.WriteLine($"You gained " + "+ 5 health".Pastel("#1aff00"));
+                Console.WriteLine($"You gained " + "+ 50 health".Pastel("#1aff00"));
             } 
             else if (diceRollForLevelUp < 0.5)
             {
                 player.Level += 1;
-                player.AttackPower += 1;
+                player.AttackPower += 2;
                 player.Experience -= experienceCost;
 
                 Console.WriteLine($"You reached new level: {(player.Level.ToString().Pastel("#3236a8"))}");
-                Console.WriteLine($"You gained " + "+ 1 attack power".Pastel("#1aff00"));
+                Console.WriteLine($"You gained " + "+ 2 attack power".Pastel("#1aff00"));
             }
             else if (diceRollForLevelUp < 0.75)
             {
