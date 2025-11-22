@@ -9,7 +9,12 @@ public class CombatResultTests
         // arrange
         Player player = Player.GetInstance();
         CombatSystem combatSystem = CombatSystem.GetInstance();
-        player.AttackPower = 10; // high enough to kill the enemy
+
+        if (combatSystem.IsInCombat)
+        {
+            combatSystem.EndCombat();
+        }
+        player.AttackPower = 100000000; // high enough to kill the enemy
         player.Health = 100;
         Enemy enemy = new Enemy("enemy_test", 5, 1, 0, 0.1, 10);
         combatSystem.StartCombat(enemy);
@@ -28,8 +33,14 @@ public class CombatResultTests
         // arrange
         Player player = Player.GetInstance();
         CombatSystem combatSystem = CombatSystem.GetInstance();
+
+        if (combatSystem.IsInCombat)
+        {
+            combatSystem.EndCombat();
+        }
+        player.AttackPower = 1;
         player.Health = 100;
-        Enemy enemy = new Enemy("enemy_test", 10, 1, 0, 0.1, 10);
+        Enemy enemy = new Enemy("enemy_test", 100000, 1, 0, 0.1, 10);
         combatSystem.StartCombat(enemy);
 
         // act
@@ -46,9 +57,14 @@ public class CombatResultTests
         // arrange
         Player player = Player.GetInstance();
         CombatSystem combatSystem = CombatSystem.GetInstance();
+
+        if (combatSystem.IsInCombat)
+        {
+            combatSystem.EndCombat();
+        }
         player.Health = 1;
         player.AttackPower = 1;
-        Enemy enemy = new Enemy("enemy_test", 100, 10, 0, 0.1, 10);
+        Enemy enemy = new Enemy("enemy_test", 10000, 10, 10000, 0.99, 10);
         combatSystem.StartCombat(enemy);
 
         // act
@@ -58,4 +74,4 @@ public class CombatResultTests
         Assert.Equal(CombatOutcome.Defeat, result.CombatOutcome);
         Assert.False(combatSystem.IsInCombat);
     }
-}    
+}
