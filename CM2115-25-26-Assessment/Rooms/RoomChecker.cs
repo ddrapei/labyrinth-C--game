@@ -54,7 +54,7 @@ public class RoomChecker
     }
 
     // method to check if a room exists at given coordinates
-    public bool doesRoomExist(int xcoordinate, int ycoordinate)
+    public bool DoesRoomExist(int xcoordinate, int ycoordinate)
     {
         return GetRoom(xcoordinate, ycoordinate) != null;
     }

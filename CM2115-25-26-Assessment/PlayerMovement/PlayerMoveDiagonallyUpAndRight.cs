@@ -18,7 +18,7 @@ public class PlayerMoveDiagonallyUpAndRight : IMoveBehavior
         int newYcoordinate = player.Ycoordinate + 1;
         int newXcoordinate = player.Xcoordinate + 1;
 
-        if (RoomChecker.GetInstance().doesRoomExist(newXcoordinate, newYcoordinate))
+        if (RoomChecker.GetInstance().DoesRoomExist(newXcoordinate, newYcoordinate))
         {
             player.Ycoordinate = newYcoordinate;
             player.Xcoordinate = newXcoordinate;

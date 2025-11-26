@@ -12,7 +12,7 @@ public class PlayerMoveLeft : IMoveBehavior
         player.StorePreviousPosition.StorePosition(player);
         int newXcoordinate = player.Xcoordinate - 1;
 
-        if (RoomChecker.GetInstance().doesRoomExist(newXcoordinate, player.Ycoordinate))
+        if (RoomChecker.GetInstance().DoesRoomExist(newXcoordinate, player.Ycoordinate))
         {
             player.Xcoordinate = newXcoordinate;
             Console.WriteLine($"Player moved left. Current position: ({player.Xcoordinate}, {player.Ycoordinate})");

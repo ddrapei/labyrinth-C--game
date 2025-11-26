@@ -9,7 +9,7 @@ public class PlayerMoveToPreviousPosition : IMoveBehavior
     public void Move(Player player)
     {
         // check if previous position exists
-        if (RoomChecker.GetInstance().doesRoomExist(player.PreviousXcoordinate, player.PreviousYcoordinate))
+        if (RoomChecker.GetInstance().DoesRoomExist(player.PreviousXcoordinate, player.PreviousYcoordinate))
         {
             // move to previous coordinates
             player.Xcoordinate = player.PreviousXcoordinate;

@@ -16,7 +16,7 @@ public class PlayerMoveUp : IMoveBehavior
         // Calculate new coordinate
         int newYcoordinate = player.Ycoordinate + 1;
 
-        if (RoomChecker.GetInstance().doesRoomExist(player.Xcoordinate, newYcoordinate))
+        if (RoomChecker.GetInstance().DoesRoomExist(player.Xcoordinate, newYcoordinate))
         {
             // Only if a room exists, assign the new coordinate
             player.Ycoordinate = newYcoordinate;
