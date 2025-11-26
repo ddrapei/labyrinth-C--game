@@ -2,6 +2,7 @@ using Observers;
 using Enemies;
 using Rooms;
 using Pastel;
+using Commands.MoveCommands;
 
 // Singleton used as there is only one combat system in the game
 public class CombatSystem
@@ -146,11 +147,8 @@ public class CombatSystem
             Console.WriteLine("You successfully flee!".Pastel("#00ff00"));
 
             // Move player to previous position
-            if (player.MoveToPreviousPosition())
-            {
-                Console.WriteLine("You fled back to (" + player.Xcoordinate.ToString().Pastel("#00ff00") + ", " + player.Ycoordinate.ToString().Pastel("#00ff00") + ")");
-                RoomChecker.GetInstance().DisplayCurrentRoom(player);
-            }
+            MoveToPreviousPositionCommand moveCommand = new MoveToPreviousPositionCommand();
+            moveCommand.Execute();
 
             EndCombat();
             return new CombatResult(CombatOutcome.Escaped, "Escaped successfully");

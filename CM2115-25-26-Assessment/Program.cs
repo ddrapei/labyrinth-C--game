@@ -38,6 +38,8 @@ player.RegisterMoveBehavior("move up", new PlayerMoveUp());
 player.RegisterMoveBehavior("move down", new PlayerMoveDown());
 player.RegisterMoveBehavior("move left", new PlayerMoveLeft());
 player.RegisterMoveBehavior("move right", new PlayerMoveRight());
+player.RegisterMoveBehavior("move to previous position", new PlayerMoveToPreviousPosition());
+
 // player.RegisterMoveBehavior("move up and right", new PlayerMoveDiagonallyUpAndRight()); - uncomment to test extandability of the movement commands
 
 // the same approach was implemented for the equiping behavious

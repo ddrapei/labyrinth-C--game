@@ -231,18 +231,6 @@ public class Player
         }
     }
 
-    // method to move to previous position (when running away)
-    public bool MoveToPreviousPosition()
-    {
-        if (RoomChecker.GetInstance().doesRoomExist(previousXcoordinate, previousYcoordinate))
-        {
-            xcoordinate = previousXcoordinate;
-            ycoordinate = previousYcoordinate;
-            return true;
-        }
-        return false;
-    }
-
     public void DealDamage(Enemy enemy)
     {
         int damage = this.AttackPower - enemy.Defense;
@@ -274,13 +262,5 @@ public class Player
     public void LookAround()
     {
         RoomChecker.GetInstance().DisplayCurrentRoom(this);
-    }
-
-    public void ResetPlayerLocation()
-    {
-        this.xcoordinate = 0;
-        this.ycoordinate = 0;
-        this.previousXcoordinate = 0;
-        this.previousYcoordinate = 0;
     }
 }
