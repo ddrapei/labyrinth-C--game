@@ -24,10 +24,11 @@ public class MainMenuUnknownCommandObserver : IGameObserver
         if (!game.IsRunning && !validCommands.Contains(command))
         {
             Console.WriteLine("Unknown command: "  + command.Pastel("#00eaff") + ".");
+            Console.WriteLine("");
             Console.WriteLine("Availible commands:");
-            Console.WriteLine("Start".Pastel("#00ff00"));
-            Console.WriteLine("Statistics".Pastel("#00eaff"));
-            Console.WriteLine("Exit".Pastel("#ff0000"));
+            Console.WriteLine("■ Start".Pastel("#00ff00"));
+            Console.WriteLine("■ Statistics".Pastel("#00eaff"));
+            Console.WriteLine("■ Exit".Pastel("#ff0000"));
         }
     }
 }

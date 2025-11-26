@@ -83,9 +83,6 @@ var inventoryObserver = new InventoryObserver(game);
 // handles commands inside inventory (when inventory is open)
 var insideInventoryObserver = new InsideInventoryObserver(game);
 
-// handles uknown commands inside inventory (when inventory is open)
-var insideInventoryUnknownCommandObserver = new InsideInventoryUnknownCommandObserver(game);
-
 // handles combat commands
 var combatObserver = new CombatObserver(game);
 
