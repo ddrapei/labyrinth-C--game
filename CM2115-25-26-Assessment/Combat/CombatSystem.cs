@@ -1,3 +1,6 @@
+namespace Combat;
+
+
 using Observers;
 using Enemies;
 using Rooms;
@@ -251,36 +254,3 @@ public class CombatSystem
     }
 }
 
-// enum is used since CombatOutcome is not going to be changed and 
-// it is more descriptive than array
-public enum CombatOutcome
-{
-    Victory,
-    Defeat,
-    Escaped,
-    Ongoing
-}
-
-public class CombatResult
-{
-    private CombatOutcome combatOutcome;
-    private string message;
-
-    public CombatOutcome CombatOutcome
-    {
-        get { return combatOutcome; }
-        set { combatOutcome = value; }
-    }
-
-    public string Message
-    {
-        get { return message; }
-        set { message = value; }
-    }
-
-    public CombatResult(CombatOutcome combatOutcome, string message = "")
-    {
-        this.combatOutcome = combatOutcome;
-        this.message = message;
-    }
-}

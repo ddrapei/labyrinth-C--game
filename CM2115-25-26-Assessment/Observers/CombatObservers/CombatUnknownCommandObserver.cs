@@ -1,6 +1,7 @@
 namespace Observers.CombatObservers;
 
 using Commands;
+using Combat;
 using Pastel;
 
 public class CombatUnknownCommandObserver : IGameObserver

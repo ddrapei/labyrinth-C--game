@@ -1,5 +1,7 @@
 namespace Enemies;
 using Pastel;
+using Combat;
+
 
 public class Enemy : IPerceptible
 {
