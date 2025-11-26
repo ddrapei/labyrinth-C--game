@@ -13,7 +13,7 @@ public class PlayerLevelUpBehavior : ILevelUpBehavior
     public PlayerLevelUpBehavior()
     {
     }
-    public void LevelUp(Player player)
+    public void Execute(Player player)
     {
 
         
@@ -23,7 +23,7 @@ public class PlayerLevelUpBehavior : ILevelUpBehavior
         {
             
             int experienceCost = player.ExperienceRequiredForNewLevel;
-            player.ExperienceRequiredForNewLevel += 50;
+            player.ExperienceRequiredForNewLevel += 10;
             
             if (diceRollForLevelUp < 0.25)
             {

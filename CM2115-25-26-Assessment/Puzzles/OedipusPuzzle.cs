@@ -72,6 +72,14 @@ public class OedipusPuzzle : IPuzzle
             Console.WriteLine("Oedipus disapperars".Pastel("#90EE90"));
             Console.WriteLine($"You gained + {experienceGranted}xp".Pastel("#90EE90"));
 
+            while (player.Experience >= player.ExperienceRequiredForNewLevel)
+            {
+                if (player.LevelUpBehaviors.ContainsKey("check level up"))
+                {
+                    player.LevelUpBehaviors["check level up"].Execute(player);
+                }
+            }
+
 
             isSolved = true;
 

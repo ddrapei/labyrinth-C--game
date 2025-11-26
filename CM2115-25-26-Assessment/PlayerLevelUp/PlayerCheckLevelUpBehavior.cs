@@ -2,11 +2,11 @@ namespace PlayerLevelUp;
 
 public class PlayerCheckLevelUpBehavior : ILevelUpBehavior
 {
-    public void LevelUp(Player player)
+    public void Execute(Player player)
     {
         if (player.LevelUpBehaviors.ContainsKey("level up"))
         {
-            player.LevelUpBehaviors["level up"].LevelUp(player);
+            player.LevelUpBehaviors["level up"].Execute(player);
         }
     }
 }

@@ -98,7 +98,7 @@ public class CombatSystem
             {
                 if (player.LevelUpBehaviors.ContainsKey("check level up"))
                 {
-                    player.LevelUpBehaviors["check level up"].LevelUp(player);
+                    player.LevelUpBehaviors["check level up"].Execute(player);
                 }
             }
             

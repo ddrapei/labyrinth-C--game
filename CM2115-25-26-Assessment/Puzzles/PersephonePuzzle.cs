@@ -72,6 +72,13 @@ public class PersephonePuzzle : IPuzzle
             Console.WriteLine("Persephone disapperars".Pastel("#90EE90"));
             Console.WriteLine($"You gained + {experienceGranted}xp".Pastel("#90EE90"));
 
+            while (player.Experience >= player.ExperienceRequiredForNewLevel)
+            {
+                if (player.LevelUpBehaviors.ContainsKey("check level up"))
+                {
+                    player.LevelUpBehaviors["check level up"].Execute(player);
+                }
+            }
 
             isSolved = true;
 
