@@ -40,6 +40,20 @@ public class StartGameCommand : PlayerCommand
 
 
             Console.WriteLine("∘˙○˚.•Game started!∘˙○˚.•".Pastel("#00ff00"));
+            Console.WriteLine("");
+            Console.WriteLine("✶ ✶ ✶ ✶  Availible commands  ✶ ✶ ✶ ✶");
+            Console.WriteLine("◆  Move up".Pastel("#de8100"));
+            Console.WriteLine("◆  Move down".Pastel("#de8100"));
+            Console.WriteLine("◆  Move left".Pastel("#de8100"));
+            Console.WriteLine("◆  Move right".Pastel("#de8100"));
+            Console.WriteLine("◆  Inventory".Pastel("#0800ff"));
+            Console.WriteLine("◆  Pick up".Pastel("#ff00fb"));
+            Console.WriteLine("◆  Stats".Pastel("#0800ff"));
+            Console.WriteLine("◆  Attack".Pastel("#ff000d"));
+            Console.WriteLine("◆  Look around".Pastel("#9900ff"));
+            Console.WriteLine("◆  Equipped".Pastel("#00ff1e"));
+            Console.WriteLine("");
+        
 
             // remove the start game observer since game has started
             inputManager.RemoveObserver(mainMenuUnknownCommandObserver);
