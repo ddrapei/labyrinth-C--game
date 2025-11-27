@@ -115,6 +115,10 @@ public class RoomChecker
             {
                 if (currentRoom.Enemy.Name == "Broodmother Gargoyle")
                 {
+
+
+                // ASCII art by Valkyrie was taken from here:
+                // https://ascii.co.uk/art/gargoyle    
                     Console.WriteLine(@"                            __,                  ,__");
                     Console.WriteLine(@"                           //                      \\");
                     Console.WriteLine(@"                          / L/|                  |\J |");

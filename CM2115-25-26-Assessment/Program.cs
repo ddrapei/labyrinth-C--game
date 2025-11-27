@@ -322,6 +322,16 @@ var increaseBlockingDamageChancePerk = new IncreaseBlockingDamageChancePerk(0.80
 CircusAcrobatArmourSet.AddPerk(increaseBlockingDamageChancePerk);
 armourSetManager.RegisterSet(CircusAcrobatArmourSet);
 
+/*
+I acknowledge use of [Gemini] from [https://gemini.google.com/share/f4c2cd895f79]
+to [generate names of the enemies, translating from russian]. I entered the prompts
+on [November 18, 2025 at 10:27 AM] and [it was used to name the enemies].
+
+I acknowledge use of [Gemini] from [https://gemini.google.com/share/44cf7a03c651] to 
+[generate names of the enemies, translating from russian]. I entered the prompts on
+[November 18, 2025 at 10:27 AM] and [it was used to name the enemies].
+*/
+
 // enemys
 Enemy wild_boar = new Enemy("Wild Boar", 20, 5, 0, 0.1, 10);
 Enemy tralalelo_tralala = new Enemy("Tralalelo Tralala", 10, 1, 0, 0.90, 10);
@@ -356,6 +366,14 @@ puzzleManager.RegisterPuzzle("sphynx", sphynxPuzzle);
 puzzleManager.RegisterPuzzle("oedipus", oedipusPuzzle);
 puzzleManager.RegisterPuzzle("persephone", persephonePuzzle);
 puzzleManager.RegisterPuzzle("sisyphus", sisyphusPuzzle);
+
+
+/*
+I acknowledge use of [Gemini] from [https://gemini.google.com/share/d50cfcdb6f67] to
+[generate room descriptions]. I entered the following prompts on [November 22, 2025 at 07:24 PM]:
+[ Don't generate the code. Just create a description of the room based on what is in the room. One sentence. Make it similar to dark souls and fear and hunger.] and
+[it was used as a room description].
+*/
 
 
 // rooms setup
@@ -576,7 +594,13 @@ Room room37 = new RoomBuilder(1, -4)
     .SetDescription("A bloated insectoid horror drips searing bile onto the stones, circling a wicked, curved blade that radiates a palpable, cold hatred.")
     .AddItem(malevolent_falchion)
     .AddEnemy(caustic_horsefly)
-    .Build();        
+    .Build();
+
+Room room38 = new RoomBuilder(2, -4)
+    .SetDescription("The most dangerous room of that labyrinth.")
+    .AddItem(elixir_of_life)
+    .AddEnemy(broodmother_gargoyle)
+    .Build();
 
 
 // adding rooms to the room checker
@@ -619,6 +643,7 @@ roomChecker.AddRoom(room34);
 roomChecker.AddRoom(room35);
 roomChecker.AddRoom(room36);
 roomChecker.AddRoom(room37);
+roomChecker.AddRoom(room38);
 
 
 

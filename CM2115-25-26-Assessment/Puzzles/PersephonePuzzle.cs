@@ -107,6 +107,20 @@ public class PersephonePuzzle : IPuzzle
         }
     }
 
+/*
+I acknowledge use of [Gemini] from [https://gemini.google.com/share/7ca07989b208]
+to [generate some text for this puzzle from russian]. I entered the prompts on 
+[November 17, 2025 at 03:07 PM] and [it was used for output during puzzles].
+
+
+I acknowledge use of [Deepseek] from [https://chat.deepseek.com/share/futbwlqavseirsiupr]
+to [generate the hing for that riddle]. I entered the prompt 
+[The maker does not want it; the buyer does not use it; the user does not see it. What is it?"
+Generate hint for that riddle] on 
+and [it was used for the hing].
+*/ 
+
+
     public void GetHint()
     {
         Console.WriteLine("The person it contains is unaware of it.".Pastel("#FFA500"));
