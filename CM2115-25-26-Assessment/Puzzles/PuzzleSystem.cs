@@ -23,7 +23,6 @@ public class PuzzleSystem
     private IPuzzle? currentPuzzle;
     private InputManager? inputManager;
     private IGameObserver? puzzleObserver;
-    private IGameObserver? unknownCommandPuzzleObserver;
     private IGameObserver? gameCommandMoveObserver;
     private IGameObserver? gameHandlerObserver;
     private IGameObserver? inventoryObserver;
@@ -48,7 +47,6 @@ public class PuzzleSystem
     public void Initialize(
         InputManager inputManager,
         IGameObserver puzzleObserver,
-        IGameObserver unknownCommandPuzzleObserver,
         IGameObserver gameCommandMoveObserver,
         IGameObserver gameHandlerObserver,
         IGameObserver inventoryObserver,
@@ -56,7 +54,6 @@ public class PuzzleSystem
     {
         this.inputManager = inputManager;
         this.puzzleObserver = puzzleObserver;
-        this.unknownCommandPuzzleObserver = unknownCommandPuzzleObserver;
         this.gameCommandMoveObserver = gameCommandMoveObserver;
         this.gameHandlerObserver = gameHandlerObserver;
         this.inventoryObserver = inventoryObserver;
@@ -87,8 +84,7 @@ public class PuzzleSystem
 
         // add puzzle observers
         // checks are needed to prevent null reference warnings
-        if (unknownCommandPuzzleObserver != null)
-            inputManager.AddObserver(unknownCommandPuzzleObserver);
+
         if (puzzleObserver != null)
             inputManager.AddObserver(puzzleObserver);
 
@@ -110,8 +106,7 @@ public class PuzzleSystem
         // Remove puzzle observers
         if (puzzleObserver != null)
             inputManager.RemoveObserver(puzzleObserver);
-        if (unknownCommandPuzzleObserver != null)
-            inputManager.RemoveObserver(unknownCommandPuzzleObserver);
+
 
         // Restore game observers
         if (gameCommandMoveObserver != null)

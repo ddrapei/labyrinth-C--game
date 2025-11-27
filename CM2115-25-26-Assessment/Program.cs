@@ -94,7 +94,6 @@ var unknownCommandObserver = new UnknownCommandObserver(game);
 
 // puzzle observers
 var puzzleObserver = new PuzzleObserver(game);
-var unknownCommandPuzzleObserver = new UnknownCommandPuzzleObserver(game);
 
 
 // Main Menu Commands
@@ -349,7 +348,7 @@ Enemy sanctified_remains = new Enemy("Sanctified Remains", 120, 20, 1, 0.80, 60)
 CombatSystem.GetInstance().Initialize(InputManager,combatObserver,combatUnknownCommandObserver,gameCommandMoveObserver,gameHandlerObserver,inventoryObserver,unknownCommandObserver);
 
 // puzzle sustem init
-PuzzleSystem.GetInstance().Initialize(InputManager,puzzleObserver,unknownCommandPuzzleObserver,gameCommandMoveObserver,gameHandlerObserver,inventoryObserver,unknownCommandObserver);
+PuzzleSystem.GetInstance().Initialize(InputManager,puzzleObserver,gameCommandMoveObserver,gameHandlerObserver,inventoryObserver,unknownCommandObserver);
 
 // register puzzle with puzzle manager
 var puzzleManager = PuzzleManager.GetInstance();
