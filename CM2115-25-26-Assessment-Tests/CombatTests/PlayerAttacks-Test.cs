@@ -2,6 +2,8 @@
 using System;
 using Enemies;
 using Commands.MoveCommands;
+using Combat;
+
 
 namespace CM2115_25_26_Assessment_Tests.CombatTests;
 

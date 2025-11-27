@@ -1,4 +1,5 @@
 using Enemies;
+using Combat;
 
 [Collection("Sequential")]
 public class CombatResultTests

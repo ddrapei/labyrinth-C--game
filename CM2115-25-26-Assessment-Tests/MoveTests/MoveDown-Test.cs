@@ -35,7 +35,12 @@ public class MoveDownTest
         Assert.Equal(0, player.PreviousXcoordinate);
         Assert.Equal(0, player.PreviousYcoordinate);
 
-        player.ResetPlayerLocation();
+        // reset
+        player.Xcoordinate = 0;
+        player.Ycoordinate = 0;
+        player.PreviousXcoordinate = 0;
+        player.PreviousYcoordinate = 0;
+
     }
 }
 
