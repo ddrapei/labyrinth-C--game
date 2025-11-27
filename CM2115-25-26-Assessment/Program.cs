@@ -34,14 +34,44 @@ Player player = Player.GetInstance();
 
 // those are created as logic for commands
 // this set up allows to add new movement without touching player
-// strategy pattern was used
 player.RegisterMoveBehavior("move up", new PlayerMoveUp());
 player.RegisterMoveBehavior("move down", new PlayerMoveDown());
 player.RegisterMoveBehavior("move left", new PlayerMoveLeft());
 player.RegisterMoveBehavior("move right", new PlayerMoveRight());
 player.RegisterMoveBehavior("move to previous position", new PlayerMoveToPreviousPosition());
-
 // player.RegisterMoveBehavior("move up and right", new PlayerMoveDiagonallyUpAndRight()); - uncomment to test extandability of the movement commands
+
+
+/* 
+
+instruction how to add a new movement commands:
+
+1. create a new class that is going to implement IMoveBehavior interface inside the PlayerMovement folder
+2. create a new command class that is going to implement PlayerCommand inside interface the Commands.MoveCommands folder
+3. register the behaviour with the player using RegisterMoveBehavior
+4. add command to the GameCommandMoveObserver
+5. register the new valid command with the UnknownCommandObserver
+
+similar approach can be used to add new EquipmentBehaviors and LevelUp behaviors, corresponding 
+Dictionaries and observers should be used
+
+it is not a good idea to add new observers, since it will require changing exising code when observes are shuffled.
+so in terms of existing states: before the game, during the game, inside inventory, during combat, during puzzle
+existing observers should be used.
+if a new state is required then a manager or a system should be created that is going to shuffle observers inside InputManager
+for that new state: InputManager.AddObserver(newStateObserver), InputManager.RemoveObserver(oldStateObserver);
+
+alternatively, observers shuffle can be handled inside the commands themselves.
+
+if the state requires composite commands, then if else is used to filter input and display unknown command message.
+if the state requires simple commands, then a new observer should be created to handle unknown commands like UnknownCommandObserver.
+
+*/
+
+
+
+
+
 
 // the same approach was implemented for the equiping behavious
 player.RegisterEquipBehavior("weapon", new EquipWeaponBehavior());
@@ -131,6 +161,17 @@ var displayEquippedCommand = new DisplayEquippedCommand(playerEquippedDisplay);
 var attackCommand = new AttackCommand(game, InputManager);
 var runAwayCommand = new RunAwayCommand(InputManager);
 var fightCommand = new FightCommand(game, InputManager);
+
+
+/*
+instructions to add a new puzzle:
+1. create a new class that is going to implement IPuzzle interface inside the Puzzles folder
+2. create a new puzzle instance inside Program.cs
+3. Register the puzzle with the PuzzleManager
+3. add the puzzle to a room
+*/
+
+
 
 // creating puzzles
 var sphynxPuzzle = new SphynxPuzzle();
@@ -281,6 +322,27 @@ var vociferant_shield = new Shield("The vociferant shield of the Demon", 0.12);
 var smaugla_shield = new Shield("The dread-wrought shield of Smaugla", 0.15);
 
 
+/*
+how to add new armour:
+1. Create a new folder for a new armour set inside Items.Armour
+2. Create concrete armour classes that implement corresponding interfaces inside that folder
+3. Create a new factory class that implements IArmourFactory interface inside that folder
+4. Create concrete armour factory in Program.cs
+5. Create concrete armour items using the factory in Program.cs
+
+optional, add a new perk for the set:
+6. Create a new file and class that implements IPerk interface inside Perks folder
+7. Create an armour set instance inside Program.cs
+var newArmourSet = new ArmourSet("SetName");
+8. Create an instance of the perk and add it to the set
+var newPerk = new NewPerk(parameters);
+newArmourSet.AddPerk(newPerk);
+9. Register the set with ArmourSetManager
+armourSetManager.RegisterSet(newArmourSet);
+10. add concrete armour items to the rooms 
+
+*/
+
 
 // armour factory set up for armour creation
 
@@ -303,11 +365,13 @@ var circusAcrobatHelmet = (Item)circusAcrobatArmourFactory.CreateHeadArmour();
 var circusAcrobatTorsoArmour = (Item)circusAcrobatArmourFactory.CreateTorsoArmour();
 var circusAcrobatLegsArmour = (Item)circusAcrobatArmourFactory.CreateLegsArmour();
 
+// creating armour set manager that is going to register sets.
+var armourSetManager = ArmourSetManager.GetInstance();
+
 // creating set up for leather armour set and its perk
 var leatherArmourSet = new ArmourSet("Leather");
 var increaseInventoryPerk = new IncreaseInventoryPerk(5);
 leatherArmourSet.AddPerk(increaseInventoryPerk);
-var armourSetManager = ArmourSetManager.GetInstance();
 armourSetManager.RegisterSet(leatherArmourSet);
 
 // creating set up for Crude Knigt's armour set and its perk
@@ -375,6 +439,11 @@ I acknowledge use of [Gemini] from [https://gemini.google.com/share/d50cfcdb6f67
 [it was used as a room description].
 */
 
+/*
+To add new room:
+1. create a new room using RoomBuilder with what you want inside
+2. registering the room with RoomChecker
+*/
 
 // rooms setup
 Room room0 = new RoomBuilder(0, 0)
