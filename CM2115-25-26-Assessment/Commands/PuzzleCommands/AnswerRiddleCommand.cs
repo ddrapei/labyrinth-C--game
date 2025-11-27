@@ -8,11 +8,6 @@ public class AnswerRiddleCommand : PlayerCommand
 {
     private string? answer;
 
-    public AnswerRiddleCommand()
-    {
-        
-    }
-
     public void SetAnswer(string answer)
     {
         this.answer = answer;

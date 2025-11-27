@@ -5,12 +5,6 @@ namespace Commands.PuzzleCommands;
 
 public class EnterPuzzleCommand : PlayerCommand
 {
-
-    public EnterPuzzleCommand()
-    {
-        
-    }
-
     public void Execute()
     {
         Player player = Player.GetInstance();
