@@ -10,17 +10,15 @@ public class OpenInventoryCommand : PlayerCommand
 {
     private InputManager inputManager;
     private IGameObserver insideInventoryObserver;
-    private IGameObserver insideInventoryUnknownCommandObserver;
     private IGameObserver gameCommandMoveObserver;
     private IGameObserver gameHandlerObserver;
     private IGameObserver inventoryObserver;
     private IGameObserver unknownCommandObserver;
 
-    public OpenInventoryCommand(InputManager inputManager, InsideInventoryObserver insideInventoryObserver, InsideInventoryUnknownCommandObserver insideInventoryUnknownCommandObserver, IGameObserver gameCommandMoveObserver, IGameObserver gameHandlerObserver, IGameObserver inventoryObserver, IGameObserver unknownCommandObserver)
+    public OpenInventoryCommand(InputManager inputManager, InsideInventoryObserver insideInventoryObserver, IGameObserver gameCommandMoveObserver, IGameObserver gameHandlerObserver, IGameObserver inventoryObserver, IGameObserver unknownCommandObserver)
     {
         this.inputManager = inputManager;
         this.insideInventoryObserver = insideInventoryObserver;
-        this.insideInventoryUnknownCommandObserver = insideInventoryUnknownCommandObserver;
         this.gameCommandMoveObserver = gameCommandMoveObserver;
         this.gameHandlerObserver = gameHandlerObserver;
         this.inventoryObserver = inventoryObserver;
@@ -40,7 +38,6 @@ public class OpenInventoryCommand : PlayerCommand
 
         // adds the inside inventory observers
         inputManager.AddObserver(insideInventoryObserver);
-        inputManager.AddObserver(insideInventoryUnknownCommandObserver);
 
         // displays inventory
         player.Inventory.DisplayInventory();

@@ -11,18 +11,16 @@ public class CloseInventoryCommand : PlayerCommand
 {
     private InputManager inputManager;
     private IGameObserver insideInventoryObserver;
-    private IGameObserver insideInventoryUnknownCommandObserver;
     private IGameObserver gameCommandMoveObserver;
     private IGameObserver gameHandlerObserver;
     private IGameObserver inventoryObserver;
     private IGameObserver unknownCommandObserver;
 
 
-    public CloseInventoryCommand(InputManager inputManager, InsideInventoryObserver insideInventoryObserver, InsideInventoryUnknownCommandObserver insideInventoryUnknownCommandObserver, IGameObserver gameCommandMoveObserver, IGameObserver gameHandlerObserver, IGameObserver inventoryObserver, IGameObserver unknownCommandObserver)
+    public CloseInventoryCommand(InputManager inputManager, InsideInventoryObserver insideInventoryObserver, IGameObserver gameCommandMoveObserver, IGameObserver gameHandlerObserver, IGameObserver inventoryObserver, IGameObserver unknownCommandObserver)
     {
         this.inputManager = inputManager;
         this.insideInventoryObserver = insideInventoryObserver;
-        this.insideInventoryUnknownCommandObserver = insideInventoryUnknownCommandObserver;
         this.gameCommandMoveObserver = gameCommandMoveObserver;
         this.gameHandlerObserver = gameHandlerObserver;
         this.inventoryObserver = inventoryObserver;
@@ -40,7 +38,6 @@ public class CloseInventoryCommand : PlayerCommand
 
         // removes inventory menu observers
         inputManager.RemoveObserver(insideInventoryObserver);
-        inputManager.RemoveObserver(insideInventoryUnknownCommandObserver);
 
         Console.WriteLine("Inventory closed.");
     }

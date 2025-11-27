@@ -83,9 +83,6 @@ var inventoryObserver = new InventoryObserver(game);
 // handles commands inside inventory (when inventory is open)
 var insideInventoryObserver = new InsideInventoryObserver(game);
 
-// handles uknown commands inside inventory (when inventory is open)
-var insideInventoryUnknownCommandObserver = new InsideInventoryUnknownCommandObserver(game);
-
 // handles combat commands
 var combatObserver = new CombatObserver(game);
 
@@ -122,10 +119,10 @@ var moveRight = new MoveRightCommand();
 
 // creates inventory commands (for when inventory is closed)
 var pickUpItemCommand = new PickUpItemCommand();
-var openInventoryCommand = new OpenInventoryCommand(InputManager, insideInventoryObserver, insideInventoryUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver, unknownCommandObserver);
+var openInventoryCommand = new OpenInventoryCommand(InputManager, insideInventoryObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver, unknownCommandObserver);
 
 // creates commands for inside inventory (for when inventory is open)
-var closeInventoryCommand = new CloseInventoryCommand(InputManager, insideInventoryObserver, insideInventoryUnknownCommandObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver, unknownCommandObserver);
+var closeInventoryCommand = new CloseInventoryCommand(InputManager, insideInventoryObserver, gameCommandMoveObserver, gameHandlerObserver, inventoryObserver, unknownCommandObserver);
 
 // display stats command
 var displayStatsCommand = new DisplayStatsCommand(playerStatsDisplay);
@@ -235,12 +232,6 @@ unknownCommandObserver.RegisterValidCommand("talk");
 unknownCommandObserver.RegisterValidCommand("interact");
 unknownCommandObserver.RegisterValidCommand("speak");
 // unknownCommandObserver.RegisterValidCommand("move up and right"); - uncomment to test extendability of movement commands
-
-// registers valid commands with the unknown command observer in the inventory
-insideInventoryUnknownCommandObserver.RegisterValidCommand("equip");
-insideInventoryUnknownCommandObserver.RegisterValidCommand("drop");
-insideInventoryUnknownCommandObserver.RegisterValidCommand("use"); 
-insideInventoryUnknownCommandObserver.RegisterValidCommand("close");
 
 // registers valid commands with the unknown command observer during combat
 combatUnknownCommandObserver.RegisterValidCommand("attack");
