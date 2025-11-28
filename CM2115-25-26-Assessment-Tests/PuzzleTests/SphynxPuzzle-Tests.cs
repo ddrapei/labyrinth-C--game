@@ -60,5 +60,6 @@ public class SphynxPuzzleTests
 
         //reset
         player.Health = 100;
+        player.Experience = 0;
     }    
 }        

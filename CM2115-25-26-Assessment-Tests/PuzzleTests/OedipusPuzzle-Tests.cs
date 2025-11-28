@@ -34,5 +34,35 @@ public class OedipusPuzzleTests
 
         //reset
         player.Health = 100;
+        player.Experience = 0;
     }
+
+
+    [Theory]
+    [InlineData("man", 100)]
+    [InlineData("monkey", 70)]
+    public void AnswerCorrectOrWrog_DamageIsDealtOrNot(string input, int expectedHealth)
+    {
+        // arrange
+        var puzzle = new OedipusPuzzle();        
+        Player player = Player.GetInstance();
+        PuzzleSystem puzzleSystem = PuzzleSystem.GetInstance();
+        puzzleSystem.EnterPuzzle(puzzle);
+        player.RegisterLevelUpBehavior("level up", new PlayerLevelUpBehavior());
+        player.RegisterLevelUpBehavior("check level up", new PlayerCheckLevelUpBehavior());
+        player.Health = 100;
+        player.Experience = 0;
+
+
+        // act
+        puzzle.CheckAnswer(input);
+
+        // assert
+        Assert.Equal(expectedHealth, player.Health);
+
+        //reset
+        player.Health = 100;
+        player.Experience = 0;
+
+    }    
 }        

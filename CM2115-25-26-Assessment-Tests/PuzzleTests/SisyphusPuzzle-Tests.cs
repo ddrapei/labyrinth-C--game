@@ -62,5 +62,7 @@ public class SisyphusPuzzleTests
 
         //reset
         player.Health = 100;
+        player.Experience = 0;
+
     }    
 }        
