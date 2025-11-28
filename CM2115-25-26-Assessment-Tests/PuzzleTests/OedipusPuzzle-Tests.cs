@@ -1,20 +1,23 @@
+namespace PuzzleTests;
+
+
 using Puzzles;
 using PlayerLevelUp;
 
 [Collection("Sequential")]
-public class SphynxPuzzleTests
+public class OedipusPuzzleTests
 {
     [Theory]
-    [InlineData("echo", true)]
-    [InlineData("Echo", true)]
-    [InlineData("ECHO", true)]
-    [InlineData("  ECHO", true)]
-    [InlineData("sound", false)]
-    [InlineData("echorium", false)]   
+    [InlineData("man", true)]
+    [InlineData("MAn", true)]
+    [InlineData("MAN", true)]
+    [InlineData("  maN", true)]
+    [InlineData("men", false)]
+    [InlineData("masdf", false)]   
     public void SolvePuzzle_CorrectAnswer_ReturnsTrue(string input, bool expectedOutcome)
     {
         // arrange
-        var puzzle = new SphynxPuzzle();        
+        var puzzle = new OedipusPuzzle();        
         Player player = Player.GetInstance();
         PuzzleSystem puzzleSystem = PuzzleSystem.GetInstance();
         puzzleSystem.EnterPuzzle(puzzle);
