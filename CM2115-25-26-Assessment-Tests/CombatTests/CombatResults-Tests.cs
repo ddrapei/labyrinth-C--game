@@ -57,6 +57,8 @@ public class CombatResultTests
     {
         // arrange
         Player player = Player.GetInstance();
+        player.Experience = 0;
+
         CombatSystem combatSystem = CombatSystem.GetInstance();
 
         if (combatSystem.IsInCombat)
@@ -66,7 +68,7 @@ public class CombatResultTests
         
         player.Health = 1;
         player.AttackPower = 1;
-        Enemy enemy = new Enemy("enemy_test", 10000, 10, 10000, 0.99, 10);
+        Enemy enemy = new Enemy("enemy_test", 10000, 10, 10000, 0.99, 0);
         combatSystem.StartCombat(enemy);
 
         // act
@@ -75,5 +77,9 @@ public class CombatResultTests
         // assert
         Assert.Equal(CombatOutcome.Defeat, result.CombatOutcome);
         Assert.False(combatSystem.IsInCombat);
+
+        //reset
+        player.Health = 100;
+        player.Experience = 0;
     }
 }

@@ -22,11 +22,17 @@ public class PlayerDealDamageTest
         // arrange
         Player player = Player.GetInstance();
         player.AttackPower = playerAttackPower;
-        Enemy test_enemy = new Enemy("test_enemy", enemyInitialHealth, 0, enemyDefense, 0, 10);
+        Enemy test_enemy = new Enemy("test_enemy", enemyInitialHealth, 0, enemyDefense, 0, 0);
+        player.Experience = 0;
         // act
         player.DealDamage(test_enemy);
 
         // assert
         Assert.Equal(expectedEnemyHealthAfterAttack, test_enemy.Health);
+
+        //reset
+        player.Health = 100;
+        player.Experience = 0;
+
     }
 }

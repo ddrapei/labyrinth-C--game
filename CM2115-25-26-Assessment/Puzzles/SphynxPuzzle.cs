@@ -64,7 +64,7 @@ public class SphynxPuzzle : IPuzzle
 
         if (playerAnswer.Trim().ToLower() == correctAnswer.ToLower())
         {
-            int experienceGranted = player.Experience += 50;
+            int experienceGranted = 40;
             Console.WriteLine("╔═══════════════════════════════════════════════════════════╗".Pastel("#00FF00"));
             Console.WriteLine("║".Pastel("#00FF00") + "                 The Sphynx nods                           ".Pastel("#32CD32") + "║".Pastel("#00FF00"));
             Console.WriteLine("║".Pastel("#00FF00") + "              Correct! You may pass.                       ".Pastel("#7FFF00") + "║".Pastel("#00FF00"));

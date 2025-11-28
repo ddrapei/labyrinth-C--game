@@ -23,11 +23,16 @@ public class OedipusPuzzleTests
         puzzleSystem.EnterPuzzle(puzzle);
         player.RegisterLevelUpBehavior("level up", new PlayerLevelUpBehavior());
         player.RegisterLevelUpBehavior("check level up", new PlayerCheckLevelUpBehavior());
+        player.Health = 100;
+        player.Experience = 0;
 
         // act
         puzzle.CheckAnswer(input);
 
         // assert
         Assert.Equal(puzzle.IsSolved, expectedOutcome);
+
+        //reset
+        player.Health = 100;
     }
 }        

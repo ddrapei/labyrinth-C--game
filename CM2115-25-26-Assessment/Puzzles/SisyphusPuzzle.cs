@@ -64,7 +64,7 @@ public class SisyphusPuzzle : IPuzzle
 
         if (playerAnswer.Trim().ToLower() == correctAnswer.ToLower())
         {
-            int experienceGranted = player.Experience += 40;
+            int experienceGranted = 40;
             Console.WriteLine("╔═══════════════════════════════════════════════════════════╗".Pastel("#00FF00"));
             Console.WriteLine("║".Pastel("#00FF00") + "                       Sisyphus nods                       ".Pastel("#32CD32") + "║".Pastel("#00FF00"));
             Console.WriteLine("║".Pastel("#00FF00") + "                  Correct! You may pass.                   ".Pastel("#7FFF00") + "║".Pastel("#00FF00"));
