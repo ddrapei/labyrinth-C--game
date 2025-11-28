@@ -4,8 +4,14 @@ using PlayerLevelUp;
 [Collection("Sequential")]
 public class SphynxPuzzleTests
 {
-    [Fact]
-    public void SolvePuzzle_CorrectAnswer_ReturnsTrue()
+    [Theory]
+    [InlineData("echo", true)]
+    [InlineData("Echo", true)]
+    [InlineData("ECHO", true)]
+    [InlineData("  ECHO", true)]
+    [InlineData("sound", false)]
+    [InlineData("echorium", false)]   
+    public void SolvePuzzle_CorrectAnswer_ReturnsTrue(string input, bool expectedOutcome)
     {
         // arrange
         var puzzle = new SphynxPuzzle();        
@@ -16,9 +22,9 @@ public class SphynxPuzzleTests
         player.RegisterLevelUpBehavior("check level up", new PlayerCheckLevelUpBehavior());
 
         // act
-        puzzle.CheckAnswer("echo");
+        puzzle.CheckAnswer(input);
 
         // assert
-        Assert.True(puzzle.IsSolved);
+        Assert.Equal(puzzle.IsSolved, expectedOutcome);
     }
 }        
