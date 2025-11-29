@@ -15,6 +15,7 @@ public class EquipHeadArmourBehavior : IEquipBehavior
             return false;
         }
 
+        // stores old armour or null
         IHeadArmour? oldArmour = player.HeadArmourEquipped;
 
         if (oldArmour != null)
@@ -22,13 +23,15 @@ public class EquipHeadArmourBehavior : IEquipBehavior
             Room? currentRoom = RoomChecker.GetInstance().GetCurrentRoom(player);
 
             if (currentRoom != null && currentRoom.Item == null)
-            {
+            {   
+                // places old armour inside of the room
                 currentRoom.Item = (Item)oldArmour;
                 player.Defense -= ((Armour)oldArmour).Defense;
                 Console.WriteLine("You placed your " + ((Item)oldArmour).Name.Pastel("#ff9d00"));
             }
             else
             {
+                // already an item inside of the room
                 Console.WriteLine("Cannot equip " + ((Item)headArmour).Name.Pastel("#ff9d00") + " - no space to place your current armour " + ((Item)oldArmour).Name.Pastel("#ff9d00"));
                 return false;
             }

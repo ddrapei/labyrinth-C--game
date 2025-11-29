@@ -17,8 +17,12 @@ public class UseHealingPotionBehavior : IEquipBehavior
 
         player.Health = player.Health + healingPotion.HealingPower;
         
+
+        // 2 scenarios: deadly potion and healing potion
         if (player.Health <= 0)
         {   
+
+            // nice animation when player has used deadly potion
             for (int i = 0; i <= 3; i++)
             {
                 if (i == 0)
