@@ -264,6 +264,7 @@ unknownCommandObserver.RegisterValidCommand("inventory");
 unknownCommandObserver.RegisterValidCommand("inv");
 unknownCommandObserver.RegisterValidCommand("i");
 unknownCommandObserver.RegisterValidCommand("pick up");
+unknownCommandObserver.RegisterValidCommand("pick");
 unknownCommandObserver.RegisterValidCommand("fight");
 unknownCommandObserver.RegisterValidCommand("attack");
 unknownCommandObserver.RegisterValidCommand("look around");
